@@ -17,7 +17,7 @@ module.exports = {
         responsedata = ctx.request.body.response
         responsedata.RequestID = entity.id
 
-        resp = await strapi.services.request.create(responsedata);
+        resp = await strapi.services.response.create(responsedata);
 
         if (ctx.request.body.header != null ) {
             ctx.request.body.header.map(async function(head){

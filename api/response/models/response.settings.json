@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "responses",
+  "info": {
+    "name": "response",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "RequestID": {
+      "type": "string"
+    },
+    "StatusCode": {
+      "type": "string"
+    },
+    "SrcIp": {
+      "type": "string"
+    },
+    "SrcPort": {
+      "type": "string"
+    },
+    "DstIp": {
+      "type": "string"
+    },
+    "HostID": {
+      "type": "string"
+    },
+    "DstPort": {
+      "type": "string"
+    }
+  }
+}

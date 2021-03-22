@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "headers",
+  "info": {
+    "name": "Header"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "parentid":{
+      "type": "string"
+    },
+    "name":{
+      "type": "string"
+    },
+    "values":{
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}

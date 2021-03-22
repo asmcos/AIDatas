@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hosts",
+  "info": {
+    "name": "host",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

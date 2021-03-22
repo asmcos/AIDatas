@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forms",
+  "info": {
+    "name": "Form"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "parentid":{
+      "type": "string"
+    },
+    "name":{
+      "type": "string"
+    },
+    "values":{
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}

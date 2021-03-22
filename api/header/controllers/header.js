@@ -10,17 +10,12 @@ module.exports = {
         let result;
        if (ctx.query.array == 1 ){
          ctx.request.body.map(async function(body){
-            result  = await strapi
-            .query("header")
-            .model.forge(body)
-            .save(null, { method: "insert" });
+            result  = await strapi.services.header.create(body)
          })
        } else {
 
             await strapi
-            .query("header")
-            .model.forge(ctx.request.body)
-            .save(null, { method: "insert" });
+            .services.header.create(ctx.request.body)
 
        }
         return "ok"

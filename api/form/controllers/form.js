@@ -11,16 +11,12 @@ module.exports = {
        if (ctx.query.array == 1 ){
          ctx.request.body.map(async function(body){
             result  = await strapi
-            .query("form")
-            .model.forge(body)
-            .save(null, { method: "insert" });
+            .services.form.create(body);
          })
        } else {
 
             await strapi
-            .query("form")
-            .model.forge(ctx.request.body)
-            .save(null, { method: "insert" });
+            .services.form.create(ctx.request.body);
 
        }
         return "ok"

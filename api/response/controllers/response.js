@@ -11,10 +11,8 @@ module.exports = {
   async create(ctx) {
     let entity;
       // entity = await strapi.services.post.create(ctx.request.body);
-    entity = await strapi
-        .query("response")
-        .model.forge(ctx.request.body)
-        .save(null, { method: "insert" });
+    entity = await strapi.services.response.create(ctx.request.body);
+
    return sanitizeEntity(entity, { model: strapi.models.response });
   },
 };

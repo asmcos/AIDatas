@@ -11,8 +11,8 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "RequestID": {
-      "type": "string"
+    "Proto":{
+       "type":"string"
     },
     "StatusCode": {
       "type": "string"
@@ -26,11 +26,14 @@
     "DstIp": {
       "type": "string"
     },
-    "HostID": {
-      "type": "string"
+    "host": {
+      "model": "host"
     },
     "DstPort": {
       "type": "string"
+    },
+    "request": {
+      "model": "request"
     }
   }
 }

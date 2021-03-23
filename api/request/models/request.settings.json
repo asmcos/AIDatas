@@ -10,8 +10,14 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "HostID": {
-      "type": "string"
+    "host": {
+      "model": "host"
+    },
+    "Method":{
+       "type":"string"
+    },
+    "Proto":{
+       "type":"string"
     },
     "RequestURI": {
       "type": "string"
@@ -31,12 +37,8 @@
     "DstPort": {
       "type": "string"
     },
-    "IsResp": {
-      "type": "string"
-    },
     "StatusCode": {
       "type": "string"
     }
-
   }
 }

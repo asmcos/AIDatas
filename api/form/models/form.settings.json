@@ -10,8 +10,11 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "parentid":{
-      "type": "string"
+    "request":{
+      "model": "request"
+    },
+    "response":{
+      "model": "response"
     },
     "name":{
       "type": "string"

@@ -6,9 +6,7 @@
   },
   "options": {
     "increments": true,
-    "timestamps": true,
-    "privateAttributes": ["id", "created_at"],
-    "populateCreatorFields": true,
+    "timestamps": ["created_at", "updated_at"],
     "draftAndPublish": true
   },
   "attributes": {

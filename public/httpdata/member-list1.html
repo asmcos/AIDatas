@@ -21,46 +21,48 @@
         <div class="x-nav">
             <span class="layui-breadcrumb">
                 <a href="">首页</a>
-                <a href="">演示</a>
+                <a href="">数据</a>
                 <a>
-                    <cite>导航元素</cite></a>
+                    <cite>request列表</cite></a>
             </span>
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
                 <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
             </a>
         </div>
-        <div class="layui-fluid">
+        <div class="layui-fluid" id="app">
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5">
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start"></div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end"></div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input"></div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn" lay-submit="" lay-filter="sreach">
-                                        <i class="layui-icon">&#xe615;</i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="layui-card-body ">
-                            <table class="layui-table" lay-data="{url:'./user.json',page:true,toolbar: '#toolbarDemo',id:'test'}" lay-filter="test">
+              
+                    <div class="layui-card-body ">
+                        <form class="layui-form layui-col-space5">
+                            <div class="layui-inline layui-show-xs-block">
+                                <input class="layui-input"  autocomplete="off" placeholder="起始页:0" name="offset" id="offset" >
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input class="layui-input"  autocomplete="off" placeholder="页大小:100" name="pagesize" id="pagesize" >
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <div class="layui-btn"  lay-submit="" id="LoadMore"><i class="layui-icon">></i></div>
+                            </div>
+                        </form>
+                    </div>
+
+                          <div class="layui-card-body ">
+                            <table id="listTable" class="layui-table" lay-filter="listTable"> </table>
+      
+                            <!--table  class="layui-table" lay-data="{url:'./user.json',page:true,toolbar: '#toolbarDemo',id:'test'}" lay-filter="test">
                                 <thead>
                                     <tr>
                                         <th lay-data="{type:'checkbox'}">ID</th>
                                         <th lay-data="{field:'id', width:80, sort: true}">ID</th>
-                                        <th lay-data="{field:'username', width:120, sort: true, edit: 'text'}">用户名</th>
-                                        <th lay-data="{field:'email', edit: 'text', minWidth: 150}">邮箱</th>
-                                        <th lay-data="{field:'sex', width:80,templet: '#switchTpl'}">性别</th>
-                                        <th lay-data="{field:'city', edit: 'text', minWidth: 100}">城市</th>
-                                        <th lay-data="{field:'experience', sort: true, edit: 'text'}">积分</th>
-                                        <th lay-data="{field:'dw_xinzhi',templet: function(d){ return d.dw_xinzhi.titel;}}">学校</th></tr>
+                                        <th lay-data="{field:'username', width:120, sort: true, edit: 'text'}">Method</th>
+                                        <th lay-data="{field:'email', edit: 'text', minWidth: 150}">RequestURI</th>
+                                        <th lay-data="{field:'sex', width:80,templet: '#switchTpl'}">Proto</th>
+                                        <th lay-data="{field:'city', edit: 'text', minWidth: 100}">Status</th>
+                                        <th lay-data="{field:'city', edit: 'text', minWidth: 100}">时间</th>
                                 </thead>
-                            </table>
+                            </table-->
                         </div>
                     </div>
                 </div>
@@ -127,11 +129,108 @@
                 };
             });
         });</script>
-    <script>var _hmt = _hmt || []; (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();</script>
+
+  <!-- JavaScript Libraries -->
+   
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+
+
+    layui.use('table', function() {
+       var table = layui.table;
+       var offset = 0
+       
+       var pagesize = 100;
+       
+       axios.get('/requests?_start='+offset+'&_limit='+pagesize+'&_sort=id:DESC')
+        .then(function (data) {
+        console.log(data)
+         table.render({
+                elem: '#listTable',
+                data: data.data,
+                height: 515,
+                cols : [ [ // 表头
+                     {checkbox: true,width:"3%",},
+                    {
+                        field : 'id',
+                        title : 'ID',
+                        sort : true,
+                        align : 'left',
+                        width : '10%',
+                        style: 'cursor: pointer;'
+                    },{
+                        field : 'Method',
+                        title : 'Method',
+                        width : '10%',
+                    }, {
+                        field : 'RequestURI',
+                        title : '网址',
+                        width : '50%',
+                    }, {
+                        field : 'Proto',
+                        title : 'Proto',
+                        width : '10%',
+                    },
+                    {field: 'created_at',title:"Time",width:'15%'}
+                     ] ],
+                skin: 'row', //表格风格
+                toolbar: '#toolbarDemo',
+                even: true, //隔行背景
+                page: true, //是否显示分页
+                limits: [5, 10, 15], //显示
+                limit: 10 //每页默认显示的数量
+            });       
+        });//axios
+    }); // layui.use
+
+
+    $(document).on('click',"#LoadMore",function(){
+
+        var table = layui.table;
+        var offset = $("#offset").val()
+        var pagesize = $("#pagesize").val()
+        if (offset == ""){
+            offset = 0
+        }
+        if (pagesize == ""){
+            pagesize=100
+        }
+        axios.get('/requests?_start='+offset+'&_limit='+pagesize+'&_sort=id:DESC')
+        .then(function (data) {
+
+            table.reload('listTable',{
+                data: data.data,
+            })
+        })
+
+    });
+
+
+    const VueApp = {
+      data() {
+        return {
+        offset:0,
+        size:100,
+        requests: []
+        }
+      },
+    
+      created() {
+      },
+      methods: {
+        // These methods won't trigger a watcher because we changed only a property of Object/Array,
+        // not the Object/Array itself
+        changeArticleText() {
+        this.article.text = 'Vue 3 is awesome'
+        }
+      }
+    }
+    Vue.createApp(VueApp).mount('#app')
+
+  </script>
+
+
 
 </html>

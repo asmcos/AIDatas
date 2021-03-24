@@ -28,6 +28,7 @@
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
                 <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
             </a>
+
         </div>
         <div class="layui-fluid" id="app">
             <div class="layui-row layui-col-space15">
@@ -95,7 +96,8 @@
             });
 
         });</script>
-    <script>layui.use('table',
+    <script>
+    layui.use('table',
         function() {
             var table = layui.table;
 
@@ -159,6 +161,7 @@
                         sort : true,
                         align : 'left',
                         width : '10%',
+                        event : 'seeDetail',
                         style: 'cursor: pointer;'
                     },{
                         field : 'Method',
@@ -173,7 +176,8 @@
                         title : 'Proto',
                         width : '10%',
                     },
-                    {field: 'created_at',title:"Time",width:'15%'}
+                    {field: 'created_at',title:"Time",width:'15%'},
+                    {field: 'createdAt',title:"Time",width:'15%'}
                      ] ],
                 skin: 'row', //表格风格
                 toolbar: '#toolbarDemo',
@@ -183,6 +187,22 @@
                 limit: 10 //每页默认显示的数量
             });       
         });//axios
+
+
+
+    // 监听单元格事件
+    //lay-filter = listTable
+    table.on('row(listTable)', function(obj) {
+        var data = obj.data;
+
+            url = "request.html?id="+data.id;
+            
+            parent.xadmin.add_tab('请求详情',url)
+        
+    });
+
+
+
     }); // layui.use
 
 

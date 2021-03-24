@@ -8,6 +8,8 @@
   "options": {
     "increments": true,
     "timestamps": true,
+    "privateAttributes": ["id", "created_at"],
+    "populateCreatorFields": true,
     "draftAndPublish": true
   },
   "attributes": {

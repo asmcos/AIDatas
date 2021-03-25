@@ -1,20 +1,19 @@
 {
   "kind": "collectionType",
-  "collectionName": "hosts",
+  "collectionName": "clientdevices",
   "info": {
-    "name": "host",
-    "description": ""
+    "name": "clientdevice"
   },
   "options": {
     "increments": true,
-    "timestamps": ["created_at", "updated_at"],
+    "timestamps": true,
     "draftAndPublish": true
   },
   "attributes": {
     "key": {
       "type": "string"
     },
-    "name": {
+    "devicename": {
       "type": "string"
     }
   }

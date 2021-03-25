@@ -9,24 +9,23 @@ const { sanitizeEntity } = require("strapi-utils");
 
 module.exports = {
   async create(ctx) {
-    let entity,responsedata,resp,host;
+    let entity,responsedata,resp,clientdevice;
 
     if (ctx.query.alldata == 1){
 
-        if (ctx.request.body.host == null) {
-            return "host verify failed"
+        if (ctx.request.body.clientDevice == null) {
+            return "clientdevice verify failed"
         }
-        host = await strapi.services.host.findOne({id:ctx.request.body.host.hostid,key:ctx.request.body.host.hostkey})
-        if (host == null) {
+        clientdevice = await strapi.services.clientdevice.findOne({id:ctx.request.body.clientDevice.clientid,key:ctx.request.body.clientDevice.clientkey})
+        if (clientdevice == null) {
 
-            return "host verify failed"
+            return "clientdevice verify failed"
         }
 
-        ctx.request.body.request["host"]=host
+        ctx.request.body.request["clientdevice"]=clientdevice
         entity = await strapi.services.request.create(ctx.request.body.request);
         responsedata = ctx.request.body.response
         responsedata.request = entity
-        responsedata.host = host
         resp = await strapi.services.response.create(responsedata);
         if (ctx.request.body.header != null ) {
             ctx.request.body.header.map(async function(head){

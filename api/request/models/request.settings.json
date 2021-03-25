@@ -10,9 +10,6 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "host": {
-      "model": "host"
-    },
     "Method":{
        "type":"string"
     },

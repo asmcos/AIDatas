@@ -26,9 +26,6 @@
     "DstIp": {
       "type": "string"
     },
-    "host": {
-      "model": "host"
-    },
     "DstPort": {
       "type": "string"
     },

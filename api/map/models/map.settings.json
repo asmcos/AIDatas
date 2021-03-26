@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "maps",
+  "info": {
+    "name": "Map"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "rule": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

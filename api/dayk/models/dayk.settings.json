@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dayks",
+  "info": {
+    "name": "dayk"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "codedate": {
+      "type": "string"
+    },
+    "open": {
+      "type": "float"
+    },
+    "close": {
+      "type": "float"
+    },
+    "high": {
+      "type": "float"
+    },
+    "volume": {
+      "type": "float"
+    },
+    "low": {
+      "type": "float"
+    },
+    "turn": {
+      "type": "float"
+    },
+    "amount": {
+      "type": "float"
+    }
+
+  }
+}

@@ -1,10 +1,11 @@
 # AIDatas
 智能数据看板
+http://www.klang.org.cn
 
 # Open data save by strapi
-Can be used to store data for sniffer projects.
+Klang （金浪） 数据看板
 
-github.com/asmcos/sniffer.
+github.com/asmcos/klang.
 
 # build
 ```

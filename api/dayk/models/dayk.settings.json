@@ -11,16 +11,19 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "index":true
     },
     "code": {
-      "type": "string"
+      "type": "string",
+      "index":true
     },
     "date": {
       "type": "string"
     },
     "codedate": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "open": {
       "type": "float"

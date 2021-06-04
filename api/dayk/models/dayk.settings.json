@@ -18,7 +18,8 @@
       "index":true
     },
     "date": {
-      "type": "string"
+      "type": "string",
+      "index":true
     },
     "codedate": {
       "type": "string",

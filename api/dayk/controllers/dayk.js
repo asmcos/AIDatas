@@ -68,11 +68,11 @@ async function findDayk(ctx){
         code = query.code
     }
     if (end !="0"){
-        var result = await dayK.find({code:code,date:{"$lte":end}}).sort("-_id").limit(limit)
+        var result = await dayK.find({code:code,date:{"$lte":end}}).sort("-date").limit(limit)
     }else if (start != "0"){
-        var result = await dayK.find({code:code,date:{"$gte":start}}).limit(limit)
+        var result = await dayK.find({code:code,date:{"$gte":start}}).sort("-date").limit(limit)
     } else {
-        var result = await dayK.find({code:code}).skip(offset).limit(limit)
+        var result = await dayK.find({code:code}).skip(offset).srot("-date").limit(limit)
     }
     return sanitizeEntity(result, { model: dayK });
 }

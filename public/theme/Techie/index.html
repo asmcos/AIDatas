@@ -44,25 +44,25 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">{{main.index_menu1}}</a></li>
-          <li><a class="nav-link scrollto" href="#about">{{main.index_menu2}}</a></li>
-          <li><a class="nav-link scrollto" href="#services">{{main.index_menu3}}</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">{{main.index_menu4}}</a></li>
-          <li><a class="nav-link scrollto" href="#team">{{main.index_menu5}}</a></li>
-          <li class="dropdown"><a href="#"><span>{{main.index_menu6}}</span> <i class="bi bi-chevron-down"></i></a>
+		<li><a class="nav-link scrollto active" href="#hero">{{main.index_menu1}}</a></li>
+		<li><a class="nav-link scrollto" href="#about">{{main.index_menu2}}</a></li>
+		<li><a class="nav-link scrollto" href="#services">{{main.index_menu3}}</a></li>
+		<li><a class="nav-link scrollto " href="#portfolio">{{main.index_menu4}}</a></li>
+		<li><a class="nav-link scrollto" href="#team">{{main.index_menu5}}</a></li>
+		<li class="dropdown"><a href="#"><span>{{main.index_menu6}}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">{{main.index_menu61}}</a></li>
-              <li class="dropdown"><a href="#"><span>{{main.index_menu62}}</span> <i class="bi bi-chevron-right"></i></a>
+		    <li><a href="#">{{main.index_menu61}}</a></li>
+		    <li class="dropdown"><a href="#"><span>{{main.index_menu62}}</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="#">{{main.index_menu623}}</a></li>
-                  <li><a href="#">{{main.index_menu624}}</a></li>
+			<li><a href="#">{{main.index_menu621}}</a></li>
+			<li><a href="#">{{main.index_menu622}}</a></li>
                 </ul>
               </li>
-              <li><a href="#">{{main.index_menu63}}</a></li>
+	      <li><a href="#">{{main.index_menu63}}</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">{{main.index_menu7}}</a></li>
-          <li><a class="getstarted scrollto" href="#about">{{main.index_menu8}}</a></li>
+	  <li><a class="nav-link scrollto" href="#contact">{{main.index_menu7}}</a></li>
+	  <li><a class="getstarted scrollto" href="#about">{{main.index_menu8}}</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -76,9 +76,9 @@
     <div class="container-fluid" data-aos="fade-up">
       <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>{{main.index_intro1}}</h1>
-          <h2>{{main.index_intro2}}</h2>
-          <div><a v-bind:href="main.index_linkstart" class="btn-get-started scrollto">{{main.index_start}}</a></div>
+		<h1>{{main.index_intro1}}</h1>
+		<h2>{{main.index_intro2}}</h2>
+		<div><a v-bind:href="main.index_linkstart" class="btn-get-started scrollto">{{main.index_start}}</a></div>
         </div>
         <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
           <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
@@ -817,7 +817,7 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  <div id="preloader"></div>
+  <!--div id="preloader"></div-->
   </div>  <!-- app -->
 
   <!-- Vendor JS Files -->
@@ -838,19 +838,20 @@
       const VueApp = {
         data() {
             return {
-                main:{}
-            }
+        	main:{}
+	    }
         },
     
         created() {
         },
-
+	
         mounted () {
             var that = this
             axios
                 .get('/sysconfigs?keyword=index&filter=1')
                 .then(function(response){
-                    response.forEach(function(data){
+		    var resp = response.data
+                    resp.forEach(function(data){
                         that.main[data.key] = data.value
                     });
                 })

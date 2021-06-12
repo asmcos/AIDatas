@@ -13,9 +13,6 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <!--link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"-->
-
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,38 +35,34 @@
 <body>
 
   <!-- ======= Header ======= -->
+  <div id="app">
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
-      <h1 class="logo"><a href="index.html">Techie</a></h1>
+      <h1 class="logo"><a href="index.html">Klang</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a class="nav-link scrollto active" href="#hero">{{main.index_menu1}}</a></li>
+          <li><a class="nav-link scrollto" href="#about">{{main.index_menu2}}</a></li>
+          <li><a class="nav-link scrollto" href="#services">{{main.index_menu3}}</a></li>
+          <li><a class="nav-link scrollto " href="#portfolio">{{main.index_menu4}}</a></li>
+          <li><a class="nav-link scrollto" href="#team">{{main.index_menu5}}</a></li>
+          <li class="dropdown"><a href="#"><span>{{main.index_menu6}}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+              <li><a href="#">{{main.index_menu61}}</a></li>
+              <li class="dropdown"><a href="#"><span>{{main.index_menu62}}</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
+                  <li><a href="#">{{main.index_menu623}}</a></li>
+                  <li><a href="#">{{main.index_menu624}}</a></li>
                 </ul>
               </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="#">{{main.index_menu63}}</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+          <li><a class="nav-link scrollto" href="#contact">{{main.index_menu7}}</a></li>
+          <li><a class="getstarted scrollto" href="#about">{{main.index_menu8}}</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -83,9 +76,9 @@
     <div class="container-fluid" data-aos="fade-up">
       <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>Bettter Digital Experience With Techie</h1>
-          <h2>We are team of talented designers making websites with Bootstrap</h2>
-          <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
+          <h1>{{main.index_intro1}}</h1>
+          <h2>{{main.index_intro2}}</h2>
+          <div><a v-bind:href="main.index_linkstart" class="btn-get-started scrollto">{{main.index_start}}</a></div>
         </div>
         <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
           <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
@@ -825,6 +818,7 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <div id="preloader"></div>
+  </div>  <!-- app -->
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
@@ -837,7 +831,37 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+   <script src="https://unpkg.com/vue@next"></script>
+   <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
 
+      const VueApp = {
+        data() {
+            return {
+                main:{}
+            }
+        },
+    
+        created() {
+        },
+
+        mounted () {
+            var that = this
+            axios
+                .get('/sysconfigs?keyword=index&filter=1')
+                .then(function(response){
+                    response.forEach(function(data){
+                        that.main[data.key] = data.value
+                    });
+                })
+        },
+        methods: {
+        // These methods won't trigger a watcher because we changed only a property of Object/Array,
+        // not the Object/Array itself
+        }
+      }//VueApp
+      window.vue = Vue.createApp(VueApp).mount('#app')
+    </script>
 </body>
 
 </html>

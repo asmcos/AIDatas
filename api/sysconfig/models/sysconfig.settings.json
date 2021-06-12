@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sysconfigs",
+  "info": {
+    "name": "sysconfig"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}

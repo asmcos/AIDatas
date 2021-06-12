@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sysconfigs",
+      "handler": "sysconfig.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sysconfigs/count",
+      "handler": "sysconfig.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sysconfigs/:id",
+      "handler": "sysconfig.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sysconfigs",
+      "handler": "sysconfig.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sysconfigs/:id",
+      "handler": "sysconfig.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sysconfigs/:id",
+      "handler": "sysconfig.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

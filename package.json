@@ -11,6 +11,8 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "blockly": "^5.20210325.1",
+    "gulp": "^4.0.2",
     "knex": "0.21.18",
     "register": "0.0.0",
     "sqlite3": "5.0.0",

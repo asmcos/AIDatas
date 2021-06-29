@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>Klang 模块式程序设计</title>
-  <script src="/blockly_compressed.js"></script>
-  <script src="/blocks_compressed.js"></script>
-  <script src="/msg/en.js"></script>
+  <script src="/js/blockly_compressed.js"></script>
+  <script src="/js/blocks_compressed.js"></script>
+  <script src="/js/msg/en.js"></script>
     <style>
     body {
       background-color: #fff;
@@ -18,5 +18,20 @@
   </style>
 </head>
 <body>
+<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+
+<xml id="toolbox" style="display: none;">
+    <block type="controls_if"></block>
+</xml>
+
+<script>
+
+var blocklyDiv = document.getElementById('blocklyDiv');
+var workspace = Blockly.inject(blocklyDiv, {
+    media: 'blockly/media/',
+    toolbox: document.getElementById('toolbox'),  // 定义ToolBox
+});
+
+</script>
 </body>
 </html>

@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>Klang 模块式程序设计</title>
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="/js/blockly_compressed.js"></script>
   <script src="/js/blocks_compressed.js"></script>
+  <script src="/js/python_compressed.js"></script>
   <script src="/js/msg/en.js"></script>
     <style>
     body {
@@ -18,20 +20,55 @@
   </style>
 </head>
 <body>
-<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+<div class="container">
+ <nav>
+ <div class="nav nav-tabs" id="nav-tab" role="tablist">
+ <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">选择策略</button>
+ <button class="nav-link" id="nav-code-tab" data-bs-toggle="tab" data-bs-target="#nav-code" type="button" role="tab" aria-controls="nav-code" aria-selected="false">查看代码</button>
+ </div>
+ </nav>
+ <div class="tab-content" id="nav-tabContent">
+ <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
-<xml id="toolbox" style="display: none;">
+ <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+ <xml id="toolbox" style="display: none;">
     <block type="controls_if"></block>
-</xml>
+    <block type="controls_if_else"></block>
+    <block type="logic_compare"></block>
+    <block type="variables_get"></block>
+    <block type="variables_set"></block>
+    <block type="math_number"></block>
+ </xml>
 
-<script>
 
-var blocklyDiv = document.getElementById('blocklyDiv');
-var workspace = Blockly.inject(blocklyDiv, {
-    media: 'blockly/media/',
-    toolbox: document.getElementById('toolbox'),  // 定义ToolBox
-});
+ </div>
 
-</script>
+ <div class="tab-pane fade" id="nav-code" role="tabpanel" aria-labelledby="nav-profile-tab">....</div>
+ </div>
+
+
+</div> <!--class="container"-->
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+   <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.1.0/vue.global.js"></script>
+   <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+   <script>
+
+     var blocklyDiv = document.getElementById('blocklyDiv');
+     var codetab = document.getElementById('nav-code-tab');
+     var navcode = document.getElementById('nav-code');
+     var workspace = Blockly.inject(blocklyDiv, {
+            toolbox: document.getElementById('toolbox'),  // 定义ToolBox
+    });
+
+    //var pycode = Blockly.Python.workspaceToCode(workspace);
+    codetab.onclick = function(){
+        var pycode = Blockly.Python.workspaceToCode(workspace)
+        console.log(pycode)
+        navcode.innerText = pycode
+    }
+
+   </script>
 </body>
 </html>

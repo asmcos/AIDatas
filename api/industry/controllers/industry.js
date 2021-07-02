@@ -13,7 +13,8 @@ const { sanitizeEntity } = require("strapi-utils");
 async function dropIndustry(ctx){
     let industry = strapi.models.industry
 
-    await industry.drop()
+    
+    await industry.remove({updateDate:{$gt:'2000-06-01'}})
     return 'Hello World!'
 }
 

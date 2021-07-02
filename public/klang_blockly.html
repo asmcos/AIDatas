@@ -7,7 +7,7 @@
   <script src="/js/blockly_compressed.js"></script>
   <script src="/js/blocks_compressed.js"></script>
   <script src="/js/python_compressed.js"></script>
-  <script src="/js/msg/en.js"></script>
+  <script src="/js/msg/zh-hans.js"></script>
     <style>
     body {
       background-color: #fff;
@@ -32,18 +32,26 @@
 
  <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
  <xml id="toolbox" style="display: none;">
-    <block type="controls_if"></block>
-    <block type="controls_if_else"></block>
-    <block type="logic_compare"></block>
-    <block type="variables_get"></block>
-    <block type="variables_set"></block>
-    <block type="math_number"></block>
+
+    <category name="常用函数" colour="%{BKY_LOGIC_HUE}">
+        <block type="math_number"></block>
+    </category>
+
+    <category name="其他功能" colour="%{BKY_MATH_HUE}">
+        <block type="controls_if"></block>
+        <block type="logic_compare"></block>
+        <block type="variables_get"></block>
+        <block type="variables_set"></block>
+        <block type="math_number"></block>
+    </category>
+    <category name="变量参数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+    <category name="公式" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
  </xml>
 
 
  </div>
 
- <div class="tab-pane fade" id="nav-code" role="tabpanel" aria-labelledby="nav-profile-tab">....</div>
+ <div class="tab-pane fade" id="nav-code" role="tabpanel" aria-labelledby="nav-profile-tab">/*快点选择策略吧,祝您大涨*/</div>
  </div>
 
 
@@ -59,16 +67,15 @@
      var codetab = document.getElementById('nav-code-tab');
      var navcode = document.getElementById('nav-code');
      var workspace = Blockly.inject(blocklyDiv, {
-            toolbox: document.getElementById('toolbox'),  // 定义ToolBox
+           media:'/img/',
+           toolbox: document.getElementById('toolbox'),  // 定义ToolBox
     });
 
-    //var pycode = Blockly.Python.workspaceToCode(workspace);
-    codetab.onclick = function(){
+    function updateKlang(event){
         var pycode = Blockly.Python.workspaceToCode(workspace)
-        console.log(pycode)
         navcode.innerText = pycode
     }
-
+    workspace.addChangeListener(updateKlang)
    </script>
 </body>
 </html>

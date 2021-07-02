@@ -22,6 +22,12 @@
     "industry": {
       "type": "string"
     },
+    "tdxbk": {
+      "type": "string"
+    },
+    "tdxgn": {
+      "type": "string"
+    },
     "industryClassification": {
       "type": "string"
     }

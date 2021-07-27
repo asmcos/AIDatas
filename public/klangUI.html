@@ -38,16 +38,27 @@
         <block type="math_number"></block>
     </category>
 
-    <category name="其他功能" colour="%{BKY_MATH_HUE}">
+    <category name="公式" colour="%{BKY_MATH_HUE}">
+
+        <block type="variables_set" inline="false">
+          <field name="VAR">ma10</field>
+          <value name="VALUE">
+            <block type="ma">
+               <value name="DAY"> 
+                <block type="math_number">
+                 <field name="NUM">10</field>
+                </block>
+               </value>
+            </block>
+          </value>
+         </block>
+
+
         <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="variables_get"></block>
         <block type="variables_set"></block>
-        <block type="math_number"></block>
-        <block type="macd"></block>
     </category>
-    <category name="变量参数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
-    <category name="公式" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
  </xml>
 
 

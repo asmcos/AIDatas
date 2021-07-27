@@ -3,21 +3,31 @@
  * klang 定制 blockly
  */
 
+Blockly.Python.ORDER_COMMA = 18;           // ,
 
-var mathChangeJson = {
-  "message0": "MA %1 by %2",
+
+var MAJson = {
+  "message0": "MA均线 (%1 , %2)",
   "args0": [
-    {"type": "field_variable", "name": "VAR", "variable": "收盘价", "variableTypes": [""]},
-    {"type": "input_value", "name": "DELTA", "check": "Number"}
+
+    {  
+      "type": "field_dropdown",
+      "name": "PRICE",
+      "options": [
+        [ "收盘价", "C" ],
+        [ "开盘价", "O" ]
+      ]
+    },
+
+    {"type": "input_value", "name": "DAY", "check": "Number"}
   ],
-  "previousStatement": null,
-  "nextStatement": null,
+  "output": 'Number',
   "colour": 230
 };
 
-Blockly.Blocks['macd'] = {
+Blockly.Blocks['ma'] = {
   init: function() {
-    this.jsonInit(mathChangeJson);
+    this.jsonInit(MAJson);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
@@ -27,14 +37,17 @@ Blockly.Blocks['macd'] = {
   }
 };
 
-Blockly.Python['macd'] = function(block) {
+Blockly.Python['ma'] = function(block) {
   // Add to a variable in place.
   Blockly.Python.definitions_['from_klang_import_ma'] =
       'from Klang import MA';
-  var argument0 = Blockly.Python.valueToCode(block, 'DELTA',
-      Blockly.Python.ORDER_ADDITIVE) || '0';
-  var varName = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'),
-      Blockly.VARIABLE_CATEGORY_NAME);
-  return varName + ' = (' + varName + ' if isinstance(' + varName +
-      ', Number) else 0) + ' + argument0 + '\n';
+  var argument0 = block.getFieldValue('PRICE')
+  var  day = Blockly.Python.valueToCode(block,'DAY',
+      Blockly.Python.ORDER_COMMA) || '0';
+
+  //delete variables = None    
+  delete Blockly.Python.definitions_['variables'];
+
+  return ['MA (' +argument0 +','+ day +')\n',Blockly.Python.ORDER_FUNCTION_CALL]
 };
+

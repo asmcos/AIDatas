@@ -51,3 +51,36 @@ Blockly.Python['ma'] = function(block) {
   return ['MA (' +argument0 +','+ day +')\n',Blockly.Python.ORDER_FUNCTION_CALL]
 };
 
+
+Blockly.Blocks['display'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": "显示 (%1)",
+      "args0": [
+       {"type": "input_value", "name": "val"}
+     ],
+    "previousStatement": null,
+    "nextStatement": null,
+     "colour": 230
+    });
+
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip(function() {
+      return '显示 "%1".'.replace('%1',
+          thisBlock.getFieldValue('val'));
+    });
+  }
+};
+
+Blockly.Python['display'] = function(block) {
+  // Add to a variable in place.
+  var  val = Blockly.Python.valueToCode(block,'val',
+      Blockly.Python.ORDER_COMMA) || '0';
+   
+
+  return 'DISPLAY ('+ val +')\n'
+};
+
+
+

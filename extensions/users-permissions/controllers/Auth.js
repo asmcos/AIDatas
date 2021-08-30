@@ -134,7 +134,6 @@ module.exports = {
         });
         ctx.cookies.set("token", token, {
             httpOnly: true,
-            secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
          });
 
@@ -178,7 +177,7 @@ module.exports = {
         });
         ctx.cookies.set("token", token, {
             httpOnly: true,
-            secure: true,
+            //secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
          });
       ctx.send({
@@ -229,7 +228,7 @@ module.exports = {
         });
         ctx.cookies.set("token", token, {
             httpOnly: true,
-            secure: true,
+            //secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
          });
       ctx.send({
@@ -489,12 +488,13 @@ module.exports = {
       email: params.email,
     });
 
+    console.log(user)
     if (user && user.provider === params.provider) {
       return ctx.badRequest(
         null,
         formatError({
           id: 'Auth.form.error.email.taken',
-          message: 'Email is already taken.',
+          message: 'Email is already taken:.',
         })
       );
     }
@@ -504,7 +504,7 @@ module.exports = {
         null,
         formatError({
           id: 'Auth.form.error.email.taken',
-          message: 'Email is already taken.',
+          message: 'Email is already taken.?.',
         })
       );
     }
@@ -531,13 +531,12 @@ module.exports = {
       }
 
       const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user, ['id']));
-
+        
         const token = strapi.plugins["users-permissions"].services.jwt.issue({
             id: user.id,
         });
         ctx.cookies.set("token", token, {
             httpOnly: true,
-            secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
          });
       return ctx.send({
@@ -545,12 +544,13 @@ module.exports = {
         user: sanitizedUser,
       });
     } catch (err) {
+        console.log(err)
       const adminError = _.includes(err.message, 'username')
         ? {
             id: 'Auth.form.error.username.taken',
             message: 'Username already taken',
           }
-        : { id: 'Auth.form.error.email.taken', message: 'Email already taken' };
+        : { id: 'Auth.form.error.email.taken', message: 'Email already taken m ' };
 
       ctx.badRequest(null, formatError(adminError));
     }

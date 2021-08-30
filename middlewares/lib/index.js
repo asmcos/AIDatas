@@ -8,6 +8,16 @@ var co = require('co');
 
 var router = new Router();
 
+
+function set_template(filename){
+
+        router.get('/gushen/'+filename,async(ctx,next)=>{
+            return ctx.body = await ctx.render(filename)
+        })
+
+
+}
+
 module.exports = strapi => {
   return {
     // can also be async
@@ -17,13 +27,13 @@ module.exports = strapi => {
             swig({
                 root:path.resolve('./public/theme/gushen'),
                 cache:false,
+                varControls: ['<%=', '%>'],
                 ext:'html'
             })
         )
 
-        router.get('/gushen/index.html',async(ctx,next)=>{
-            return ctx.body = await ctx.render("index_3.html")
-        })
+        set_template("login.html")
+        set_template("register.html")
 
         strapi.app.use(router.routes())
 

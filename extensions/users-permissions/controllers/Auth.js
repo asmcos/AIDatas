@@ -11,11 +11,24 @@ const crypto = require('crypto');
 const _ = require('lodash');
 const grant = require('grant-koa');
 const { sanitizeEntity } = require('strapi-utils');
+const path = require('path')
 
 const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const formatError = error => [
   { messages: [{ id: error.id, message: error.message, field: error.field }] },
 ];
+
+
+
+const avatarjs = require('./avatar')
+
+function randavatar(img){
+    var length = img.length - 1;
+
+    var rand = Math.floor(Math.random() * Math.floor(length));
+
+    return img[rand]
+}
 
 module.exports = {
   async callback(ctx) {
@@ -393,6 +406,9 @@ module.exports = {
   },
 
   async register(ctx) {
+
+    var avatarlist = avatarjs.getImgList(path.resolve('./public/theme/gushen') + "/img/avatar/")
+
     const pluginStore = await strapi.store({
       environment: '',
       type: 'plugin',
@@ -514,6 +530,8 @@ module.exports = {
         params.confirmed = true;
       }
 
+      params.avatar = "img/avatar/"+randavatar(avatarlist) 
+       
       const user = await strapi.query('user', 'users-permissions').create(params);
 
       const sanitizedUser = sanitizeEntity(user, {

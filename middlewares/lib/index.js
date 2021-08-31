@@ -34,6 +34,7 @@ module.exports = strapi => {
 
         set_template("login.html")
         set_template("register.html")
+        set_template("index.html")
 
         strapi.app.use(router.routes())
 

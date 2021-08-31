@@ -1,54 +1,11 @@
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Marketing</title>
-
-    <link rel="icon" href="img/logo.png" type="image/png">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <!-- themefy CSS -->
-    <link rel="stylesheet" href="vendors/themefy_icon/themify-icons.css" />
-    <!-- select2 CSS -->
-    <link rel="stylesheet" href="vendors/niceselect/css/nice-select.css" />
-    <!-- owl carousel CSS -->
-    <link rel="stylesheet" href="vendors/owl_carousel/css/owl.carousel.css" />
-    <!-- gijgo css -->
-    <link rel="stylesheet" href="vendors/gijgo/gijgo.min.css" />
-    <!-- font awesome CSS -->
-    <link rel="stylesheet" href="vendors/font_awesome/css/all.min.css" />
-    <link rel="stylesheet" href="vendors/tagsinput/tagsinput.css" />
-
-    <!-- date picker -->
-     <link rel="stylesheet" href="vendors/datepicker/date-picker.css" />
-     <!-- scrollabe  -->
-     <link rel="stylesheet" href="vendors/scroll/scrollable.css" />
-    <!-- datatable CSS -->
-    <link rel="stylesheet" href="vendors/datatable/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="vendors/datatable/css/responsive.dataTables.min.css" />
-    <link rel="stylesheet" href="vendors/datatable/css/buttons.dataTables.min.css" />
-    <!-- text editor css -->
-    <link rel="stylesheet" href="vendors/text_editor/summernote-bs4.css" />
-    <!-- morris css -->
-    <link rel="stylesheet" href="vendors/morris/morris.css">
-    <!-- metarial icon css -->
-    <link rel="stylesheet" href="vendors/material_icon/material-icons.css" />
-
-    <!-- menu css  -->
-    <link rel="stylesheet" href="css/metisMenu.css">
-    <!-- style CSS -->
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/colors/default.css" id="colorSkinCSS">
-</head>
-<body class="crm_body_bg">
-    
+   
+{% extends 'layout.html' %}
+  
+{% block main_body %}
 
 
 <!-- main content part here -->
- 
+<div id="app"> 
  <!-- sidebar  -->
  <!-- sidebar part here -->
 <nav class="sidebar vertical-scroll  ps-container ps-theme-default ps-active-y">
@@ -368,12 +325,11 @@
                                 <a class="CHATBOX_open nav-link-notify" href="#"> <img src="img/icon/msg.svg" alt="">   </a>
                             </li>
                         </div>
-                        <div class="profile_info">
-                            <img src="img/client_img.png" alt="#">
+                        <div class="profile_info" v-if="logined">
+                            <img v-bind:src="user.avatar" alt="#">
                             <div class="profile_info_iner">
                                 <div class="profile_author_name">
-                                    <p>Neurologist </p>
-                                    <h5>Dr. Robar Smith</h5>
+                                    <p>{{user.username}} </p>
                                 </div>
                                 <div class="profile_info_details">
                                     <a href="#">My Profile </a>
@@ -1189,58 +1145,49 @@
     </a>
 </div>
 
-<!-- footer  -->
-<script src="js/jquery-3.4.1.min.js"></script>
-<!-- popper js -->
-<script src="js/popper.min.js"></script>
-<!-- bootstarp js -->
-<script src="js/bootstrap.min.js"></script>
-<!-- sidebar menu  -->
-<script src="js/metisMenu.js"></script>
-<!-- waypoints js -->
-<script src="vendors/count_up/jquery.waypoints.min.js"></script>
-<!-- waypoints js -->
-<script src="vendors/chartlist/Chart.min.js"></script>
-<!-- counterup js -->
-<script src="vendors/count_up/jquery.counterup.min.js"></script>
 
-<!-- nice select -->
-<script src="vendors/niceselect/js/jquery.nice-select.min.js"></script>
-<!-- owl carousel -->
-<script src="vendors/owl_carousel/js/owl.carousel.min.js"></script>
+</div> <!--app--> 
+{%endblock%}
 
-<!-- responsive table -->
-<script src="vendors/datatable/js/jquery.dataTables.min.js"></script>
-<script src="vendors/datatable/js/dataTables.responsive.min.js"></script>
-<script src="vendors/datatable/js/dataTables.buttons.min.js"></script>
-<script src="vendors/datatable/js/buttons.flash.min.js"></script>
-<script src="vendors/datatable/js/jszip.min.js"></script>
-<script src="vendors/datatable/js/pdfmake.min.js"></script>
-<script src="vendors/datatable/js/vfs_fonts.js"></script>
-<script src="vendors/datatable/js/buttons.html5.min.js"></script>
-<script src="vendors/datatable/js/buttons.print.min.js"></script>
+{% block externjs %}
+<script>
 
-
-<script src="js/chart.min.js"></script>
-<!-- progressbar js -->
-<script src="vendors/progressbar/jquery.barfiller.js"></script>
-<!-- tag input -->
-<script src="vendors/tagsinput/tagsinput.js"></script>
-<!-- text editor js -->
-<script src="vendors/text_editor/summernote-bs4.js"></script>
-<script src="vendors/am_chart/amcharts.js"></script>
-
-<!-- scrollabe  -->
-<script src="vendors/scroll/perfect-scrollbar.min.js"></script>
-<script src="vendors/scroll/scrollable-custom.js"></script>
+     const VueApp = {
+        data() {
+            return {
+                logined:0,
+                user:{},
+            }
+        },
+    
+        created() {
+        },
+    
+        mounted () {
+            var that = this
+            axios
+                .get('/users/me')
+                .then(function(response){
+                    if (response.data.id){
+                        that.user['id'] = response.data.id                        
+                        that.user['avatar'] = response.data.avatar                      
+                        that.user['username'] = response.data.username                   
+                        that.logined = 1
+                    }
+                })
+        
+       },
+        methods: {
+        // These methods won't trigger a watcher because we changed only a property of Object/Array,
+        // not the Object/Array itself
+           send(){
+            
+           } 
+        }
+      }//VueApp
+      window.vue = Vue.createApp(VueApp).mount('#app')
 
 
-<script src="vendors/chart_am/core.js"></script>
-<script src="vendors/chart_am/charts.js"></script>
-<script src="vendors/chart_am/animated.js"></script>
-<script src="vendors/chart_am/kelly.js"></script>
-<script src="vendors/chart_am/chart-custom.js"></script>
-<!-- custom js -->
-<script src="js/custom.js"></script>
-</body>
-</html>
+</script>
+{% endblock %}
+

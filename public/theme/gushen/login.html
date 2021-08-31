@@ -41,8 +41,8 @@
                                             <div class="form-group">
                                                 <input type="password" class="form-control" placeholder="密码" v-model="password">
                                             </div>
-                                            <a @click="login_send" class="btn_1 full_width text-center">确认</a>
-                                            <p>还未注册?<a data-toggle="modal" data-target="#sing_up" data-dismiss="modal"  href="register.html"> 注册</a></p>
+                                            <a href="#" @click="login_send" class="btn_1 full_width text-center">确认</a>
+                                            <p>还未注册?<a href="register.html"> 注册</a></p>
                                             <div class="text-center">
                                                 <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal" class="pass_forget_btn">忘记密码</a>
                                             </div>
@@ -104,7 +104,7 @@
                 .then(function(response){
                     console.log('User profile', response.data.user);
                     console.log('User token', response.data.jwt);
-
+                    window.location.href='index.html'
                 })
                   .catch(error => {
                     // Handle error.

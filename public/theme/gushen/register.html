@@ -45,7 +45,7 @@
                                                 <input type="password" class="form-control" placeholder="密码" v-model="password">
                                             </div>
                                             <a href="#" class="btn_1 full_width text-center" @click="reg_send">确认</a>
-                                            <p>已有账户?<a data-toggle="modal" data-target="#sing_up" data-dismiss="modal"  href="login.html">登录</a></p>
+                                            <p>已有账户?<a href="login.html">登录</a></p>
                                             <div class="text-center">
                                                 <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal" class="pass_forget_btn">忘记密码</a>
                                             </div>
@@ -109,6 +109,7 @@
                     console.log('User profile', response.data.user);
                     console.log('User token', response.data.jwt);
 
+                    window.location.href='index.html'
                 })
                   .catch(error => {
                     // Handle error.

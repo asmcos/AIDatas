@@ -3,7 +3,6 @@
 
 {% block content_iner%}  
     <!--/ menu  -->
-    <template slot="subslot_container" slot-scope="scope">
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="single_element">
@@ -32,28 +31,16 @@
                     </div>
                 </div>
             </div>
-  </template> <!--app1-->
 
 {% endblock %}
-{%block externjs1 %}
+{%block vuedata %}
 
-     const VueApp1 = {
-        data() {
-            return {
                 capital_money:1000000,
                 intro:'写一下自我介绍',
-            }
-        },
-    
-        created() {
-        },
-    
-        mounted () {
-       
-       },
-        methods: {
-        // These methods won't trigger a watcher because we changed only a property of Object/Array,
-        // not the Object/Array itself
+ 
+{%endblock%}
+
+{%block vuemethods %}
             send(){
                 var that = this
                 axios
@@ -65,12 +52,9 @@
                     if (response.data.id){
                     }
                 })
- 
 
             }
 
-        }
-      }//VueApp
-      window.vue1 = Vue.createApp(VueApp1).mount('#app1')
-    
+
 {%endblock%}
+    

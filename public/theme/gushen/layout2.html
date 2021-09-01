@@ -499,6 +499,7 @@
             return {
                 logined:0,
                 user:{},
+                {% block vuedata %} {%endblock%}
             }
         },
     
@@ -518,16 +519,14 @@
                     }
                 })
         
+                {% block vuemounted %} {%endblock%}
        },
         methods: {
         // These methods won't trigger a watcher because we changed only a property of Object/Array,
         // not the Object/Array itself
-           send(){
-            
-           } 
+           {% block vuemethods %} {%endblock%}
         }
       }//VueApp
-      {% block externjs1 %} {%endblock%}
 
       window.vue = Vue.createApp(VueApp).mount('#app')
     

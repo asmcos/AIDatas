@@ -1,0 +1,76 @@
+   
+{% extends 'layout2.html' %}
+
+{% block content_iner%}  
+    <!--/ menu  -->
+    <template slot="subslot_container" slot-scope="scope">
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="single_element">
+                        <div class="quick_activity">
+                            <div class="row">
+                             <div class="white_card_body">
+
+                                <span style="margin-left:10px;">本金只能设置一次</span>
+                             <div class="input-group mb-3" style="width:45%;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">设置本金</span>
+                                </div>
+                                <input  v-model="capital_money" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"><label class="col-sm-4 col-form-label" >元</label>
+                             </div>
+
+                                <div class="input-group mb-3" style="width:50%;min-width:600px;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">自我介绍</span>
+                                </div>
+                                <textarea v-model="intro" class="form-control" aria-label="With textarea" style="min-height:100px;"></textarea>
+                                </div>
+                                    <button class="btn btn-primary rounded-pill mb-3" @click="send">确认</button>
+                              </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  </template> <!--app1-->
+
+{% endblock %}
+{%block externjs1 %}
+
+     const VueApp1 = {
+        data() {
+            return {
+                capital_money:1000000,
+                intro:'写一下自我介绍',
+            }
+        },
+    
+        created() {
+        },
+    
+        mounted () {
+       
+       },
+        methods: {
+        // These methods won't trigger a watcher because we changed only a property of Object/Array,
+        // not the Object/Array itself
+            send(){
+                var that = this
+                axios
+                .post('/gs_userinfos',{
+                    capital_money:that.capital_money,
+                    intro:that.intro
+                })
+                .then(function(response){
+                    if (response.data.id){
+                    }
+                })
+ 
+
+            }
+
+        }
+      }//VueApp
+      window.vue1 = Vue.createApp(VueApp1).mount('#app1')
+    
+{%endblock%}

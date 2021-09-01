@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/gs-userinfos",
+      "handler": "gs-userinfo.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gs-userinfos/count",
+      "handler": "gs-userinfo.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gs-userinfos/:id",
+      "handler": "gs-userinfo.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/gs-userinfos",
+      "handler": "gs-userinfo.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/gs-userinfos/:id",
+      "handler": "gs-userinfo.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/gs-userinfos/:id",
+      "handler": "gs-userinfo.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

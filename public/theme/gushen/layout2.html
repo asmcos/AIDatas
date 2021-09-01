@@ -332,8 +332,7 @@
                                     <p>{{user.username}} </p>
                                 </div>
                                 <div class="profile_info_details">
-                                    <a href="#">My Profile </a>
-                                    <a href="#">Settings</a>
+                                    <a href="gs_userinfo.html">设置</a>
                                     <a href="#">Log Out </a>
                                 </div>
                             </div>
@@ -347,6 +346,7 @@
     <div class="main_content_iner ">
         <div class="container-fluid p-0 ">
             {%block content_iner %}{%endblock%}
+            <slot name="subslot_container"></slot>
         </div>
     </div>
 
@@ -356,7 +356,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer_iner text-center">
-                    <p>2020 © Influence - Designed by <a href="#"> <i class="ti-heart"></i> </a><a href="#"> Dashboard</a></p>
+                    <p>2021 © 金浪- Designed by <a href="#"> <i class="ti-heart"></i> </a><a href="#"> Dashboard</a></p>
                 </div>
             </div>
         </div>

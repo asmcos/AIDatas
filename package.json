@@ -20,16 +20,16 @@
     "koa-swig": "^2.2.1",
     "register": "0.0.0",
     "sqlite3": "5.0.0",
-    "strapi": "^3.5.3",
-    "strapi-admin": "3.5.3",
-    "strapi-connector-bookshelf": "3.5.3",
-    "strapi-connector-mongoose": "^3.6.2",
-    "strapi-plugin-content-manager": "3.5.3",
-    "strapi-plugin-content-type-builder": "3.5.3",
-    "strapi-plugin-email": "3.5.3",
-    "strapi-plugin-upload": "3.5.3",
-    "strapi-plugin-users-permissions": "3.5.3",
-    "strapi-utils": "^3.5.3"
+    "strapi": "",
+    "strapi-admin": "",
+    "strapi-connector-bookshelf": "",
+    "strapi-connector-mongoose": "",
+    "strapi-plugin-content-manager": "",
+    "strapi-plugin-content-type-builder": "",
+    "strapi-plugin-email": "",
+    "strapi-plugin-upload": "",
+    "strapi-plugin-users-permissions": "",
+    "strapi-utils": ""
   },
   "author": {
     "name": "A Strapi developer"

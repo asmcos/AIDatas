@@ -8,11 +8,28 @@ const { sanitizeEntity } = require("strapi-utils");
  */
 
 async function createGSuserinfo(ctx){
-    let gs_userinfo = strapi.models.gs_userinfo
+    let gs_userinfo = strapi.models['gs-userinfo']
+    var params = ctx.request.body
 
-    console.log(ctx.state.user)
+    //console.log(ctx.state.user)
 
-    return await gs_userinfo.find()
+    if (!ctx.state.user){
+
+        return "-1" //请先登录
+    }
+
+    var ret =  await gs_userinfo.findOne({'users_permissions_user':ctx.state.user})
+    if (ret){ //update
+        ret.intro = params['intro']
+        ret.save()
+        return ret
+    
+    } else { //create
+        params['users_permissions_user'] = ctx.state.user
+        params['remain_cash'] = params['capital_money']
+        params['stock_value'] = 0
+        return await gs_userinfo.create(params)
+    }
 }
 
 

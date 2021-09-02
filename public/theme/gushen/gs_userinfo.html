@@ -44,13 +44,12 @@
             send(){
                 var that = this
                 axios
-                .post('/gs_userinfos',{
+                .post('/gs-userinfos',{
                     capital_money:that.capital_money,
                     intro:that.intro
                 })
                 .then(function(response){
-                    if (response.data.id){
-                    }
+                    alert('完成')
                 })
 
             }

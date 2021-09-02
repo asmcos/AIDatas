@@ -11,7 +11,6 @@ async function createGSuserinfo(ctx){
     let gs_userinfo = strapi.models['gs-userinfo']
     var params = ctx.request.body
 
-    //console.log(ctx.state.user)
 
     if (!ctx.state.user){
 
@@ -32,10 +31,25 @@ async function createGSuserinfo(ctx){
     }
 }
 
+async function findGSme(ctx){
+
+    let gs_userinfo = strapi.models['gs-userinfo']
+
+    if (!ctx.state.user){
+
+        return "-1" //请先登录
+    }
+
+
+    var ret =  await gs_userinfo.findOne({'users_permissions_user':ctx.state.user})
+    return ret
+}
 
 module.exports = {
 
-
+    async findme(ctx){
+        return findGSme(ctx)
+    },
     async create(ctx){
         return createGSuserinfo(ctx)
     },

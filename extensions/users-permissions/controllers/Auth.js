@@ -19,7 +19,7 @@ const formatError = error => [
 ];
 
 
-
+//asmcos
 const avatarjs = require('./avatar')
 
 function randavatar(img){
@@ -145,6 +145,7 @@ module.exports = {
         const token = strapi.plugins["users-permissions"].services.jwt.issue({
             id: user.id,
         });
+        // asmcos
         ctx.cookies.set("token", token, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
@@ -188,6 +189,7 @@ module.exports = {
         const token = strapi.plugins["users-permissions"].services.jwt.issue({
             id: user.id,
         });
+        //asmcos
         ctx.cookies.set("token", token, {
             httpOnly: true,
             //secure: true,
@@ -239,6 +241,7 @@ module.exports = {
         const token = strapi.plugins["users-permissions"].services.jwt.issue({
             id: user.id,
         });
+        //asmcos
         ctx.cookies.set("token", token, {
             httpOnly: true,
             //secure: true,
@@ -405,9 +408,18 @@ module.exports = {
     ctx.send({ ok: true });
   },
 
+  //asmcos
+  async logout(ctx){
+    ctx.cookies.set("token", null);
+    ctx.send({
+      message: "Successfully destroyed session",
+    });        
+  },
   async register(ctx) {
 
+    //asmcos
     var avatarlist = avatarjs.getImgList(path.resolve('./public/theme/gushen') + "/img/avatar/")
+
 
     const pluginStore = await strapi.store({
       environment: '',
@@ -529,9 +541,10 @@ module.exports = {
       if (!settings.email_confirmation) {
         params.confirmed = true;
       }
-
+      //asmcos
       params.avatar = "img/avatar/"+randavatar(avatarlist) 
-       
+
+
       const user = await strapi.query('user', 'users-permissions').create(params);
 
       const sanitizedUser = sanitizeEntity(user, {
@@ -553,6 +566,7 @@ module.exports = {
         const token = strapi.plugins["users-permissions"].services.jwt.issue({
             id: user.id,
         });
+        //asmcos
         ctx.cookies.set("token", token, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age

@@ -37,7 +37,27 @@
 
                 capital_money:1000000,
                 intro:'写一下自我介绍',
+                info:{}
  
+{%endblock%}
+
+
+{%block vuemounted %}
+{%endblock%}
+
+{% block vuewatch %} 
+    //监控logined变化
+    logined (){
+     var that = this 
+     axios.get('/gs-userinfo/me')
+        .then(function(response){
+            that.capital_money = response.data.capital_money
+            that.intro = response.data.intro
+        })
+        
+        
+    }
+
 {%endblock%}
 
 {%block vuemethods %}

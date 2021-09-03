@@ -36,6 +36,7 @@ module.exports = strapi => {
         set_template("register.html")
         set_template("index.html")
         set_template("gs_userinfo.html")
+        set_template("gs_addstrategy.html")
 
         strapi.app.use(router.routes())
 

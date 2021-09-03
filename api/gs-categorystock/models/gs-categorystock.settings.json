@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gs_categorystocks",
+  "info": {
+    "name": "gs_categorystock"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "startprice": {
+      "type": "string"
+    },
+    "closeprice": {
+      "type": "string"
+    },
+    "startdate": {
+      "type": "string"
+    },
+    "categorytype": {
+      "type": "string"
+    },
+    "categoryid": {
+      "type": "string"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

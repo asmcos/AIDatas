@@ -10,23 +10,27 @@
                         <div class="white_card_header">
                             <div class="box_header m-0">
                                 <div class="main-title">
-                                    <h3 class="m-0">设置我的基本信息</h3>
+                                    <h3 class="m-0">增加一个新的策略</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="white_card_body">
 
-                            <h6 class="card-subtitle mb-2">填写您的个人信息.</h6>
+                            <h6 class="card-subtitle mb-2">策略标题</h6>
                                 <div class="form-group">
-                                    <label >设置本金(元)</label>
+                                    <label>设置本金(元)</label>
                                     <input class="form-control" v-model="capital_money">
-                                    <small class="form-text text-muted"> <font color="#ee2302">注意：</font>本金仅仅第一次设置有效，其他设置不会改变</small>
+                                    <small class="form-text text-muted"> <font color="#ee2302">注意：</font>本金仅仅第一次设置有效，并且要小于总的剩余资金</small>
                                 </div>
                                 <div class="form-group">
-                                    <label >个人介绍</label>
-                                    <textarea v-model="intro" class="form-control" aria-label="With textarea" style="min-height:100px;"></textarea>
+                                    <label>策略标题</label>
+                                    <input class="form-control" v-model="title">
                                 </div>
-                                <button class="btn btn-primary" @click="send">确认</button>
+                                <div class="form-group">
+                                    <label>策略描述</label>
+                                    <textarea v-model="description" class="form-control" aria-label="With textarea" style="min-height:100px;"></textarea>
+                                </div>
+                                <button class="btn btn-primary" @click='addstrategy'>添加</button>
                         </div>
 
                     </div>
@@ -42,8 +46,8 @@
 {%block vuedata %}
 
                 capital_money:1000000,
-                intro:'写一下自我介绍',
-                info:{}
+                title:'',
+                description:''
  
 {%endblock%}
 
@@ -67,12 +71,13 @@
 {%endblock%}
 
 {%block vuemethods %}
-            send(){
+            addstrategy(){
                 var that = this
                 axios
-                .post('/gs-userinfos',{
+                .post('/gs-strategies',{
                     capital_money:that.capital_money,
-                    intro:that.intro
+                    title:that.title,
+                    description:that.description
                 })
                 .then(function(response){
                     alert('完成')

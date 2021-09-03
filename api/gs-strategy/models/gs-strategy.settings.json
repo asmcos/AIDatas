@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gs_strategies",
+  "info": {
+    "name": "gs_strategy"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "capital_money": {
+      "type": "float"
+    },
+    "remain_cash": {
+      "type": "float"
+    },
+    "createdate": {
+      "type": "date"
+    }
+  }
+}

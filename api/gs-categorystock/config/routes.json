@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/gs-categorystocks",
+      "handler": "gs-categorystock.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gs-categorystocks/count",
+      "handler": "gs-categorystock.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gs-categorystocks/:id",
+      "handler": "gs-categorystock.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/gs-categorystocks",
+      "handler": "gs-categorystock.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/gs-categorystocks/:id",
+      "handler": "gs-categorystock.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/gs-categorystocks/:id",
+      "handler": "gs-categorystock.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

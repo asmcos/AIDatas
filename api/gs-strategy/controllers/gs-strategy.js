@@ -32,12 +32,9 @@ async function findGSstrategy(ctx){
 
     let gs_strategy = strapi.models['gs-strategy']
     if (!ctx.state.user){
-
         return "-1" //请先登录
     }
-
-
-    var ret =  await gs_strategy.findOne({'users_permissions_user':ctx.state.user,id:ctx.request.body.id})
+    var ret =  await gs_strategy.findOne({_id:ctx.params.id})
     return ret
 }
 

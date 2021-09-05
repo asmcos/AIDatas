@@ -31,15 +31,31 @@ async function findGSstrategy(ctx){
 
 
     let gs_strategy = strapi.models['gs-strategy']
-    if (!ctx.state.user){
+    /*if (!ctx.state.user){
         return "-1" //请先登录
-    }
+    }*/
     var ret =  await gs_strategy.findOne({_id:ctx.params.id})
     return ret
 }
 
+async function findGSme(ctx){
+
+
+    let gs_strategy = strapi.models['gs-strategy']
+    if (!ctx.state.user){
+        return "-1" //请先登录
+    }
+    var ret =  await gs_strategy.find({users_permissions_user:ctx.state.user})
+    return ret
+}
+
+
 module.exports = {
 
+    async findme(ctx){
+        return findGSme(ctx)
+    },
+ 
     async findOne(ctx){
         return findGSstrategy(ctx)
     },

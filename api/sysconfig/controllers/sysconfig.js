@@ -12,7 +12,6 @@ async function findsysconfig(ctx){
     let syscon = strapi.models.sysconfig
 
     let key = query.keyword
-
     if (query.filter){
 
        var filter = [{key: {$regex: key}}]

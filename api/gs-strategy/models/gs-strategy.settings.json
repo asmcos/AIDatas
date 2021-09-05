@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "gs_strategies",
   "info": {
-    "name": "gs_strategy"
+    "name": "gs_strategy",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -24,6 +25,10 @@
     },
     "createdate": {
       "type": "date"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

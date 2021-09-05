@@ -8,6 +8,16 @@
         "policies": []
       }
     },
+
+    {
+      "method": "GET",
+      "path": "/gs-strategies/me",
+      "handler": "gs-strategy.findme",
+      "config": {
+        "policies": []
+      }
+    },
+ 
     {
       "method": "GET",
       "path": "/gs-strategies/count",

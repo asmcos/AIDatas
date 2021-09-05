@@ -1,0 +1,181 @@
+   
+{% extends 'layout2.html' %}
+
+{% block content_iner%}  
+    <!--/ menu  -->
+            <div class="row ">
+
+
+
+            <div class="display col-lg-8">
+
+              <div class="white_card mb_20" style="padding:10px;">
+                        <div class="white_card_header">
+                            <div class="box_header m-0">
+                                <div class="main-title">
+                                    <h3 class="m-0">股票列表</h3>
+                                </div>
+                            </div>
+                        </div>
+
+
+            <table class="table table-bordered  no-footer dtr-inline"  border="1">
+            <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">name</th>
+            <th scope="col">code</th>
+            <th scope="col">值
+           <a @click="openopt()">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
+            </svg>
+            </a> </th>
+            <th scope="col" v-if="opened">操作</th>
+            </tr>
+            </thead>
+             <tbody>
+  <tr v-for="(item,index) in codelist">
+                <td>{{index+1}}</td>
+                <td v-if="result[item]"><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item+'/nc.shtml'" target=_blank>{{result[item][0]}}</a></td>
+                <td v-if="result[item]"><a v-bind:href="'https://gu.qq.com/'+item" target=_blank ><font color=blue>{{result[item][1]}}</font></a></td>
+                <td v-if="result[item]"><font v-if="result[item][2]>=0" color="#ef4136">+{{result[item][2]}}</font> <font v-if="result[item][2]<0" color="#00ef00">{{result[item][2]}}</font></td>
+                <td v-if="opened">
+                   <a @click="delmain(item)" class="text-decoration-none"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x" viewBox="0 0 16 16">
+  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+  <path fill-rule="evenodd" d="M12.146 5.146a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+</svg> </a>
+                </td>
+                </tr>
+                </tbody>
+              </table>
+            </div> <!--white_card -->
+           </div> <!--display-->
+
+
+
+
+
+
+                <div class="col-lg-4">
+
+                    <div class="white_card card_height_100 mb_20">
+                        <div class="white_card_header">
+                            <div class="box_header m-0">
+                                <div class="main-title" @click="buyedopt">
+                                    <h3 class="m-0"><i class="fa fa-plus" style="padding-right:10px;color:#ed3434"></i> 购买股票</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="white_card_body" v-if="buyed">
+
+                            <h6 class="card-subtitle mb-2">股票代码</h6>
+                                <div class="form-group">
+                                    <label>输入股票代码-{{buyname}}</label>
+                                    <input class="form-control" @blur="getinfo" v-model="buycode">
+                                     <small class="form-text text-muted"> <font color="#ee2302">格式:</font>sh601012,sz000100</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>价格</label>
+                                    <input class="form-control" v-model="buyprice" disabled>
+                                     <small class="form-text text-muted"> 价格会自动获取</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>股</label>
+                                    <input class="form-control" v-model="buycount">
+                                     <small class="form-text text-muted"> 股票购买每次是100的整数倍:100，200等</small>
+                                </div>
+                                <button class="btn btn-primary" @click='addstock'>购买</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div> <!--row -->
+
+{% endblock %}
+{%block vuedata %}
+                opened:0,
+                buyed:0,
+                buycode:'',
+                buyname:'',
+                buyprice:'',
+                buycount:'00',
+                capital_money:"",
+                title:'',
+                description:''
+ 
+{%endblock%}
+
+
+{%block vuemounted %}
+{%endblock%}
+
+{% block vuewatch %} 
+    //监控logined变化
+    logined (){
+     var that = this 
+     axios.get('/gs-userinfo/me')
+        .then(function(response){
+            that.capital_money = response.data.capital_money
+            that.intro = response.data.intro
+        })
+        
+        
+    }
+
+{%endblock%}
+
+{%block vuemethods %}
+            addstock(){
+                var that = this
+                var cateid = getUrlParam('cateid')
+                if (that.buycount % 100 != 0 || that.buycount < 100){
+                    alert("股票必须够买整100的倍数,至少100股")
+                    return 
+                } 
+                axios
+                .post('/gs-categorystocks',{
+                    code:that.buycode,
+                    count:that.buycount,
+                    buyprice:that.buyprice,
+                    categorytype:"1",//1策略，2自选
+                    name:that.buyname,
+                    categoryid:cateid,
+                })
+                .then(function(response){
+                    alert('完成')
+                })
+
+            },
+            async getinfo(){
+                var that = this
+                that.buyprice = 0 
+                that.buyname = "" 
+                var datas = await getstockinfo(that.buycode)
+                if (datas[0] != 0){
+                    that.buyname = datas[0]
+                    that.buyprice = datas[1]
+                }
+            }, 
+            openopt(){
+                if (this.opened == 0){
+                    this.opened = 1
+                } else {
+                    this.opened = 0
+                }
+            
+            },
+            buyedopt(){
+                if (this.buyed == 0){
+                    this.buyed = 1
+                } else {
+                    this.buyed = 0
+                }
+
+            },
+
+{%endblock%}
+    

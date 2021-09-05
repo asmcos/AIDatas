@@ -667,3 +667,10 @@
 {%block vuedata %}
       lastdate:'2021',
 {%endblock%}
+
+
+{%block vuemounted %}
+    if (window.location.pathname == '/gushen'){
+         window.location.href = '/gushen/index.html'
+    }
+{%endblock%}

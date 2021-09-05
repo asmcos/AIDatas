@@ -32,17 +32,22 @@ module.exports = strapi => {
             })
         )
 
+        router.get('/gushen/',async(ctx,next)=>{
+            return ctx.body = await ctx.render('index.html')
+        })
+
+
         set_template("login.html")
         set_template("register.html")
         set_template("index.html")
         set_template("gs_userinfo.html")
         set_template("gs_addstrategy.html")
+        set_template("gs_categorystocks.html")
 
         strapi.app.use(router.routes())
 
         strapi.app.use(staticdir(path.resolve('./public/theme/Techie')))
         strapi.app.use(mount('/gushen',staticdir(path.resolve('./public/theme/gushen'))))
-
 
 
     }, // initialize

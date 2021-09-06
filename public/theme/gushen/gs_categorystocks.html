@@ -26,7 +26,7 @@
             <th scope="col">name</th>
             <th scope="col">股数</th>
             <th scope="col">价格</th>
-            <th scope="col">涨幅
+            <th scope="col">今日涨幅
            <a @click="openopt()">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
@@ -41,7 +41,7 @@
                 <td>{{index+1}}</td>
                 <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</a></td>
                 <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
-                <td >成本:{{item.buyprice}}</p>现价:{{item.close}}</td>
+                <td >成本:{{item.buyprice}}({{item.allrise}})</p>现价:{{item.close}}</td>
                 <td ><font v-if="item.rise>=0" color="#ef4136">+{{item.rise}}</font> <font v-else color="#00ef00">{{item.rise}}</font></td>
                 <td v-if="opened">
                    <a @click="setsell(item.id,item.code)" > <i class="fa fa-times"></i></a>
@@ -174,15 +174,11 @@
                 that.stockstr = that.stockstr + "," + that.stocks[i].code 
                 that.stocks[i].close = 0
                 that.stocks[i].rise = 0
+                that.stocks[i].allrise = 0
             }
             
             that.$nextTick(async function(){
-
-                var datas  = await getstockinfo(that.stockstr)
-                for (i=0;i<that.stocks.length;i++){
-                    that.stocks[i].close = datas[i][1]
-                    that.stocks[i].rise = datas[i][2]
-                }
+                that.refresh()
             })
         })
         .catch(error => {
@@ -297,12 +293,14 @@
                 }
 
             },
-           refresh(){
-                vat that = this
+           async refresh(){
+                var that = this
                 var datas  = await getstockinfo(that.stockstr)
                 for (i=0;i<that.stocks.length;i++){
                     that.stocks[i].close = datas[i][1]
                     that.stocks[i].rise = datas[i][2]
+                    var item = that.stocks[i]
+                    that.stocks[i].allrise = (item.close - item.buyprice) / item.buyprice
                 }
            },
 

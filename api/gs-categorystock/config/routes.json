@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/gs-categorystocks/sell",
+      "handler": "gs-categorystock.sell",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/gs-categorystocks/:id",
       "handler": "gs-categorystock.update",

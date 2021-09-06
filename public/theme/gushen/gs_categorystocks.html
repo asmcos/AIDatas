@@ -3,7 +3,7 @@
 
 {% block content_iner%}  
     <!--/ menu  -->
-            <div class="row ">
+            <div class="row" style="min-height:800px;">
 
 
 
@@ -44,10 +44,7 @@
                 <td >{{item.close}}</td>
                 <td ><font v-if="item.rise>=0" color="#ef4136">+{{item.rise}}</font> <font v-else color="#00ef00">{{item.rise}}</font></td>
                 <td v-if="opened">
-                   <a @click="delmain(item)" class="text-decoration-none"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-  <path fill-rule="evenodd" d="M12.146 5.146a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
-</svg> </a>
+                   <a @click="setsell(item.id,item.code)" > <i class="fa fa-times"></i></a>
                 </td>
                 </tr>
                 </tbody>
@@ -62,7 +59,7 @@
 
                 <div class="col-lg-4">
 
-                    <div class="white_card card_height_100 mb_20">
+                    <div class="white_card mb_20">
                         <div class="white_card_header">
                             <div class="box_header m-0">
                                 <div class="main-title" @click="buyedopt">
@@ -91,9 +88,42 @@
                                 <button class="btn btn-primary" @click='addstock'>购买</button>
                         </div>
 
-                    </div>
+                    </div> <!--white_card-->
 
-                </div>
+
+                    <div class="white_card mb_20">
+                        <div class="white_card_header">
+                            <div class="box_header m-0">
+                                <div class="main-title" @click="selledopt">
+                                    <h3 class="m-0"><i class="fa fa-times" style="padding-right:10px;color:#ed3434"></i> 卖出股票</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="white_card_body" v-if="selled">
+
+                            <h6 class="card-subtitle mb-2">股票代码</h6>
+                                <div class="form-group">
+                                    <label>输入股票代码-{{sellname}}</label>
+                                    <input class="form-control" disabled v-model="sellcode">
+                                </div>
+                                <div class="form-group">
+                                    <label>价格</label>
+                                    <input class="form-control" v-model="sellprice" disabled>
+                                     <small class="form-text text-muted"> 价格会自动获取</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>股</label>
+                                    <input class="form-control" v-model="sellcount">
+                                     <small class="form-text text-muted"> 股票卖出每次是100的整数倍:100，200等</small>
+                                </div>
+                                <button class="btn btn-primary" @click='sellstock'>卖出</button>
+                        </div>
+
+
+                  </div> <!--white_card-->
+
+                </div> <!--col lg 4-->
+
 
             </div> <!--row -->
 
@@ -108,13 +138,19 @@
 {%block vuedata %}
                 opened:0,
                 buyed:0,
+                selled:0,
                 gsstrategy:0,
                 stocks:"",
                 stockstr:"",
                 buycode:'',
                 buyname:'',
                 buyprice:'',
-                buycount:'00'
+                buycount:'00',
+                sellcode:'',
+                sellname:'',
+                sellprice:'',
+                sellcount:'00',
+                sellid:''
  
 {%endblock%}
 
@@ -156,13 +192,15 @@
 {%endblock%}
 
 {%block vuemethods %}
-            addstock(){
+            async addstock(){
                 var that = this
                 var cateid = getUrlParam('cateid')
                 if (that.buycount % 100 != 0 || that.buycount < 100){
                     alert("股票必须够买整100的倍数,至少100股")
                     return 
                 } 
+
+                await getinfo() //获取当前价格
                 axios
                 .post('/gs-categorystocks',{
                     code:that.buycode,
@@ -178,6 +216,41 @@
                 })
 
             },
+            setsell(id,code){
+                var that = this
+                that.sellid = id
+                that.selled = 1
+                that.sellcode = code
+                that.getsellinfo()
+            },
+            async sellstock(){
+
+                var that = this
+                var cateid = getUrlParam('cateid')
+                if (that.sellcount % 100 != 0 || that.sellcount < 100){
+                    alert("股票必须够买整100的倍数,至少100股")
+                    return 
+                } 
+
+                await that.getsellinfo() //获取当前价格
+
+                axios
+                .post('/gs-categorystocks/sell',{
+                    code:that.sellcode,
+                    count:that.sellcount,
+                    sellprice:that.sellprice,
+                    categorytype:"1",//1策略，2自选
+                    name:that.sellname,
+                    categoryid:cateid,
+                    id:that.sellid
+                })
+                .then(function(response){
+                    alert('完成')
+                    window.location.reload()
+                })
+
+
+            },
             async getinfo(){
                 var that = this
                 that.buyprice = 0 
@@ -187,7 +260,18 @@
                     that.buyname = datas[0][0]
                     that.buyprice = datas[0][1]
                 }
+            },
+            async getsellinfo(){
+                var that = this
+                that.sellprice = 0 
+                that.sellname = "" 
+                var datas = await getstockinfo(that.sellcode)
+                if (datas[0][0] != 0){
+                    that.sellname = datas[0][0]
+                    that.sellprice = datas[0][1]
+                }
             }, 
+  
             openopt(){
                 if (this.opened == 0){
                     this.opened = 1
@@ -204,6 +288,15 @@
                 }
 
             },
+            selledopt(){
+                if (this.selled == 0){
+                    this.selled = 1
+                } else {
+                    this.selled = 0
+                }
+
+            },
+
 
 {%endblock%}
     

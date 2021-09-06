@@ -24,8 +24,8 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">name</th>
-            <th scope="col">code</th>
-            <th scope="col">当前价格</th>
+            <th scope="col">股数</th>
+            <th scope="col">价格</th>
             <th scope="col">涨幅
            <a @click="openopt()">
 
@@ -40,8 +40,8 @@
   <tr v-for="(item,index) in stocks">
                 <td>{{index+1}}</td>
                 <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</a></td>
-                <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.code}}</font></a></td>
-                <td >{{item.close}}</td>
+                <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
+                <td >成本:{{item.buyprice}}</p>现价:{{item.close}}</td>
                 <td ><font v-if="item.rise>=0" color="#ef4136">+{{item.rise}}</font> <font v-else color="#00ef00">{{item.rise}}</font></td>
                 <td v-if="opened">
                    <a @click="setsell(item.id,item.code)" > <i class="fa fa-times"></i></a>
@@ -127,6 +127,9 @@
 
             </div> <!--row -->
 
+<div style="z-index: 9999; position:fixed; right: 50px; bottom: 50px;">
+<button class="btn btn-primary" @click="refresh">刷</button>
+</div>
 {% endblock %}
 
 
@@ -200,7 +203,7 @@
                     return 
                 } 
 
-                await getinfo() //获取当前价格
+                await that.getinfo() //获取当前价格
                 axios
                 .post('/gs-categorystocks',{
                     code:that.buycode,
@@ -263,8 +266,6 @@
             },
             async getsellinfo(){
                 var that = this
-                that.sellprice = 0 
-                that.sellname = "" 
                 var datas = await getstockinfo(that.sellcode)
                 if (datas[0][0] != 0){
                     that.sellname = datas[0][0]
@@ -296,7 +297,14 @@
                 }
 
             },
-
+           refresh(){
+                vat that = this
+                var datas  = await getstockinfo(that.stockstr)
+                for (i=0;i<that.stocks.length;i++){
+                    that.stocks[i].close = datas[i][1]
+                    that.stocks[i].rise = datas[i][2]
+                }
+           },
 
 {%endblock%}
     

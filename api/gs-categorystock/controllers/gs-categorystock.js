@@ -15,7 +15,7 @@ async function createGScatestock(ctx){
     let gs_catestock = strapi.models['gs-categorystock']
     let gs_optevent = strapi.models['gs-optevent']
     var params = ctx.request.body
-    var params1
+    var params1 = {}
 
     if (!ctx.state.user){
         return "-1" //请先登录
@@ -34,7 +34,7 @@ async function createGScatestock(ctx){
     params1['price'] = params['buyprice']
     params1['opttype'] = '1'
 
-    await gs_optevent.create(param1)
+    await gs_optevent.create(params1)
 
     return ret
 }
@@ -43,25 +43,24 @@ async function sellGScatestock(ctx){
     let gs_catestock = strapi.models['gs-categorystock']
     let gs_optevent = strapi.models['gs-optevent']
     var params = ctx.request.body
-    var params1
+    var params1 = {}
 
     if (!ctx.state.user){
         return "-1" //请先登录
     }
 
 
-    var ret = gs_catestock.findOne({'users_permissions_user':ctx.state.user,id:params['id']}) 
-    if(ret){
+    var ret = await gs_catestock.findOne({'users_permissions_user':ctx.state.user,_id:params['id']}) 
+    if(!ret){
         return "-2" //没有对应的持仓
     }
-
-    if (ret.count - params['count'] < 0 ){
+    var count = ret.count - parseInt(params['count'])
+    if (count < 0 ){
 
         return "-3" //不够
     }
 
-    await gs_catestock.updateOne({'users_permissions_user':ctx.state.user,id:params['id']},{'count': ret.count-params['count']})
-
+    await gs_catestock.updateOne({'users_permissions_user':ctx.state.user,_id:params['id']},{'count': count})
     
     params1['users_permissions_user'] = ctx.state.user
     params1['code'] = params['code']
@@ -71,7 +70,7 @@ async function sellGScatestock(ctx){
     params1['price'] = params['sellprice']
     params1['opttype'] = '2'
 
-    await gs_optevent.create(param1)
+    await gs_optevent.create(params1)
 
     return ret
 }

@@ -536,13 +536,24 @@
         
         response = await axios.get(apihost+"?list="+code)
         datas = response.data
-        datas = datas.split('"')[1]
-        if (datas=='FAILED'){
+        lines = datas.split(';')
+        var rets = []
+
+        line = lines[0].split('"')[1]
+        if (line =='FAILED'){
             alert('股票代码错误，请重新输入')
-            return [0,0,0]
+            return [[0,0,0]]
         }
-        return parsedatas(datas.split(','))
+        
+        for (i=0;i<lines.length-1;i++){
+            line = lines[i].split('"')[1]
+            rets.push(parsedatas(line.split(',')))
+        }
+        return rets
     }
+
+    {%block jscommon%} {%endblock%}
+
      const VueApp = {
         data() {
             return {

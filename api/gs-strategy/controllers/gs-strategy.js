@@ -38,6 +38,20 @@ async function findGSstrategy(ctx){
     return ret
 }
 
+async function findGSstrategyStocks(ctx){
+
+
+    let gs_strategy = strapi.models['gs-strategy']
+    let gs_catestock = strapi.models['gs-categorystock']
+    /*if (!ctx.state.user){
+        return "-1" //请先登录
+    }*/
+    var ret =  await gs_strategy.findOne({_id:ctx.params.id})
+    
+    var catestocks = await gs_catestock.find({ categoryid: ctx.params.id })
+    return {"gsstrategy":ret,"stocks":catestocks}
+}
+
 async function findGSme(ctx){
 
 
@@ -58,6 +72,9 @@ module.exports = {
  
     async findOne(ctx){
         return findGSstrategy(ctx)
+    },
+    async findOneStocks(ctx){
+        return findGSstrategyStocks(ctx)
     },
     async create(ctx){
         return createGSstrategy(ctx)

@@ -13,7 +13,7 @@
                         <div class="white_card_header">
                             <div class="box_header m-0">
                                 <div class="main-title">
-                                    <h3 class="m-0">股票列表</h3>
+                                    <h3 class="m-0"><template v-if="gsstrategy">{{gsstrategy.title}} - </template>股票列表</h3>
                                 </div>
                             </div>
                         </div>
@@ -25,7 +25,8 @@
             <th scope="col">#</th>
             <th scope="col">name</th>
             <th scope="col">code</th>
-            <th scope="col">值
+            <th scope="col">当前价格</th>
+            <th scope="col">涨幅
            <a @click="openopt()">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
@@ -36,11 +37,12 @@
             </tr>
             </thead>
              <tbody>
-  <tr v-for="(item,index) in codelist">
+  <tr v-for="(item,index) in stocks">
                 <td>{{index+1}}</td>
-                <td v-if="result[item]"><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item+'/nc.shtml'" target=_blank>{{result[item][0]}}</a></td>
-                <td v-if="result[item]"><a v-bind:href="'https://gu.qq.com/'+item" target=_blank ><font color=blue>{{result[item][1]}}</font></a></td>
-                <td v-if="result[item]"><font v-if="result[item][2]>=0" color="#ef4136">+{{result[item][2]}}</font> <font v-if="result[item][2]<0" color="#00ef00">{{result[item][2]}}</font></td>
+                <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</a></td>
+                <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.code}}</font></a></td>
+                <td >{{item.close}}</td>
+                <td ><font v-if="item.rise>=0" color="#ef4136">+{{item.rise}}</font> <font v-else color="#00ef00">{{item.rise}}</font></td>
                 <td v-if="opened">
                    <a @click="delmain(item)" class="text-decoration-none"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
@@ -96,16 +98,23 @@
             </div> <!--row -->
 
 {% endblock %}
+
+
+{%block jscommon%} 
+
+{%endblock%}
+
+
 {%block vuedata %}
                 opened:0,
                 buyed:0,
+                gsstrategy:0,
+                stocks:"",
+                stockstr:"",
                 buycode:'',
                 buyname:'',
                 buyprice:'',
-                buycount:'00',
-                capital_money:"",
-                title:'',
-                description:''
+                buycount:'00'
  
 {%endblock%}
 
@@ -116,13 +125,31 @@
 {% block vuewatch %} 
     //监控logined变化
     logined (){
-     var that = this 
-     axios.get('/gs-userinfo/me')
+     var that = this
+     var cateid = getUrlParam('cateid') 
+     axios.get('/gs-strategies/stocklist/'+cateid)
         .then(function(response){
-            that.capital_money = response.data.capital_money
-            that.intro = response.data.intro
+            that.gsstrategy = response.data.gsstrategy
+            that.stocks = response.data.stocks
+            for (i=0;i<that.stocks.length;i++){
+                that.stockstr = that.stockstr + "," + that.stocks[i].code 
+                that.stocks[i].close = 0
+                that.stocks[i].rise = 0
+            }
+            
+            that.$nextTick(async function(){
+
+                var datas  = await getstockinfo(that.stockstr)
+                for (i=0;i<that.stocks.length;i++){
+                    that.stocks[i].close = datas[i][1]
+                    that.stocks[i].rise = datas[i][2]
+                }
+            })
         })
-        
+        .catch(error => {
+            alert("策略数据错误")
+            window.location.href="/gushen/index.html"
+        }) 
         
     }
 
@@ -147,6 +174,7 @@
                 })
                 .then(function(response){
                     alert('完成')
+                    window.location.reload()
                 })
 
             },
@@ -155,9 +183,9 @@
                 that.buyprice = 0 
                 that.buyname = "" 
                 var datas = await getstockinfo(that.buycode)
-                if (datas[0] != 0){
-                    that.buyname = datas[0]
-                    that.buyprice = datas[1]
+                if (datas[0][0] != 0){
+                    that.buyname = datas[0][0]
+                    that.buyprice = datas[0][1]
                 }
             }, 
             openopt(){

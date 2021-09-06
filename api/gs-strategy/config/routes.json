@@ -35,6 +35,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/gs-strategies/stocklist/:id",
+      "handler": "gs-strategy.findOneStocks",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/gs-strategies",
       "handler": "gs-strategy.create",

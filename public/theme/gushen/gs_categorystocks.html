@@ -134,7 +134,7 @@
 
             </div> <!--row -->
 
-<div style="z-index: 9999; position:fixed; right: 50px; bottom: 50px;">
+<div style="z-index: 9999; position:fixed; right: 88px; bottom: 88px;">
 <button class="btn btn-primary" @click="refresh">刷</button>
 </div>
 {% endblock %}
@@ -216,7 +216,7 @@
                     code:that.buycode,
                     count:that.buycount,
                     buyprice:that.buyprice,
-                    categorytype:"1",//1策略，2自选
+                    categorytype:that.gsstrategy.categorytype, // 1策略，2自选,个股的type来自策略类型
                     name:that.buyname,
                     categoryid:cateid,
                 })

@@ -68,15 +68,15 @@ $("#sidebar_menu >li a").filter(function() {
     $(document).ready(function(){
         var proBar = $('#bar1');
         if(proBar.length){
-            proBar.barfiller({barColor: '#508FF4', duration: 2000});
+            proBar.barfiller({barColor: '#dc3545', duration: 2000});
         }
         var proBar = $('#bar2');
         if(proBar.length){
-            proBar.barfiller({barColor: '#FFBF43', duration: 2500});
+            proBar.barfiller({barColor: '#fd7e14', duration: 2500});
         }
         var proBar = $('#bar3');
         if(proBar.length){
-            proBar.barfiller({barColor: '#4BE69D', duration: 3000});
+            proBar.barfiller({barColor: '#fd7e14', duration: 3000});
         }
         var proBar = $('#bar4');
         if(proBar.length){

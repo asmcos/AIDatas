@@ -29,6 +29,9 @@
     "users_permissions_user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "categorytype": {
+      "type": "string"
     }
   }
 }

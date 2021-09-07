@@ -15,6 +15,10 @@
                                 <div class="main-title">
                                     <h3 class="m-0"><template v-if="gsstrategy">{{gsstrategy.title}} - </template>股票列表</h3>
                                 </div>
+                                <img src="img/buy.png" @click="buyedopt" style="width:20px;height:20px;"></img>
+                                <img src="img/sell.png" @click="openopt" style="width:20px;height:20px;"></img>
+                                <img src="img/total.png" @click="totaledopt" style="width:20px;height:20px;"></img>
+                                <img src="img/capital.png" @click="capitaledopt" style="width:20px;height:20px;"></img>
                             </div>
                         </div>
 
@@ -26,6 +30,7 @@
             <th scope="col">name</th>
             <th scope="col">股数</th>
             <th scope="col">价格</th>
+            <th scope="col" v-if="totaled">总额</th>
             <th scope="col">今日涨幅
            <a @click="openopt()">
 
@@ -39,9 +44,10 @@
              <tbody>
   <tr v-for="(item,index) in stocks">
                 <td>{{index+1}}</td>
-                <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</a></td>
+                <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</p>{{item.code}}</a></td>
                 <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
-                <td >成本:{{item.buyprice}}({{item.allrise}})</p>现价:{{item.close}}</td>
+                <td ><template v-if="capitaled">成本:{{item.buyprice}}({{item.allrise}})</template></p>现价:{{item.close}}</td>
+                <td v-if="totaled">成本:{{item.capital}}</p>现价:{{item.allprice}}</td>
                 <td ><font v-if="item.rise>=0" color="#ef4136">+{{item.rise}}</font> <font v-else color="#00ef00">{{item.rise}}</font></td>
                 <td v-if="opened">
                    <a @click="setsell(item.id,item.code)" > <i class="fa fa-times"></i></a>
@@ -142,6 +148,8 @@
                 opened:0,
                 buyed:0,
                 selled:0,
+                totaled:0,
+                capitaled:0,
                 gsstrategy:0,
                 stocks:"",
                 stockstr:"",
@@ -175,6 +183,8 @@
                 that.stocks[i].close = 0
                 that.stocks[i].rise = 0
                 that.stocks[i].allrise = 0
+                that.stocks[i].allprice = 0
+                that.stocks[i].capital = (that.stocks[i].buyprice * that.stocks[i].count).toFixed(2)
             }
             
             that.$nextTick(async function(){
@@ -293,6 +303,22 @@
                 }
 
             },
+            totaledopt(){
+                if (this.totaled == 0){
+                    this.totaled = 1
+                } else {
+                    this.totaled = 0
+                }
+
+            },
+            capitaledopt(){
+                if (this.capitaled == 0){
+                    this.capitaled = 1
+                } else {
+                    this.capitaled = 0
+                }
+
+            },
            async refresh(){
                 var that = this
                 var datas  = await getstockinfo(that.stockstr)
@@ -300,7 +326,10 @@
                     that.stocks[i].close = datas[i][1]
                     that.stocks[i].rise = datas[i][2]
                     var item = that.stocks[i]
-                    that.stocks[i].allrise = (item.close - item.buyprice) / item.buyprice
+                    var allrise =100* (item.close - item.buyprice) / item.buyprice
+                    var allprice = that.stocks[i].close * item.count
+                    that.stocks[i].allrise = parseFloat(allrise).toFixed(2)
+                    that.stocks[i].allprice = parseFloat(allprice).toFixed(2)
                 }
            },
 

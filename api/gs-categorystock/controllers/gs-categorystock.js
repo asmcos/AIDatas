@@ -21,11 +21,7 @@ async function createGScatestock(ctx){
         return "-1" //请先登录
     }
 
-    params['users_permissions_user'] = ctx.state.user
-    params['startdate'] = moment(new Date()).format('YYYY-MM-DD')
-    var ret = await gs_catestock.create(params)
-
-    
+    // 添加操作记录
     params1['users_permissions_user'] = ctx.state.user
     params1['code'] = params['code']
     params1['name'] = params['name']
@@ -36,6 +32,39 @@ async function createGScatestock(ctx){
 
     await gs_optevent.create(params1)
 
+
+    // 检查同一个策略是否存在此股票
+    // 用户，策略ID，count>0
+    var ret = await gs_catestock.findOne({'users_permissions_user':ctx.state.user,
+                                categoryid:params['categoryid'],
+                                code:params['code'],
+                                count:{$gt:0}})
+
+    var p_count = parseInt(params['count'])
+    var p_buyprice = parseFloat(params['buyprice'])
+
+    if (ret){
+    //加仓操作
+        var r_count = parseInt(ret.count)
+        var r_buyprice = parseFloat(ret.buyprice)
+
+        var buyprice = (r_buyprice * r_count + p_buyprice  * p_count ) / (r_count + p_count)
+        buyprice = buyprice.toFixed(2)
+        ret = await gs_catestock.updateOne({_id:ret._id},{
+                                buyprice:buyprice,
+                                count : (r_count+p_count)
+                        })
+
+
+   } else {
+
+        //建仓
+
+        params['users_permissions_user'] = ctx.state.user
+        params['startdate'] = moment(new Date()).format('YYYY-MM-DD')
+        ret = await gs_catestock.create(params)
+    }
+    
     return ret
 }
 
@@ -54,13 +83,28 @@ async function sellGScatestock(ctx){
     if(!ret){
         return "-2" //没有对应的持仓
     }
-    var count = ret.count - parseInt(params['count'])
+
+    var p_count = parseInt(params['count'])
+    var p_buyprice = parseFloat(params['buyprice'])
+    var r_count = parseInt(ret.count)
+    var r_buyprice = parseFloat(ret.buyprice)
+    var count = r_count - parseInt(params['count'])
+
     if (count < 0 ){
 
         return "-3" //不够
     }
+    var buyprice = 0
+    if (count > 0){
+         // 减仓
+         buyprice = (r_buyprice * r_count  - p_buyprice  * p_count ) / (r_count - p_count)
+         buyprice.toFixed(2)
+    } else {
+        // 清仓
+         buyprice = r_buyprice
+    }
 
-    await gs_catestock.updateOne({'users_permissions_user':ctx.state.user,_id:params['id']},{'count': count})
+    ret = await gs_catestock.updateOne({'users_permissions_user':ctx.state.user,_id:params['id']},{buyprice:buyprice,'count': count})
     
     params1['users_permissions_user'] = ctx.state.user
     params1['code'] = params['code']

@@ -59,7 +59,7 @@
     //监控logined变化
     logined (){
      var that = this 
-     axios.get('/gs-userinfo/me')
+     axios.get(datahost+'/gs-userinfo/me')
         .then(function(response){
             that.capital_money = response.data.capital_money
             that.intro = response.data.intro
@@ -74,7 +74,7 @@
             addstrategy(){
                 var that = this
                 axios
-                .post('/gs-strategies',{
+                .post(datahost+'/gs-strategies',{
                     capital_money:that.capital_money,
                     title:that.title,
                     categorytype:1, // 策略

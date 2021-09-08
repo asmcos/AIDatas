@@ -55,7 +55,7 @@
     //监控logined变化
     logined (){
      var that = this 
-     axios.get('/gs-userinfo/me')
+     axios.get(datahost+'/gs-userinfo/me')
         .then(function(response){
             that.capital_money = response.data.capital_money
             that.intro = response.data.intro
@@ -70,7 +70,7 @@
             send(){
                 var that = this
                 axios
-                .post('/gs-userinfos',{
+                .post(datahost+'/gs-userinfos',{
                     capital_money:that.capital_money,
                     intro:that.intro
                 })

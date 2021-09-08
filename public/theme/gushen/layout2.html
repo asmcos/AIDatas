@@ -354,6 +354,7 @@
 <script>
 
     var apihost = 'http://api.klang.org.cn/'
+    var datahost = 'http://data.klang.org.cn'
     function getUrlParam(name){
 
             var reg=new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -420,7 +421,7 @@
         mounted () {
             var that = this
             axios
-                .get('/users/me')
+                .get(datahost+'/users/me')
                 .then(function(response){
                     if (response.data.id){
                         that.user['id'] = response.data.id                        
@@ -430,7 +431,7 @@
                     }
                 })
              axios
-                .get('/gs-strategies/me')
+                .get(datahost+'/gs-strategies/me')
                 .then(function(response){
                     that.gsstrategies = response.data
                 })
@@ -450,7 +451,7 @@
 
             var that = this
             axios
-                .post('/auth/local/logout')
+                .post(datahost+'/auth/local/logout')
                 .then(function(response){
                     that.logined = 0
                     window.location.href = "index.html"

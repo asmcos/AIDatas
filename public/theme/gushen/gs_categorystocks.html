@@ -175,7 +175,7 @@
     logined (){
      var that = this
      var cateid = getUrlParam('cateid') 
-     axios.get('/gs-strategies/stocklist/'+cateid)
+     axios.get(datahost+'/gs-strategies/stocklist/'+cateid)
         .then(function(response){
             that.gsstrategy = response.data.gsstrategy
             that.stocks = response.data.stocks
@@ -212,7 +212,7 @@
 
                 await that.getinfo() //获取当前价格
                 axios
-                .post('/gs-categorystocks',{
+                .post(datahost+'/gs-categorystocks',{
                     code:that.buycode,
                     count:that.buycount,
                     buyprice:that.buyprice,
@@ -245,7 +245,7 @@
                 await that.getsellinfo() //获取当前价格
 
                 axios
-                .post('/gs-categorystocks/sell',{
+                .post(datahost+'/gs-categorystocks/sell',{
                     code:that.sellcode,
                     count:that.sellcount,
                     sellprice:that.sellprice,

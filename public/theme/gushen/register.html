@@ -100,7 +100,7 @@
            reg_send(){
              var that = this
             axios
-                .post('/auth/local/register', {
+                .post(datahost+'/auth/local/register', {
                     username: that.username,
                     email: that.email,
                     password: that.password,

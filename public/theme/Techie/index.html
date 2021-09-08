@@ -834,6 +834,7 @@
    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
 
+      var datahost = 'http://data.klang.org.cn'
       const VueApp = {
         data() {
             return {
@@ -848,7 +849,7 @@
         mounted () {
             var that = this
             axios
-                .get('/sysconfigs?keyword=index&filter=1')
+                .get(datahost+'/sysconfigs?keyword=index&filter=1')
                 .then(function(response){
 		    var resp = response.data
                     resp.forEach(function(data){

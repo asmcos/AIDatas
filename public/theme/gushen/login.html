@@ -97,7 +97,7 @@
            login_send(){
              var that = this
              axios
-                .post('/auth/local', {
+                .post(datahost+'/auth/local', {
                     identifier: that.email,
                     password: that.password,
                  })

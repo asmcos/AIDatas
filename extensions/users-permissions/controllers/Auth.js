@@ -569,6 +569,7 @@ module.exports = {
         //asmcos
         ctx.cookies.set("token", token, {
             httpOnly: true,
+            domain: ".klang.org.cn",
             maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
          });
       return ctx.send({

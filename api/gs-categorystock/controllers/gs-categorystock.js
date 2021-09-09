@@ -14,13 +14,32 @@ const moment = require('moment')
 async function createGScatestock(ctx){
     let gs_catestock = strapi.models['gs-categorystock']
     let gs_optevent = strapi.models['gs-optevent']
+    let gs_strategy = strapi.models['gs-strategy']
     var params = ctx.request.body
     var params1 = {}
+
+
+
 
     if (!ctx.state.user){
         return "-1" //请先登录
     }
 
+    var gsstrategy = await gs_strategy.findOne({_id:params['categoryid']})
+    if (!gsstrategy){
+
+        return "-2" //没有发现策略
+    }
+    var p_count = parseInt(params['count'])
+    var p_buyprice = parseFloat(params['buyprice'])
+
+    if (gsstrategy.remain_cash < p_count * p_buyprice ){
+        return "-3" //本钱不够
+    }
+
+    //更新剩下的现金
+    await gs_strategy.updateOne({_id:params['categoryid']},{
+                    remain_cash:gsstrategy.remain_cash - p_count * p_buyprice})
     // 添加操作记录
     params1['users_permissions_user'] = ctx.state.user
     params1['code'] = params['code']
@@ -40,8 +59,6 @@ async function createGScatestock(ctx){
                                 code:params['code'],
                                 count:{$gt:0}})
 
-    var p_count = parseInt(params['count'])
-    var p_buyprice = parseFloat(params['buyprice'])
 
     if (ret){
     //加仓操作
@@ -71,6 +88,7 @@ async function createGScatestock(ctx){
 async function sellGScatestock(ctx){
     let gs_catestock = strapi.models['gs-categorystock']
     let gs_optevent = strapi.models['gs-optevent']
+    let gs_strategy = strapi.models['gs-strategy']
     var params = ctx.request.body
     var params1 = {}
 
@@ -85,24 +103,26 @@ async function sellGScatestock(ctx){
     }
 
     var p_count = parseInt(params['count'])
-    var p_buyprice = parseFloat(params['buyprice'])
+    var p_sellprice = parseFloat(params['sellprice'])
     var r_count = parseInt(ret.count)
     var r_buyprice = parseFloat(ret.buyprice)
     var count = r_count - parseInt(params['count'])
 
     if (count < 0 ){
-
         return "-3" //不够
     }
     var buyprice = 0
+
     if (count > 0){
-         // 减仓
-         buyprice = (r_buyprice * r_count  - p_buyprice  * p_count ) / (r_count - p_count)
+         // 减仓,成本发生变化
+         buyprice = (r_buyprice * r_count  - p_sellprice  * p_count ) / (r_count - p_count)
          buyprice.toFixed(2)
     } else {
         // 清仓
          buyprice = r_buyprice
     }
+
+    //buyprice 为新的平均成本,更新成本和持股数
 
     ret = await gs_catestock.updateOne({'users_permissions_user':ctx.state.user,_id:params['id']},{buyprice:buyprice,'count': count})
     
@@ -116,6 +136,9 @@ async function sellGScatestock(ctx){
 
     await gs_optevent.create(params1)
 
+    //更新现金
+    await gs_strategy.updateOne({_id:params['categoryid']},{
+                    $inc:{remain_cash:p_count * p_sellprice}})
     return ret
 }
 

@@ -14,7 +14,8 @@
                             <div class="box_header m-0">
                                 <div class="main-title">
                                     <h3 class="m-0"><template v-if="gsstrategy">{{gsstrategy.title}} - </template>股票列表</h3>
-                                    总成本：{{catecapital}}  现价: {{cateclose}}
+                                    <p>总成本：{{gsstrategy.capital_money}}    可用现金: {{gsstrategy.remain_cash}}</p>
+                                    <p>股票成本：{{catecapital}}  股票现价: {{cateclose}}</p>
                                 </div>
                              </div>
 

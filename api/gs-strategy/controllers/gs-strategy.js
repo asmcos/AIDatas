@@ -48,7 +48,7 @@ async function findGSstrategyStocks(ctx){
     }*/
     var ret =  await gs_strategy.findOne({_id:ctx.params.id})
     
-    var catestocks = await gs_catestock.find({ categoryid: ctx.params.id,count:{$gt:0} })
+    var catestocks = await gs_catestock.find({ categoryid: ctx.params.id,count:{$gt:0} }).sort('order')
     return {"gsstrategy":ret,"stocks":catestocks}
 }
 

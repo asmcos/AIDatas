@@ -24,7 +24,7 @@
                         </div>
 
 
-            <table class="table table-bordered  no-footer dtr-inline"  border="1">
+            <table id="stocklisttable" class="table table-bordered  no-footer dtr-inline"  border="1">
             <thead>
             <tr>
             <th scope="col">#</th>
@@ -44,7 +44,7 @@
             </thead>
              <tbody>
   <tr v-for="(item,index) in stocks">
-                <td>{{index+1}}</td>
+                <td><input v-bind:id="'stock'+index" type="text" v-model="item.order" @blur="updateorder" style="max-width:40px;background-color:transparent;border:0;"/></td>
                 <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</p>{{item.code}}</a></td>
                 <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
                 <td ><template v-if="capitaled">成本:{{item.buyprice}}({{item.allrise}})</template></p>现价:{{item.close}}</td>
@@ -191,7 +191,6 @@
             alert("策略数据错误")
             window.location.href="/gushen/index.html"
         }) 
- 
 
 {%endblock%}
 
@@ -322,6 +321,40 @@
                 }
 
             },
+           updateorder(){
+                var that = this
+                axios.post(datahost+'/gs-categorystocks/updateorder',that.stocks).
+                then(function(response){
+                     /***** update order********/
+                     var cateid = getUrlParam('cateid')
+                     axios.get(datahost+'/gs-strategies/stocklist/'+cateid)
+                     .then(function(response){
+                        that.gsstrategy = response.data.gsstrategy
+                        that.stocks = response.data.stocks
+                        that.stockstr = ""
+                        for (i=0;i<that.stocks.length;i++){
+                            that.stockstr = that.stockstr + "," + that.stocks[i].code 
+                            that.stocks[i].close = 0
+                            that.stocks[i].rise = 0
+                            that.stocks[i].allrise = 0
+                            that.stocks[i].allprice = 0
+                            that.stocks[i].capital = (that.stocks[i].buyprice * that.stocks[i].count).toFixed(2)
+                        }           
+            
+                        that.$nextTick(async function(){
+                            that.refresh()
+                        })
+                    })
+                    .catch(error => {
+                        alert("策略数据错误")
+                        window.location.href="/gushen/index.html"
+                     })
+                     /*************update ok **********/       
+
+
+
+                }) //post datahost+'/gs-categorystocks/updateorder'  
+           },
            async refresh(){
                 var that = this
                 var datas  = await getstockinfo(that.stockstr)
@@ -333,6 +366,9 @@
                     var allprice = that.stocks[i].close * item.count
                     that.stocks[i].allrise = parseFloat(allrise).toFixed(2)
                     that.stocks[i].allprice = parseFloat(allprice).toFixed(2)
+                    if(!item.order|| item.order==0){
+                        that.stocks[i]['order'] = i+1
+                    }
                 }
            },
 

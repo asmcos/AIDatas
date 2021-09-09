@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "dayks",
   "info": {
-    "name": "dayk"
+    "name": "dayk",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,15 +12,15 @@
   "attributes": {
     "name": {
       "type": "string",
-      "index":true
+      "index": true
     },
     "code": {
       "type": "string",
-      "index":true
+      "index": true
     },
     "date": {
       "type": "string",
-      "index":true
+      "index": true
     },
     "codedate": {
       "type": "string",
@@ -46,6 +47,5 @@
     "amount": {
       "type": "float"
     }
-
   }
 }

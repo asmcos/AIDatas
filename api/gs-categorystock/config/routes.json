@@ -41,6 +41,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/gs-categorystocks/updateorder",
+      "handler": "gs-categorystock.updateorder",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/gs-categorystocks/:id",
       "handler": "gs-categorystock.update",

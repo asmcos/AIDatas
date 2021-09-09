@@ -120,7 +120,34 @@ async function sellGScatestock(ctx){
 }
 
 
+async function updatestockorder(ctx){
 
+    let datas = []
+    let req = ctx.request
+    let data;
+    let gs_catestock = strapi.models['gs-categorystock']
+
+    req.body.forEach(item =>
+    {
+
+        data  = {updateOne: {
+            filter: {
+                _id: item.id,
+            },
+            update: { $set: {order:item.order} },
+            upsert: true
+        }}
+        datas.push(data)
+    });
+    try {
+        let result = await gs_catestock.bulkWrite(datas)
+    } catch (e){
+        let err = e
+        console.log(e)
+    }
+    return 'update ok'
+
+}
 
 
 async function findGSstrategy(ctx){
@@ -161,6 +188,9 @@ module.exports = {
 
     async sell(ctx){
         return sellGScatestock(ctx)
+    },
+    async updateorder(ctx){
+        return updatestockorder(ctx)
     },
 };
 

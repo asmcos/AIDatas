@@ -35,6 +35,10 @@
     },
     "count": {
       "type": "biginteger"
+    },
+    "order": {
+      "type": "biginteger",
+      "default": "0"
     }
   }
 }

@@ -116,7 +116,7 @@
     }
     this.refresh()
 
-    axios.get(datahost+'/gs-optevents?_limit=10')
+    axios.get(datahost+'/gs-optevents?_limit=10&_sort=_id:DESC')
          .then(function(response){
             
             that.eventlist=response.data

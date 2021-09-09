@@ -79,20 +79,20 @@
                                         <tr>
                                             <th scope="col">股神</th>
                                             <th scope="col">昵称</th>
+                                            <th scope="col">时间</th>
                                             <th scope="col">操作</th>
                                             <th scope="col">股票</th>
                                             <th scope="col">价格</th>
-                                            <th scope="col">时间</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="item in eventlist">
                                             <td> <img class="user_thumb" v-bind:src="item['users_permissions_user']['avatar']" alt=""> </td>
                                             <td>{{item.users_permissions_user.username}}</td>
+                                            <td>{{item.createdAt}}</td>
                                             <td class="nowrap"><template v-if="item.opttype==1">买入</template><template v-if="item.opttype==2">卖出</template></td>
-                                            <td class="nowrap" >{{item.code}}</td>
+                                            <td class="nowrap" ><a v-bind:href="'gs_categorystocks.html?cateid='+item.categoryid">{{item.code}}</aa></td>
                                             <td>{{item.price}}</td>
-                                            <td>{{item.createdAt.substring(0,10)}} {{item.createdAt.substring(11,19)}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -118,8 +118,13 @@
 
     axios.get(datahost+'/gs-optevents?_limit=10')
          .then(function(response){
-
+            
             that.eventlist=response.data
+            for(i=0;i<that.eventlist.length;i++){
+                var item = that.eventlist[i]
+                var d = new Date(item.createdAt)
+                that.eventlist[i].createdAt = d.toLocaleString()
+            }
         })
 {%endblock%}
 

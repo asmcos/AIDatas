@@ -168,12 +168,7 @@
 
 
 {%block vuemounted %}
-{%endblock%}
 
-{% block vuewatch %} 
-    //监控logined变化
-    logined (){
-     var that = this
      var cateid = getUrlParam('cateid') 
      axios.get(datahost+'/gs-strategies/stocklist/'+cateid)
         .then(function(response){
@@ -196,7 +191,14 @@
             alert("策略数据错误")
             window.location.href="/gushen/index.html"
         }) 
-        
+ 
+
+{%endblock%}
+
+{% block vuewatch %} 
+    //监控logined变化
+    logined (){
+       
     }
 
 {%endblock%}

@@ -14,16 +14,31 @@
                             <div class="box_header m-0">
                                 <div class="main-title">
                                     <h3 class="m-0"><template v-if="gsstrategy">{{gsstrategy.title}} - </template>股票列表</h3>
+                                    总成本：{{catecapital}}  现价: {{cateclose}}
                                 </div>
-                                <img src="img/detail.png" style="width:20px;height:20px;"></img>
-                                <img src="img/buy.png" @click="buyedopt" style="width:20px;height:20px;"></img>
-                                <img src="img/sell.png" @click="openopt" style="width:20px;height:20px;"></img>
-                                <img src="img/total.png" @click="totaledopt" style="width:20px;height:20px;"></img>
-                                <img src="img/capital.png" @click="capitaledopt" style="width:20px;height:20px;"></img>
-                            </div>
+                             </div>
+
+                                <div class="main-title" style="width:100%;display:flex;margin:10px;">
+                                    <div style="flex:1">
+                                    <img src="img/detail.png" style="width:20px;height:20px;"></img>
+                                    </div>
+                                    <div style="flex:1">
+                                    <img src="img/buy.png" @click="buyedopt" style="width:20px;height:20px;"></img>
+                                    </div>
+                                    <div style="flex:1">
+                                    <img src="img/sell.png" @click="openopt" style="width:20px;height:20px;"></img>
+                                    </div>
+                                    <div style="flex:1">
+                                    <img src="img/total.png" @click="totaledopt" style="width:20px;height:20px;"></img>
+                                    </div>
+                                    <div style="flex:1">
+                                    <img src="img/capital.png" @click="capitaledopt" style="width:20px;height:20px;"></img>
+                                    </div>
+                                </div>
+
                         </div>
 
-
+                        
             <table id="stocklisttable" class="table table-bordered  no-footer dtr-inline"  border="1">
             <thead>
             <tr>
@@ -152,6 +167,8 @@
                 totaled:0,
                 capitaled:0,
                 gsstrategy:0,
+                catecapital:0,
+                cateclose:0,
                 stocks:"",
                 stockstr:"",
                 buycode:'',
@@ -181,8 +198,10 @@
                 that.stocks[i].allrise = 0
                 that.stocks[i].allprice = 0
                 that.stocks[i].capital = (that.stocks[i].buyprice * that.stocks[i].count).toFixed(2)
+                that.catecapital = that.catecapital + that.stocks[i].buyprice * that.stocks[i].count
             }
-            
+            that.catecapital = that.catecapital.toFixed(2)
+
             that.$nextTick(async function(){
                 that.refresh()
             })
@@ -358,6 +377,7 @@
            async refresh(){
                 var that = this
                 var datas  = await getstockinfo(that.stockstr)
+                that.cateclose = 0
                 for (i=0;i<that.stocks.length;i++){
                     that.stocks[i].close = datas[i][1]
                     that.stocks[i].rise = datas[i][2]
@@ -369,7 +389,11 @@
                     if(!item.order|| item.order==0){
                         that.stocks[i]['order'] = i+1
                     }
+
+                    that.cateclose = that.cateclose + parseFloat(allprice)
+
                 }
+                that.cateclose = that.cateclose.toFixed(2)
            },
 
 {%endblock%}

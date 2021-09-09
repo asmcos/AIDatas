@@ -127,12 +127,18 @@ async function updatestockorder(ctx){
     let data;
     let gs_catestock = strapi.models['gs-categorystock']
 
+
+    if (!ctx.state.user){
+        return "-1" //请先登录
+    }
+
     req.body.forEach(item =>
     {
 
         data  = {updateOne: {
             filter: {
                 _id: item.id,
+                'users_permissions_user':ctx.state.user,
             },
             update: { $set: {order:item.order} },
             upsert: true

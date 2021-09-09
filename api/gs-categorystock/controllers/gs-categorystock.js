@@ -139,7 +139,7 @@ async function findGSme(ctx){
 
     let gs_strategy = strapi.models['gs-strategy']
     if (!ctx.state.user){
-        return "-1" //请先登录
+        return [] //请先登录
     }
     var ret =  await gs_strategy.find({users_permissions_user:ctx.state.user})
     return ret

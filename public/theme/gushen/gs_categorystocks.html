@@ -63,7 +63,9 @@
                 <td><input v-bind:id="'stock'+index" type="text" v-model="item.order" @blur="updateorder" style="max-width:40px;background-color:transparent;border:0;"/></td>
                 <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</p>{{item.code}}</a></td>
                 <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
-                <td ><template v-if="capitaled">成本:{{item.buyprice}}({{item.allrise}})</template></p>现价:{{item.close}}</td>
+                <td @click="showdetial(item)">
+                    <template v-if="capitaled">成本:{{item.buyprice}}({{item.allrise}})</template></p>现价:{{item.close}}
+                    </td>
                 <td v-if="totaled">成本:{{item.capital}}</p>现价:{{item.allprice}}</td>
                 <td ><font v-if="item.rise>=0" color="#ef4136">+{{item.rise}}</font> <font v-else color="#00ef00">{{item.rise}}</font></td>
                 <td v-if="opened">
@@ -150,13 +152,40 @@
 
             </div> <!--row -->
 
+
 <div style="z-index: 9999; position:fixed; right: 38px; bottom: 188px;">
 <button class="btn btn-primary" @click="refresh">刷</button>
 </div>
 {% endblock %}
 
+{%block modal%}
+  <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLongTitle">选择 {{modalcode}}的理由</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <textarea class="form-control" rows='3' v-model="modaldetail"> </textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          <button class="btn btn-primary" @click="changedetail">修改</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{%endblock%}
 
 {%block jscommon%} 
+
 
 {%endblock%}
 
@@ -180,7 +209,10 @@
                 sellname:'',
                 sellprice:'',
                 sellcount:'00',
-                sellid:''
+                sellid:'',
+                modalcode:'',
+                modaloptid:'',
+                modaldetail:''
  
 {%endblock%}
 
@@ -211,6 +243,9 @@
             alert("策略数据错误")
             window.location.href="/gushen/index.html"
         }) 
+
+
+           
 
 {%endblock%}
 
@@ -396,6 +431,24 @@
                 }
                 that.cateclose = that.cateclose.toFixed(2)
            },
-
+          showdetial(item){
+                var that = this
+                that.modalcode = item.code
+                that.modaloptid = item.id
+                if (item.detail){
+                    that.modaldetail = item.detail
+                } else {
+                    that.modaldetail = "啥也没写啊，那么忙的吗？炒股要用心哦。"
+                }
+                $('#ModalCenter').modal('show')
+            },
+          changedetail(){
+                var that = this
+                axios.post(datahost+'/gs-categorystocks/updatedetail',{id:that.modaloptid,detail:that.modaldetail})
+                .then(function(response){
+                    $('#ModalCenter').modal('hide')
+                    window.location.reload()
+                })
+          }
 {%endblock%}
     

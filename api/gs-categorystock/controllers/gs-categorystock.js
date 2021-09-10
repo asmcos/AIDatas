@@ -143,9 +143,35 @@ async function sellGScatestock(ctx){
 }
 
 
+async function updatestockdetail(ctx){
+
+    let req = ctx.request
+    let gs_catestock = strapi.models['gs-categorystock']
+    var item = ctx.request.body
+
+    if (!ctx.state.user){
+        return "-1" //请先登录
+    }
+
+
+      
+    try {
+        let result = await gs_catestock.updateOne({
+                _id: item.id,
+                'users_permissions_user':ctx.state.user,
+            },
+            {detail:item.detail})
+    } catch (e){
+        let err = e
+        console.log(e)
+    }
+    return 'update ok'
+
+}
+
+
 async function updatestockorder(ctx){
 
-    let datas = []
     let req = ctx.request
     let data;
     let gs_catestock = strapi.models['gs-categorystock']
@@ -177,6 +203,7 @@ async function updatestockorder(ctx){
     return 'update ok'
 
 }
+
 
 
 async function findGSstrategy(ctx){
@@ -220,6 +247,9 @@ module.exports = {
     },
     async updateorder(ctx){
         return updatestockorder(ctx)
+    },
+    async updatedetail(ctx){
+        return updatestockdetail(ctx)
     },
 };
 

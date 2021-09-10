@@ -39,6 +39,9 @@
     "order": {
       "type": "biginteger",
       "default": "0"
+    },
+    "detail": {
+      "type": "richtext"
     }
   }
 }

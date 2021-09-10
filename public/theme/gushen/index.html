@@ -82,6 +82,7 @@
                                             <th scope="col">时间</th>
                                             <th scope="col">操作</th>
                                             <th scope="col">股票</th>
+                                            <th scope="col">名字</th>
                                             <th scope="col">价格</th>
                                         </tr>
                                     </thead>
@@ -91,7 +92,8 @@
                                             <td>{{item.users_permissions_user.username}}</td>
                                             <td>{{item.createdAt}}</td>
                                             <td class="nowrap"><template v-if="item.opttype==1">买入</template><template v-if="item.opttype==2">卖出</template></td>
-                                            <td class="nowrap" ><a v-bind:href="'gs_categorystocks.html?cateid='+item.categoryid">{{item.code}}</aa></td>
+                                            <td class="nowrap" ><a v-bind:href="'gs_categorystocks.html?cateid='+item.categoryid">{{item.code}}</a></td>
+                                            <td class="nowrap" >{{item.name}}</a></td>
                                             <td>{{item.price}}</td>
                                         </tr>
                                     </tbody>

@@ -171,7 +171,7 @@ async function updatestockdetail(ctx){
 
 
 async function updatestockorder(ctx){
-
+    let datas = []
     let req = ctx.request
     let data;
     let gs_catestock = strapi.models['gs-categorystock']

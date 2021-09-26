@@ -66,8 +66,8 @@
              <tbody>
   <tr v-for="(item,index) in stocks">
                 <td><input v-bind:id="'stock'+index" type="text" v-model="item.order" @blur="updateorder" style="max-width:40px;background-color:transparent;border:0;"/></td>
-                <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</p>{{item.code}}</a></td>
-                <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
+                <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank>{{item.name}}</p>{{item.code}}</a></td>
+                <td ><a v-bind:href="'http://klang.org.cn/kline.html?code='+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
                 <td @click="showdetial(item)">
                     <template v-if="capitaled">成本:{{item.buyprice}}({{item.allrise}})</template></p>现价:{{item.close}}
                     </td>

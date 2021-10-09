@@ -106,7 +106,14 @@
                             <h6 class="card-subtitle mb-2">股票代码</h6>
                                 <div class="form-group">
                                     <label>输入股票代码-{{buyname}}</label>
-                                    <input class="form-control" @blur="getinfo" v-model="buycode">
+                                    <input class="form-control" @blur="getinfo" @input="searchcode" v-model="buycode">
+
+                                    <ul class="dropdown-menu " style="background:#F5F5F5;">
+                                        <template v-for="item in searchlist">
+                                        <li @click="clickresult(item.code)" style="margin:5px;">{{item.name}} - {{item.code}}</li>
+                                        </template>
+                                    </ul>
+
                                      <small class="form-text text-muted"> <font color="#ee2302">格式:</font>sh601012,sz000100</small>
                                 </div>
                                 <div class="form-group">
@@ -222,7 +229,8 @@
                 sellid:'',
                 modalcode:'',
                 modaloptid:'',
-                modaldetail:''
+                modaldetail:'',
+                searchlist:''
  
 {%endblock%}
 
@@ -336,6 +344,24 @@
                     that.buyname = datas[0][0]
                     that.buyprice = datas[0][1]
                 }
+            },
+            async searchcode(){
+                var that = this
+                that.searchlist = search(that.buycode)
+                $(".dropdown-menu").show()
+            },
+            async clickresult(code){
+                var that = this
+                that.buyprice = 0 
+                that.buyname = "" 
+                that.buycode = code
+                var datas = await getstockinfo(that.buycode)
+                if (datas[0][0] != 0){
+                    that.buyname = datas[0][0]
+                    that.buyprice = datas[0][1]
+                }
+ 
+                $(".dropdown-menu").hide()
             },
             async getsellinfo(){
                 var that = this

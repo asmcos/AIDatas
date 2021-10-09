@@ -418,13 +418,13 @@
         eval(response.data)
         result = v_hint.match(recode)
         searchlist = []
-                    
-        result.forEach(function(item){
+        if (result != null)  {          
+           result.forEach(function(item){
               datas = item.split("~")
               name = datas[2].toLocaleString()
               searchlist.push({code:datas[0]+datas[1],name:name})
-        })
-                    
+          })
+        }
         console.log(searchlist)
         return searchlist
      }

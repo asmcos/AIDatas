@@ -347,6 +347,8 @@
             },
             async searchcode(){
                 var that = this
+                console.log(that.buycode)
+                that.searchlist = []
                 that.searchlist = await search(that.buycode)
                 $(".dropdown-menu").show()
             },
@@ -355,6 +357,7 @@
                 that.buyprice = 0 
                 that.buyname = "" 
                 that.buycode = code
+                that.searchlist = []
                 var datas = await getstockinfo(that.buycode)
                 if (datas[0][0] != 0){
                     that.buyname = datas[0][0]

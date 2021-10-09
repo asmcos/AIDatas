@@ -104,11 +104,11 @@
                         <div class="white_card_body" v-if="buyed">
 
                             <h6 class="card-subtitle mb-2">股票代码</h6>
-                                <div class="form-group">
+                                <div class="form-group" style="position: relative;">
                                     <label>输入股票代码-{{buyname}}</label>
                                     <input class="form-control" @blur="getinfo" @input="searchcode" v-model="buycode">
 
-                                    <ul class="dropdown-menu" style="background:#F5F5F5;">
+                                    <ul class="dropdown-menu" style="background:#F5F5F5; top:70px;">
                                         <template v-for="item in searchlist">
                                         <li @click="clickresult(item.code)" style="margin:5px;">{{item.name}} - {{item.code}}</li>
                                         </template>

@@ -108,7 +108,7 @@
                                     <label>输入股票代码-{{buyname}}</label>
                                     <input class="form-control" @blur="getinfo" @input="searchcode" v-model="buycode">
 
-                                    <ul class="dropdown-menu " style="background:#F5F5F5;">
+                                    <ul class="dropdown-menu" style="background:#F5F5F5;">
                                         <template v-for="item in searchlist">
                                         <li @click="clickresult(item.code)" style="margin:5px;">{{item.name}} - {{item.code}}</li>
                                         </template>
@@ -230,7 +230,7 @@
                 modalcode:'',
                 modaloptid:'',
                 modaldetail:'',
-                searchlist:''
+                searchlist:[],
  
 {%endblock%}
 
@@ -347,7 +347,7 @@
             },
             async searchcode(){
                 var that = this
-                that.searchlist = search(that.buycode)
+                that.searchlist = await search(that.buycode)
                 $(".dropdown-menu").show()
             },
             async clickresult(code){

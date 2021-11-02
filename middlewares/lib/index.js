@@ -23,6 +23,17 @@ module.exports = strapi => {
     // can also be async
     initialize() {
 
+
+        strapi.app.use(async (ctx, next) => {
+                await next();
+                host = {'origin':""}
+                if (ctx.req.headers.referer ){
+                    host = new URL(ctx.req.headers.referer)
+                }
+                ctx.set("Access-Control-Allow-Origin", host.origin);
+        });
+
+
         strapi.app.context.render = co.wrap(
             swig({
                 root:path.resolve('./public/theme/gushen'),

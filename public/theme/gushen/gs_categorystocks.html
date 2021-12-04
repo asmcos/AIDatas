@@ -66,8 +66,8 @@
              <tbody>
   <tr v-for="(item,index) in stocks">
                 <td><input v-bind:id="'stock'+index" type="text" v-model="item.order" @blur="updateorder" style="max-width:40px;background-color:transparent;border:0;"/></td>
-                <td ><a v-bind:href="'http://finance.sina.com.cn/realstock/company/'+item.code+'/nc.shtml'" target=_blank>{{item.name}}</p>{{item.code}}</a></td>
-                <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
+                <td ><a v-bind:href="'https://gu.qq.com/'+item.code" target=_blank>{{item.name}}</p>{{item.code}}</a></td>
+                <td ><a v-bind:href="'http://klang.org.cn/kline.html?code='+item.code" target=_blank ><font color=blue>{{item.count}}</font></a></td>
                 <td @click="showdetial(item)">
                     <template v-if="capitaled">成本:{{item.buyprice}}({{item.allrise}})</template></p>现价:{{item.close}}
                     </td>
@@ -104,9 +104,16 @@
                         <div class="white_card_body" v-if="buyed">
 
                             <h6 class="card-subtitle mb-2">股票代码</h6>
-                                <div class="form-group">
+                                <div class="form-group" style="position: relative;">
                                     <label>输入股票代码-{{buyname}}</label>
-                                    <input class="form-control" @blur="getinfo" v-model="buycode">
+                                    <input class="form-control" @blur="getinfo" @input="searchcode" v-model="buycode">
+
+                                    <ul class="dropdown-menu" style="background:#F5F5F5; top:70px;">
+                                        <template v-for="item in searchlist">
+                                        <li @click="clickresult(item.code)" style="margin:5px;">{{item.name}} - {{item.code}}</li>
+                                        </template>
+                                    </ul>
+
                                      <small class="form-text text-muted"> <font color="#ee2302">格式:</font>sh601012,sz000100</small>
                                 </div>
                                 <div class="form-group">
@@ -222,7 +229,8 @@
                 sellid:'',
                 modalcode:'',
                 modaloptid:'',
-                modaldetail:''
+                modaldetail:'',
+                searchlist:[],
  
 {%endblock%}
 
@@ -336,6 +344,27 @@
                     that.buyname = datas[0][0]
                     that.buyprice = datas[0][1]
                 }
+            },
+            async searchcode(){
+                var that = this
+                console.log(that.buycode)
+                that.searchlist = []
+                that.searchlist = await search(that.buycode)
+                $(".dropdown-menu").show()
+            },
+            async clickresult(code){
+                var that = this
+                that.buyprice = 0 
+                that.buyname = "" 
+                that.buycode = code
+                that.searchlist = []
+                var datas = await getstockinfo(that.buycode)
+                if (datas[0][0] != 0){
+                    that.buyname = datas[0][0]
+                    that.buyprice = datas[0][1]
+                }
+ 
+                $(".dropdown-menu").hide()
             },
             async getsellinfo(){
                 var that = this

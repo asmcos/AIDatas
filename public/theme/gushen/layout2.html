@@ -411,6 +411,28 @@
         return rets
     }
 
+    async function search(keyword){
+        t = new Date().getTime()
+        var recode = new RegExp(/(sh~\d{6})~(.*?)~|(sz~\d{6})~(.*?)~/,"g")
+        response = await axios.get(apihost+"/s3/?v=2&q="+keyword+"&t=all&_=" + t)
+        eval(response.data)
+        result = v_hint.match(recode)
+        searchlist = []
+        if (result != null)  {          
+           result.forEach(function(item){
+              datas = item.split("~")
+              name = datas[2].toLocaleString()
+              searchlist.push({code:datas[0]+datas[1],name:name})
+          })
+        }
+        console.log(searchlist)
+        return searchlist
+     }
+
+
+
+
+
     {%block jscommon%} {%endblock%}
 
      const VueApp = {

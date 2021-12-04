@@ -73,6 +73,11 @@
 {%block vuemethods %}
             addstrategy(){
                 var that = this
+                if (that.logined == 0){
+                    window.location.href="login.html"
+                }
+    
+
                 axios
                 .post(datahost+'/gs-strategies',{
                     capital_money:that.capital_money,

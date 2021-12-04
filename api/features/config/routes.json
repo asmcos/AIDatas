@@ -32,6 +32,15 @@
         "policies": []
       }
     },
+
+    {
+      "method": "POST",
+      "path": "/features/updates",
+      "handler": "features.updates",
+      "config": {
+        "policies": []
+      }
+    },
     {
       "method": "PUT",
       "path": "/features/:id",

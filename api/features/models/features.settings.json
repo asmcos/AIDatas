@@ -45,6 +45,200 @@
     },
     "ma120": {
       "type": "float"
+    },
+    "CDL2CROWS": {
+      "type": "float"
+    },
+    "CDL3BLACKCROWS": {
+      "type": "float"
+    },
+    "CDL3INSIDE": {
+      "type": "float"
+    },
+ 
+    "CDL3LINESTRIKE": {
+      "type": "float"
+    },
+    "CDL3OUTSIDE": {
+      "type": "float"
+    },
+    "CDL3STARSINSOUTH": {
+      "type": "float"
+    },
+    "CDL3WHITESOLDIERS": {
+      "type": "float"
+    },
+    "CDLABANDONEDBABY": {
+      "type": "float"
+    },
+    "CDLADVANCEBLOCK": {
+      "type": "float"
+    },
+    "CDLBELTHOLD": {
+      "type": "float"
+    },
+    "CDLBREAKAWAY": {
+      "type": "float"
+    },
+    "CDLCLOSINGMARUBOZU": {
+      "type": "float"
+    },
+    "CDLCONCEALBABYSWALL": {
+      "type": "float"
+    },
+    "CDLCOUNTERATTACK": {
+      "type": "float"
+    },
+    "CDLDARKCLOUDCOVER": {
+      "type": "float"
+    },
+    "CDLDOJI": {
+      "type": "float"
+    },
+    "CDLDOJISTAR": {
+      "type": "float"
+    },
+
+
+    "CDLDRAGONFLYDOJI": {
+      "type": "float"
+    },
+
+    "CDLENGULFING": {
+      "type": "float"
+    },
+    "CDLEVENINGDOJISTAR": {
+      "type": "float"
+    },
+    "CDLEVENINGSTAR": {
+      "type": "float"
+    },
+    "CDLGAPSIDESIDEWHITE": {
+      "type": "float"
+    },
+    "CDLGRAVESTONEDOJI": {
+      "type": "float"
+    },
+    "CDLHAMMER": {
+      "type": "float"
+    },
+    "CDLHANGINGMAN": {
+      "type": "float"
+    },
+    "CDLHARAMI": {
+      "type": "float"
+    },
+    "CDLHARAMICROSS": {
+      "type": "float"
+    },
+    "CDLHIGHWAVE": {
+      "type": "float"
+    },
+    "CDLHIKKAKEMOD": {
+      "type": "float"
+    },
+
+
+    "CDLHIKKAKE": {
+      "type": "float"
+    },
+    "CDLHOMINGPIGEON": {
+      "type": "float"
+    },
+    "CDLIDENTICAL3CROWS": {
+      "type": "float"
+    },
+    "CDLINNECK": {
+      "type": "float"
+    },
+    "CDLINVERTEDHAMMER": {
+      "type": "float"
+    },
+    "CDLKICKING": {
+      "type": "float"
+    },
+    "CDLKICKINGBYLENGTH": {
+      "type": "float"
+    },
+    "CDLLADDERBOTTOM": {
+      "type": "float"
+    },
+    "CDLLONGLEGGEDDOJI": {
+      "type": "float"
+    },
+    "CDLLONGLINE": {
+      "type": "float"
+    },
+    "CDLMARUBOZU": {
+      "type": "float"
+    },
+    "CDLMATCHINGLOW": {
+      "type": "float"
+    },
+    "CDLMATHOLD": {
+      "type": "float"
+    },
+    "CDLMORNINGDOJISTAR": {
+      "type": "float"
+    },
+    "CDLMORNINGSTAR": {
+      "type": "float"
+    },
+    "CDLONNECK": {
+      "type": "float"
+    },
+    "CDLPIERCING": {
+      "type": "float"
+    },
+    "CDLRICKSHAWMAN": {
+      "type": "float"
+    },
+    "CDLRISEFALL3METHODS": {
+      "type": "float"
+    },
+    "CDLSEPARATINGLINES": {
+      "type": "float"
+    },
+
+
+    "CDLSHOOTINGSTAR": {
+      "type": "float"
+    },
+    "CDLSHORTLINE": {
+      "type": "float"
+    },
+    "CDLSPINNINGTOP": {
+      "type": "float"
+    },
+    "CDLSTALLEDPATTERN": {
+      "type": "float"
+    },
+    "CDLSTICKSANDWICH": {
+      "type": "float"
+    },
+    "CDLTAKURI": {
+      "type": "float"
+    },
+    "CDLTASUKIGAP": {
+      "type": "float"
+    },
+    "CDLTHRUSTING": {
+      "type": "float"
+    },
+    "CDLTRISTAR": {
+      "type": "float"
+    },
+    "CDLUNIQUE3RIVER": {
+      "type": "float"
+    },
+    "CDLUPSIDEGAP2CROWS": {
+      "type": "float"
+    },
+
+    "CDLXSIDEGAP3METHODS": {
+      "type": "float"
     }
+
+
   }
 }

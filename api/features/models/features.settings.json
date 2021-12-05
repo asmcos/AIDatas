@@ -25,6 +25,9 @@
       "type": "string",
       "index": true
     },
+    "risevol": {
+      "type": "float"
+    },
     "rise": {
       "type": "float"
     },

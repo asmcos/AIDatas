@@ -31,6 +31,15 @@
     "rise": {
       "type": "float"
     },
+    "diff":{
+      "type": "float"
+    },
+    "dea":{
+      "type": "float"
+    },
+    "macd":{
+      "type": "float"
+    },
     "ma5": {
       "type": "float"
     },

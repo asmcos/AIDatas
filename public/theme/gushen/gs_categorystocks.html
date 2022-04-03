@@ -243,7 +243,12 @@
             that.gsstrategy = response.data.gsstrategy
             that.stocks = response.data.stocks
             for (i=0;i<that.stocks.length;i++){
-                that.stockstr = that.stockstr + "," + that.stocks[i].code 
+                if (that.stockstr.length == 0){
+                    that.stockstr = that.stocks[i].code
+                }else{
+                    that.stockstr = that.stockstr + "," + that.stocks[i].code
+                }
+ 
                 that.stocks[i].close = 0
                 that.stocks[i].rise = 0
                 that.stocks[i].allrise = 0
@@ -435,7 +440,12 @@
                         that.stocks = response.data.stocks
                         that.stockstr = ""
                         for (i=0;i<that.stocks.length;i++){
-                            that.stockstr = that.stockstr + "," + that.stocks[i].code 
+                            if (that.stockstr.length == 0){
+                                that.stockstr = that.stocks[i].code
+                            }else{
+                                that.stockstr = that.stockstr + "," + that.stocks[i].code
+                            }
+
                             that.stocks[i].close = 0
                             that.stocks[i].rise = 0
                             that.stocks[i].allrise = 0

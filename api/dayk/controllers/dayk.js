@@ -15,10 +15,11 @@ async function insertManyDayk(ctx){
     req.body.forEach(item =>
     {
         
-        item.codedate = item.code + item.date
+        //item.codedate = item.code + item.date
         data  = {updateOne: {
             filter: {
-                codedate: item.codedate,
+		code: item.code,
+		date: item.ate,
             },
             update: { $set: item },
             upsert: true

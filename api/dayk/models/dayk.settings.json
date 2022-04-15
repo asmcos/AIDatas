@@ -22,6 +22,10 @@
       "type": "string",
       "index": true
     },
+    "codedate": {
+      "type": "string",
+      "index": true
+    }, 
     "open": {
       "type": "float"
     },

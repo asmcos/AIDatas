@@ -14,12 +14,11 @@ async function insertManyDayk(ctx){
     
     req.body.forEach(item =>
     {
-        
-        //item.codedate = item.code + item.date
+        //必须采取唯一值来做更新，否则数据会出现多条数据 
+        item.codedate = item.code + item.date
         data  = {updateOne: {
             filter: {
-		code: item.code,
-		date: item.ate,
+		codedate: item.codedate,
             },
             update: { $set: item },
             upsert: true

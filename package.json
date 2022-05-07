@@ -1,14 +1,13 @@
 {
-  "name": "ai-datas",
+  "name": "AI-Datas",
   "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
+  "version": "1.1.0",
+  "description": "A Klang application",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi",
-    "gulp": "gulp"
+    "strapi": "strapi"
   },
   "devDependencies": {},
   "dependencies": {
@@ -25,6 +24,7 @@
     "http-proxy": "^1.18.1",
     "knex": "0.21.18",
     "koa-mount": "^4.0.0",
+    "koa-router": "^10.1.1",
     "koa-swig": "^2.2.1",
     "mysql": "^2.18.1",
     "nvm": "0.0.4",

@@ -18,12 +18,11 @@ function set_template(filename){
 
 }
 
-module.exports = strapi => {
-  return {
-    // can also be async
-    initialize() {
 
+module.exports = (config, { strapi })=> {
+  return (ctx, next) => {
 
+        console.log("middleware ");
         strapi.app.use(async (ctx, next) => {
                 await next();
                 host = {'origin':""}
@@ -62,7 +61,7 @@ module.exports = strapi => {
         strapi.app.use(mount('/gushen',staticdir(path.resolve('./public/theme/gushen'))))
 
 
-    }, // initialize
-  }; // return
+  };
 };
+
 

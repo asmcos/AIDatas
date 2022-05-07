@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gs_userinfos",
+  "info": {
+    "singularName": "gs-userinfo",
+    "pluralName": "gs-userinfos",
+    "displayName": "Gs-userinfo",
+    "name": "gs-userinfo"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "intro": {
+      "type": "string"
+    },
+    "capital_money": {
+      "type": "float"
+    },
+    "remain_cash": {
+      "type": "float"
+    },
+    "stock_value": {
+      "type": "float"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

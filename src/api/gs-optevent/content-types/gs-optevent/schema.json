@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gs_optevents",
+  "info": {
+    "singularName": "gs-optevent",
+    "pluralName": "gs-optevents",
+    "displayName": "Gs-optevent",
+    "name": "gs-optevent"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "opttype": {
+      "type": "string"
+    },
+    "categoryid": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "count": {
+      "type": "string"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

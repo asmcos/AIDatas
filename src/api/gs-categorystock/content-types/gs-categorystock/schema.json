@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gs_categorystocks",
+  "info": {
+    "singularName": "gs-categorystock",
+    "pluralName": "gs-categorystocks",
+    "displayName": "Gs-categorystock",
+    "name": "gs-categorystock"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "buyprice": {
+      "type": "string"
+    },
+    "startdate": {
+      "type": "date"
+    },
+    "categorytype": {
+      "type": "string"
+    },
+    "categoryid": {
+      "type": "string"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "count": {
+      "type": "biginteger"
+    },
+    "order": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "detail": {
+      "type": "richtext"
+    }
+  }
+}

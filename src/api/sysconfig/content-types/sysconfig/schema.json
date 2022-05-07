@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sysconfigs",
+  "info": {
+    "singularName": "sysconfig",
+    "pluralName": "sysconfigs",
+    "displayName": "Sysconfig",
+    "name": "sysconfig"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}

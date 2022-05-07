@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "industries",
+  "info": {
+    "singularName": "industry",
+    "pluralName": "industries",
+    "displayName": "Industry",
+    "name": "industry"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "updateDate": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "code_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "industryClassification": {
+      "type": "string"
+    },
+    "tdxbk": {
+      "type": "string"
+    },
+    "tdxgn": {
+      "type": "string"
+    },
+    "chouma": {
+      "type": "float"
+    }
+  }
+}

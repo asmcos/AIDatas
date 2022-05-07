@@ -1,15 +1,14 @@
 module.exports = ({ env }) => ({
   defaultConnection: 'default',
-  connections: {
-    default: {
-      connector: 'bookshelf',
-      settings: {
-        client: 'sqlite',
-        filename: env('DATABASE_FILENAME', '.tmp/data.db'),
-      },
-      options: {
-        useNullAsDefault: true,
-      },
+  connection: {
+    client: 'mysql',
+    connection: {
+      host: env('DATABASE_HOST', '127.0.0.1'),
+      port: env.int('DATABASE_PORT', 3306),
+      database: env('DATABASE_NAME', 'AIDatas'),
+      user: env('DATABASE_USERNAME', 'klang'),
+      password: env('DATABASE_PASSWORD', 'klangisklang'),
     },
+    debug: false,
   },
 });

@@ -8,11 +8,12 @@ var co = require('co');
 
 var router = new Router();
 
+var render;
 
 function set_template(filename){
 
         router.get('/gushen/'+filename,async(ctx,next)=>{
-            return ctx.body = await ctx.render(filename)
+            return ctx.body = await render(filename)
         })
 
 
@@ -20,30 +21,32 @@ function set_template(filename){
 
 
 module.exports = (config, { strapi })=> {
-  return (ctx, next) => {
 
-        console.log("middleware ");
-        strapi.app.use(async (ctx, next) => {
+
+        strapi.server.use(async (ctx, next) => {
                 await next();
                 host = {'origin':""}
                 if (ctx.req.headers.referer ){
                     host = new URL(ctx.req.headers.referer)
                 }
                 ctx.set("Access-Control-Allow-Origin", host.origin);
+
         });
 
 
-        strapi.app.context.render = co.wrap(
-            swig({
-                root:path.resolve('./public/theme/gushen'),
-                cache:false,
-                varControls: ['<%=', '%>'],
-                ext:'html'
-            })
-        )
+        render = co.wrap(
+                   swig({
+                    root:path.resolve('./public/theme/gushen'),
+                    cache:false,
+                    varControls: ['<%=', '%>'],
+                    ext:'html'
+                 })
+               )
 
+
+       
         router.get('/gushen/',async(ctx,next)=>{
-            return ctx.body = await ctx.render('index.html')
+            return ctx.body = await render('index.html')
         })
 
 
@@ -55,13 +58,11 @@ module.exports = (config, { strapi })=> {
         set_template("gs_categorystocks.html")
         set_template("gs_addzxstrategy.html")
 
-        strapi.app.use(router.routes())
+        strapi.server.use(router.routes())
 
-        strapi.app.use(staticdir(path.resolve('./public/theme/Techie')))
-        strapi.app.use(mount('/gushen',staticdir(path.resolve('./public/theme/gushen'))))
+        strapi.server.use(staticdir(path.resolve('./public/theme/Techie')))
+        strapi.server.use(mount('/gushen',staticdir(path.resolve('./public/theme/gushen'))))
 
-
-  };
 };
 
 

@@ -4,7 +4,6 @@
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
  * to customize this controller
  */
-const { sanitizeEntity } = require("strapi-utils");
 
 async function insertManyDayk(ctx){
     let datas = []
@@ -74,7 +73,10 @@ async function findDayk(ctx){
     } else {
         var result = await dayK.find({code:code}).skip(offset).srot("-date").limit(limit)
     }
-    return sanitizeEntity(result, { model: dayK });
+
+    const sanitizedEntity = await this.sanitizeOutput(result, ctx);
+
+    return this.transformResponse(sanitizedEntity);
 }
 
 module.exports = {

@@ -5,7 +5,6 @@
  * to customize this controller
  */
 
-const { sanitizeEntity } = require("strapi-utils");
 
 /*
  * drop 已经停牌的股票，所以全部删除从新来

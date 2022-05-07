@@ -12,7 +12,6 @@
   "devDependencies": {},
   "dependencies": {
     "@strapi/admin": "4.1.9",
-    "@strapi/codemods": "^1.0.2",
     "@strapi/plugin-content-manager": "4.1.9",
     "@strapi/plugin-content-type-builder": "4.1.9",
     "@strapi/plugin-email": "4.1.9",
@@ -20,6 +19,7 @@
     "@strapi/plugin-users-permissions": "4.1.9",
     "@strapi/strapi": "4.1.9",
     "@strapi/utils": "4.1.9",
+    "cropperjs": "^1.5.12",
     "css-loader": "^6.7.1",
     "http-proxy": "^1.18.1",
     "knex": "0.21.18",
@@ -27,11 +27,8 @@
     "koa-router": "^10.1.1",
     "koa-swig": "^2.2.1",
     "mysql": "^2.18.1",
-    "nvm": "0.0.4",
     "register": "0.0.0",
     "sharp": "^0.30.4",
-    "sqlite3": "5.0.0",
-    "strapi-utils": "^3.6.9",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.0"
   },

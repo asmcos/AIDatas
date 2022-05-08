@@ -1,14 +1,10 @@
 'use strict';
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
- */
 
 async function insertManyDayk(ctx){
     let datas = []
     let req = ctx.request
-    let dayK = strapi.models.dayk
+    let dayK = strapi.service('api::dayk.dayk');
     let data;
     
     req.body.forEach(item =>

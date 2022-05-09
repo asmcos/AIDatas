@@ -10,7 +10,7 @@
  * drop 已经停牌的股票，所以全部删除从新来
  */
 async function dropIndustry(ctx){
-    let industry = strapi.models.industry
+    let industry = strapi.service('api::industry.industry')
 
     await industry.deleteMany({updateDate:{$gt:'2000-05-01'}})
     return 'Hello World!'
@@ -20,7 +20,7 @@ async function dropIndustry(ctx){
 async function insertManyIndustry(ctx){
     let datas = []
     let req = ctx.request
-    let industry = strapi.models.industry
+    let industry = strapi.service('api::industry.industry')
     let data;
 
     req.body.forEach(item =>
@@ -45,7 +45,7 @@ async function insertManyIndustry(ctx){
 }
 
 async function findIndustry(ctx){
-    let industry = strapi.models.industry
+    let industry = strapi.service('api::industry.industry')
 
     return await industry.find()
 }

@@ -8,9 +8,9 @@ const moment = require('moment')
 //strapi.server('api::gs-categorystock.gs-categorystock') 
 
 async function createGScatestock(ctx){
-    let gs_catestock = strapi.models['gs-categorystock']
-    let gs_optevent = strapi.models['gs-optevent']
-    let gs_strategy = strapi.models['gs-strategy']
+    let gs_catestock = strapi.server('api::gs-categorystock.gs-categorystock') 
+    let gs_optevent  = strapi.server('api::gs-optevent.gs-optevent')
+    let gs_strategy  = strapi.server('api::gs-strategy.gs-strategy')
     var params = ctx.request.body
     var params1 = {}
 

@@ -7,7 +7,7 @@
  */
 
 async function createGSuserinfo(ctx){
-    let gs_userinfo = strapi.models['gs-userinfo']
+    let gs_userinfo = strapi.service('api::gs-userinfo.gs-userinfo');
     var params = ctx.request.body
 
 

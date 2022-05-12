@@ -10,7 +10,7 @@ const moment = require('moment')
  */
 
 async function createGSstrategy(ctx){
-    let gs_strategy = strapi.models['gs-strategy']
+    let gs_strategy = strapi.service('api::gs-strategy.gs-strategy');
     var params = ctx.request.body
 
 

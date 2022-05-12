@@ -1,6 +1,7 @@
 'use strict';
 const { createCoreController } = require('@strapi/strapi').factories;
 
+
 module.exports = createCoreController('api::sysconfig.sysconfig', ({ strapi }) =>  ({
 
     async find(ctx){
@@ -8,12 +9,18 @@ module.exports = createCoreController('api::sysconfig.sysconfig', ({ strapi }) =
 
         let key = query.keyword
         if (query.filter){
-    
-           var filter = [{key: {$regex: key}}]
-           var result = await super.find({$or:filter})
-    
+            
+            var result = await strapi.db.query('api::sysconfig.sysconfig').findMany({
+                where: {
+                  key: {
+                      $contains: key,
+                  },
+                },
+              });
         }else {
-           var result = await super.find({key:key})
+           var result = await strapi.db.query('api::sysconfig.sysconfig').findMany({
+               where:{key:key},
+            });
         }
         return result;
     },

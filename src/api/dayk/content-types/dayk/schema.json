@@ -5,7 +5,8 @@
     "singularName": "dayk",
     "pluralName": "dayks",
     "displayName": "Dayk",
-    "name": "dayk"
+    "name": "dayk",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -21,10 +22,6 @@
       "index": true
     },
     "date": {
-      "type": "string",
-      "index": true
-    },
-    "codedate": {
       "type": "string",
       "index": true
     },

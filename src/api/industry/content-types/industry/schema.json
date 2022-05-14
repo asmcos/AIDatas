@@ -5,7 +5,8 @@
     "singularName": "industry",
     "pluralName": "industries",
     "displayName": "Industry",
-    "name": "industry"
+    "name": "industry",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -17,7 +18,8 @@
       "type": "string"
     },
     "code": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "code_name": {
       "type": "string"

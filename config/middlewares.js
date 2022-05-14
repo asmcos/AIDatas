@@ -10,7 +10,14 @@ module.exports = [
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
-  'strapi::body',
+  {
+  name:'strapi::body',
+  config:{
+    jsonLimit:"10mb",
+    formLimit:"10mb"
+  }
+
+  },
   'strapi::favicon',
   'strapi::public',
   'global::index-middleware',

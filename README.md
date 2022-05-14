@@ -1,10 +1,9 @@
 # AIDatas
-智能数据看板
-http://www.klang.org.cn
+智能数据看板, 网站框架采用strapi 4.x 版本。
+https://www.klang.org.cn
 
 # Open data save by strapi
 Klang （金浪） 数据看板
-
 github.com/asmcos/klang.
 
 # build
@@ -15,7 +14,11 @@ npm install
 npm run develop
 ```
 
-#config
+# config
 See strapi
 config/*
+
+# mysql联合键
+* dayks 表里设置了 联合唯一键， node knex_mysqldb.js 
+
 

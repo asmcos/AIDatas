@@ -6,7 +6,13 @@ module.exports = [
       contentSecurityPolicy: false
     }
   },
-  'strapi::cors',
+  {name:'strapi::cors',
+   config:{
+    credentials:true,
+    origin:"*",
+   }
+  },
+
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',

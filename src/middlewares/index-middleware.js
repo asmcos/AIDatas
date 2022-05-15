@@ -25,7 +25,7 @@ module.exports = (config, { strapi })=> {
 
         strapi.server.use(async (ctx, next) => {
                 await next();
-                host = {'origin':""}
+                host = {'origin':"*"}
                 if (ctx.req.headers.referer ){
                     host = new URL(ctx.req.headers.referer)
                 }

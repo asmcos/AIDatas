@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "factormanages",
+  "info": {
+    "singularName": "factormanager",
+    "pluralName": "factormanages",
+    "displayName": "factormanage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "tablename": {
+      "type": "string"
+    },
+    "factorname": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer"
+    }
+  }
+}

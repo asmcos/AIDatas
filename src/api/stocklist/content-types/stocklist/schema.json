@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stocklists",
+  "info": {
+    "singularName": "stocklist",
+    "pluralName": "stocklists",
+    "displayName": "stocklist"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    }
+  }
+}

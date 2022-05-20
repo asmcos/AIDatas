@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "eventlogs",
+  "info": {
+    "singularName": "eventlog",
+    "pluralName": "eventlogs",
+    "displayName": "eventlog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "tablename": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    }
+  }
+}

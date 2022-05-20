@@ -3,25 +3,35 @@ var config = require('./config/database')({env})
 var k = require('knex')(config.connection)
 
 
-async function execCMD() {
+
+async function unique(table,cols){
 
   try {
-   await k.schema.alterTable('dayks', function(t) {
-      t.unique(['code','date']);
+   await k.schema.alterTable(table, function(t) {
+      t.unique(cols);
     })
 
-    console.log("创建成功");
+    console.log("创建"+table+"成功");
 
-    process.exit();
 
   } catch(e){
-    if (e.code == "ER_DUP_KEYNAME") console.log('已经创建了联合键');
+    if (e.code == "ER_DUP_KEYNAME") console.log('已经创建了'+table+'联合键');
     else { console.log(e)}
 
-    process.exit();
+
+  }
+
 
 }
-  
+
+async function execCMD() {
+
+  await unique('dayks',['code','date'])
+  await unique('eventlogs',['tablename','date'])
+  await unique('stocklists',['code','date'])
+
+ 
+  process.exit();
 }
 
 execCMD();

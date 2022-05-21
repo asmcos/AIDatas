@@ -54,7 +54,7 @@ async function findDayk(ctx){
     }
     if (end !="0"){
         var result = await strapi.db.query('api::dayk.dayk').findMany({
-           
+            
             where:{
                 code:code,
                 date:{"$lte":end}
@@ -65,6 +65,7 @@ async function findDayk(ctx){
     }else if (start != "0"){
 
         var result = await strapi.db.query('api::dayk.dayk').findMany({
+            
             where:{
                 code:code,
                 date:{"$gte":start}

@@ -19,6 +19,12 @@
     },
     "count": {
       "type": "integer"
+    },
+    "freq": {
+      "type": "integer"
+    },
+    "describe": {
+      "type": "string"
     }
   }
 }

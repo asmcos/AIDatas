@@ -38,5 +38,20 @@ module.exports = createCoreController('api::stocklist.stocklist',({ strapi }) =>
 
       return "stocklist ok";
     },
+    async find(ctx){
+
+      let tablename = "stocklist"
+      let date = new Date()
+      date = date.toJSON().split("T")[0]
+      let result = await strapi.controller('api::eventlog.eventlog').findlog(tablename,date,1);
+      if (result){
+        date = result[0].date
+      }
+
+      return  await strapi.db.query('api::stocklist.stocklist').findMany({
+        where:{date:date}
+      });
+      
+    },
   }));
   

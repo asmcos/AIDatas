@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grouplists",
+  "info": {
+    "singularName": "grouplist",
+    "pluralName": "grouplists",
+    "displayName": "grouplist",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "status": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "string"
+    },
+    "vol": {
+      "type": "integer"
+    },
+    "totalvol": {
+      "type": "integer"
+    },
+    "groupmanager": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::groupmanager.groupmanager",
+      "inversedBy": "grouplists"
+    }
+  }
+}

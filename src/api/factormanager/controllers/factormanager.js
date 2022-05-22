@@ -100,9 +100,9 @@ module.exports = createCoreController('api::factormanager.factormanager',({ stra
           //日志记录 主要是获取更新日期
           strapi.controller('api::eventlog.eventlog').createlog(factorname);
         } else if (freq==1){
-          //日更数据，不用汇报更新表
-          ctx.request.body.forEach(item=>{
-            item.date = date
+          //日更数据，不用汇报更新表,
+          //日更数据日期必须由计算者提供日期
+          ctx.request.body.forEach(item=>{           
             data.push(item)
           })
           await insertOrUpdate(knex,tablename,data);

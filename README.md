@@ -42,3 +42,6 @@ requests.get('http://127.0.0.1:1337/api/getfactors',params={'factorname':'chouma
 
 date参数可以不写，表示获取 最后一个交易日数据
 requests.get('http://127.0.0.1:1337/api/getfactors',params={'factorname':'macd','date':'2022-07-02'})  
+
+# 更多的例子请访问 Kdata
+https://github.com/KlangAlpha/Kdata

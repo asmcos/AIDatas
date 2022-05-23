@@ -109,9 +109,9 @@ module.exports = createCoreController('api::grouplist.grouplist',({ strapi }) =>
             return "create ok"
         }
     },
-    //所有记录有效，重新结算
+    //所有记录，重新结算
     async reevaluate(ctx){
-        
 
-    };
+
+    },
 }));

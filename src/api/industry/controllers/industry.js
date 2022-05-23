@@ -23,6 +23,7 @@ async function dropIndustry(ctx){
 async function insertManyIndustry(ctx){
 
     let req = ctx.request
+    //req.body is [{...},{...}],array
     await strapi.db.query('api::industry.industry').createMany({data:req.body});
 
     return 'Hello World!'

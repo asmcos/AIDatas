@@ -8,6 +8,26 @@ const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::grouplist.grouplist',({ strapi }) =>  ({
 
+    async find(ctx){
+        let query = ctx.query;
+        let name = query.name;
+        let start = query.start;
+        let end = query.end;
+
+        const knex = strapi.db.connection;
+
+        var result = await knex("grouplists").where('date','>=',start)
+            .andWhere('name','=',name)
+            .andWhere('date','<=',end)
+            .orderBy('date','desc')
+            .orderBy('id','desc')
+
+        return result            
+
+    },
+    /*
+     * 创建函数严格遵守时间顺序做结算，如果时间顺序出错，结算将会出错
+     */
     async create(ctx){
         let query = ctx.query;
         let name = query.name
@@ -88,6 +108,10 @@ module.exports = createCoreController('api::grouplist.grouplist',({ strapi }) =>
    
             return "create ok"
         }
+    },
+    //所有记录有效，重新结算
+    async reevaluate(ctx){
+        
 
-    }
+    };
 }));

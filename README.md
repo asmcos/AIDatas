@@ -33,6 +33,7 @@ requests.post(url,params={'freq':0,'factorname':'SCR','describe':'筹码集中�
 
 # 更新一个不定时因子数据
  requests.post('http://127.0.0.1:1337/api/postfactors',params={'factorname':'chouma'},json=[{'code':'sh.600600',"value":"15"},{'code':'sh.600100',"value":"21"}])  
+ requests.post('http://127.0.0.1:1337/api/postfactors',params={'factorname':'chouma',"date":"2022-03-01"},json=[{'code':'sh.600600',"value":"15"},{'code':'sh.600100',"value":"21"}])  
 获取一个不定时因子数据 离 2022-07-02 （之前）最近的日期
 date参数可以不写，表示获取 最后一个交易日数据
 requests.get('http://127.0.0.1:1337/api/getfactors',params={'factorname':'chouma','date':'2022-07-02'})  

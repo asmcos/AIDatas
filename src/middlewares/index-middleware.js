@@ -12,7 +12,7 @@ var render;
 
 function set_template(filename){
 
-        router.get('/gushen/'+filename,async(ctx,next)=>{
+        router.get('/backtest/'+filename,async(ctx,next)=>{
             return ctx.body = await render(filename)
         })
 
@@ -36,7 +36,7 @@ module.exports = (config, { strapi })=> {
 
         render = co.wrap(
                    swig({
-                    root:path.resolve('./public/theme/gushen'),
+                    root:path.resolve('./public/theme/backtest'),
                     cache:false,
                     varControls: ['<%=', '%>'],
                     ext:'html'
@@ -45,23 +45,27 @@ module.exports = (config, { strapi })=> {
 
 
        
-        router.get('/gushen/',async(ctx,next)=>{
+        router.get('/backtest/',async(ctx,next)=>{
             return ctx.body = await render('index.html')
         })
 
+        set_template("index.html")
+        set_template("backtest.html")
 
+        /*
         set_template("login.html")
         set_template("register.html")
-        set_template("index.html")
+        
         set_template("gs_userinfo.html")
         set_template("gs_addstrategy.html")
         set_template("gs_categorystocks.html")
         set_template("gs_addzxstrategy.html")
+        */
 
         strapi.server.use(router.routes())
 
         strapi.server.use(staticdir(path.resolve('./public/theme/Techie')))
-        strapi.server.use(mount('/gushen',staticdir(path.resolve('./public/theme/gushen'))))
+        strapi.server.use(mount('/backtest',staticdir(path.resolve('./public/theme/backtest'))))
 
 };
 

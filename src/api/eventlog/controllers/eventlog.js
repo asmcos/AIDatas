@@ -37,10 +37,13 @@ module.exports = createCoreController('api::eventlog.eventlog',({ strapi }) =>  
 
         return result;
     },
-    async createlog(tablename){
+    async createlog(tablename,param_date){
         let date = new Date()
         date = date.toJSON().split("T")[0]
 
+        if(param_date){
+            date = param_date
+        }
         const knex = strapi.db.connection;
     
         await insertOrUpdate(knex,'eventlogs', 

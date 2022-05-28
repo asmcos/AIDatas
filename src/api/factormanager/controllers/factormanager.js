@@ -69,7 +69,9 @@ module.exports = createCoreController('api::factormanager.factormanager',({ stra
         
         const knex = strapi.db.connection;
         let factorname = ctx.query.factorname;
-        
+         if (ctx.query.date){
+           date = ctx.query.date
+         }
 
         if (factorname == null){
           return "factorname=?,Not found factorname!"
@@ -90,7 +92,9 @@ module.exports = createCoreController('api::factormanager.factormanager',({ stra
           freq = result.freq;
         }
         if (freq == 0){
+
           ctx.request.body.forEach(item=>{
+            
             item.date = date
             item.factorname = factorname
             data.push(item)
@@ -98,7 +102,7 @@ module.exports = createCoreController('api::factormanager.factormanager',({ stra
 
           await insertOrUpdate(knex,tablename,data);
           //日志记录 主要是获取更新日期
-          strapi.controller('api::eventlog.eventlog').createlog(factorname);
+          strapi.controller('api::eventlog.eventlog').createlog(factorname,date);
         } else if (freq==1){
           //日更数据，不用汇报更新表,
           //日更数据日期必须由计算者提供日期

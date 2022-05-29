@@ -16,9 +16,16 @@ module.exports = createCoreController('api::factormanager.factormanager',({ stra
     async getfactors(ctx){
         let tablename = "";
         let freq = 0;
+        let limit = 100;
     
         const knex = strapi.db.connection;
         let factorname = ctx.query.factorname;
+        let code = ctx.query.code;
+
+        if (ctx.query.limit){
+          limit = ctx.query.limit;
+        }
+
         let date = new Date()
         date = date.toJSON().split("T")[0]
 
@@ -48,8 +55,13 @@ module.exports = createCoreController('api::factormanager.factormanager',({ stra
               date:result[0].date,
             })
           } else if(freq == 1){
-              result = await knex(tablename).where('date', '<=',date) //日更数据获取今日最近的数据 
+              result = await knex(tablename)
               .select(['code','date',factorname])
+              .where('code',code)
+              .andWhere('date', '<=',date) //日更数据获取今日最近的数据
+              .limit(limit)
+              .orderBy('date','DESC')
+
           }
           return result 
         } else {

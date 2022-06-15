@@ -1,0 +1,556 @@
+{% extends 'layout.html' %}
+
+{% block main_body %}
+ <div id="app">
+  <div class="page-titles">
+    <div class="row">
+      <div class="col-lg-8 col-md-6 col-12 align-self-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 d-flex align-items-center">
+            <li class="breadcrumb-item">
+              <a href="index.html" class="link"><i class="ri-home-3-line fs-5"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              多因子回测平台
+            </li>
+          </ol>
+        </nav>
+        <h1 class="mb-0 fw-bold">选择因子</h1>
+      </div>
+      <div class="
+          col-lg-4 col-md-6
+          d-none d-md-flex
+          align-items-center
+          justify-content-end
+        ">
+        <select class="form-select theme-select border-0" aria-label="Default select example">
+          <option value="1">Today 23 March</option>
+          <option value="2">Today 24 March</option>
+          <option value="3">Today 25 March</option>
+        </select>
+        <a href="javascript:void(0)" class="btn btn-info d-flex align-items-center ms-2">
+          <i class="ri-add-line me-1"></i>
+          Add New
+        </a>
+      </div>
+    </div>
+  </div> <!--page-titles-->
+
+
+  <div class="container-fluid">
+    <!-- ============================================================= -->
+    <!-- Start Page Content -->
+    <!-- ============================================================= -->
+    <div class="row">
+
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+        <h4 class="mt-5 mb-1">
+          策略组合 (当前只有一个策略)
+        </h4>
+        <h6 class="text-muted">
+         
+        </h6>
+        <div class="row mt-4">
+          <div class="col-md-3">
+            <input name="group5" type="radio" id="radio_30" class="
+                with-gap
+                material-inputs material-inputs
+                radio-col-red
+              " checked="">
+            <label for="radio_30">MACD金叉策略</label>
+          </div>
+          <div class="col-md-3">
+            <input name="group5" type="radio" id="radio_31" class="
+                with-gap
+                material-inputs material-inputs
+                radio-col-pink
+              " disabled>
+            <label for="radio_31">涨三回调</label>
+          </div>
+          <div class="col-md-3">
+            <input name="group5" type="radio" id="radio_32" class="
+                with-gap
+                material-inputs material-inputs
+                radio-col-purple
+              " disabled>
+            <label for="radio_32">三一位买入法</label>
+          </div>
+          <div class="col-md-3">
+            <input name="group5" type="radio" id="radio_33" class="
+                with-gap
+                material-inputs material-inputs
+                radio-col-deep-purple
+              " disabled>
+            <label for="radio_33">主线擒龙</label>
+          </div>
+          <div class="col-md-3">
+            <input name="group5" type="radio" id="radio_34" class="
+                with-gap
+                material-inputs material-inputs
+                radio-col-indigo
+              " disabled>
+            <label for="radio_34">海龟交易</label>
+          </div>
+          <div class="col-md-3">
+            <input name="group5" type="radio" id="radio_35" class="
+                with-gap
+                material-inputs material-inputs
+                radio-col-blue
+              " disabled>
+            <label for="radio_35">macd底部背离</label>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div> <!--col-sm-12 -->
+
+      <!--div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+
+            <h4 class="mb-1">财务因子(当前没有数据)</h4>
+            <h6 class="text-muted mt-0">
+                
+            </h6>
+            <div class="row mt-4">
+              <div class="col-md-3">
+                <input type="checkbox" class="material-inputs" id="basic_checkbox_1" checked="">
+                <label for="basic_checkbox_1">流通市值超过100亿 
+                    <div class="
+                    btn btn-danger btn-circle btn-sm
+                    d-inline-flex
+                    align-items-center
+                    justify-content-center
+                  ">A</div></label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" class="material-inputs" id="basic_checkbox_2" >
+                <label for="basic_checkbox_2">ROE 优良</label>
+              </div>
+
+              <div class="col-md-3">
+                <input type="checkbox" class="material-inputs" id="basic_checkbox_3" >
+                <label for="basic_checkbox_3">行业龙头</label>
+              </div>
+
+              <div class="col-md-3">
+                <input type="checkbox" class="material-inputs" id="basic_checkbox_4" >
+                <label for="basic_checkbox_4">季度盈利涨超10%</label>
+              </div>
+
+            </div--> <!-- row mt-4 -->
+
+            <!--h4 class="mt-5 mb-1">指标因子(当前没有数据)</h4>
+            <h6 class="text-muted mt-0">
+              
+            </h6>
+            <div class="row mt-4">
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_1" class="material-inputs chk-col-red" checked="">
+                <label for="md_checkbox_1">MACD
+                    <div class="
+                    btn btn-info btn-circle btn-sm
+                    d-inline-flex
+                    align-items-center
+                    justify-content-center
+                  ">B</div>
+                </label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_2" class="material-inputs chk-col-pink" >
+                <label for="md_checkbox_2">筹码峰(SCR)</label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_3" class="material-inputs chk-col-purple" checked="">
+                <label for="md_checkbox_3">倍量</label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_4" class="material-inputs chk-col-deep-purple" >
+                <label for="md_checkbox_4">MA30</label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_5" class="material-inputs chk-col-indigo" checked="">
+                <label for="md_checkbox_5">MA60
+                    <div class="
+                    btn btn-info btn-circle btn-sm
+                    d-inline-flex
+                    align-items-center
+                    justify-content-center
+                  ">B</div>
+                </label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_6" class="material-inputs chk-col-blue" >
+                <label for="md_checkbox_6">MA120</label>
+              </div>
+
+            </div--> <!-- row mt-4 -->
+
+            <!-- end row -->
+            <!--h4 class="mt-5 mb-1">
+              行业指标(当前没有数据)
+            </h4>
+            <h6 class="text-muted mt-0">
+              
+            </h6>
+            <div class="row mt-4">
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_21" class="material-inputs filled-in chk-col-red" checked="">
+                <label for="md_checkbox_21">行业涨幅较好</label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_22" class="material-inputs filled-in chk-col-pink" checked="">
+                <label for="md_checkbox_22">行业有资金流入</label>
+              </div>
+              <div class="col-md-3">
+                <input type="checkbox" id="md_checkbox_23" class="material-inputs filled-in chk-col-purple" checked="">
+                <label for="md_checkbox_23">连涨3天</label>
+              </div>
+            </div--> <!--row mt-4 -->
+
+          <!--/div--> <!--card-body -->
+        <!--/div--> <!--card-->
+      <!--/div--> <!-- col-sm-12 -->
+
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <!--h4 class="mb-1">组选择(当前没有数据)</h4>
+            <div class="row mt-4">
+              <div class="col-md-3">
+                <input name="group1" class="material-inputs" type="radio" id="radio_1" checked="">
+                <label for="radio_1">所有A股</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group1" class="material-inputs" type="radio" id="radio_2">
+                <label for="radio_2">沪市</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group1" type="radio" class="with-gap material-inputs" id="radio_3">
+                <label for="radio_3">深证</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group1" type="radio" id="radio_4" class="with-gap material-inputs">
+                <label for="radio_4">创业板</label>
+              </div>
+             
+            </div-->
+            <h4 class="mt-5 mb-1">个性化组</h4>
+            <h6 class="text-muted">
+             
+            </h6>
+            <div class="row mt-4">
+              <div class="col-md-3" >
+                <input  name="group4" type="radio" id="radio_11" class="material-inputs radio-col-indigo" v-model="gn" value="光伏">
+                <label for="radio_11">光伏</label>
+              </div>
+              <div class="col-md-3" >
+                <input name="group4" type="radio" id="radio_8" class="material-inputs radio-col-pink" v-model="gn" value="汽车">
+                <label for="radio_8">汽车</label>
+              </div>
+              <div class="col-md-3" >
+                <input   name="group4" type="radio" id="radio_7" class="material-inputs radio-col-red" checked="" v-model="gn" value="锂电池">
+                <label for="radio_7">锂电池</label>
+              </div>
+
+              <!--div class="col-md-3">
+                <input name="group4" type="radio" id="radio_9" class="material-inputs radio-col-purple" disabled>
+                <label for="radio_9" >高领持仓(无数据)</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group4" type="radio" id="radio_10" class="material-inputs radio-col-deep-purple" disabled>
+                <label for="radio_10">社保基金持仓(无数据)</label>
+              </div>
+
+              <div class="col-md-3">
+                <input name="group4" type="radio" id="radio_12" class="material-inputs radio-col-blue" disabled>
+                <label for="radio_12">芯片下游(无数据)</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group4" type="radio" id="radio_13" class="material-inputs radio-col-light-blue" disabled>
+                <label for="radio_13">游资短线(无数据)</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group4" type="radio" id="radio_14" class="material-inputs radio-col-cyan" disabled>
+                <label for="radio_14">疫苗概念(无数据)</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group4" type="radio" id="radio_15" class="material-inputs radio-col-teal" disabled>
+                <label for="radio_15">用户A精选(无数据)</label>
+              </div>
+              <div class="col-md-3">
+                <input name="group4" type="radio" id="radio_16" class="material-inputs radio-col-green" disabled>
+                <label for="radio_16">用户B精选(无数据)</label>
+              </div-->
+              
+             
+            </div>
+         </div>
+      </div> <!-- col-sm-12 -->
+
+
+
+
+    </div> <!-- row -->
+    <!-- ============================================================= -->
+    <!-- End PAge Content -->
+    <!-- ============================================================= -->
+
+    <!--  ============================    -->
+    <!-- 代码部分 -->
+    <!-- ============================================================= -->
+    <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header bg-info">
+            <h4 class="mb-0 text-white">生成的代码</h4>
+          </div>
+          <form class="form-horizontal">
+            <div class="form-body">
+              <div class="card-body">
+                <h4 class="card-title mb-0">根据选择的结果生成的代码</h4>
+              </div>
+              <div class="card-body border-top">
+                <textarea class="form-control" rows="10" v-model="sourcecode" ></textarea>
+                
+              </div>
+              <hr>
+              <div class="form-actions">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                          <button type="button" class="btn btn-danger" id="run" style="margin-right:10px;">
+                            <i class="fa fa-pencil"></i> 开始回测
+                          </button>
+                          <button type="button" class="btn btn-dark">
+                            重选
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div> 
+
+    <!-- 代码结束 -->
+    <!-- ============================================================= -->
+    <div class="table-responsive" v-if="result.length>0">
+      <table class="table table-striped table-bordered display text-nowrap dataTable">
+        <thead>
+          <tr>
+            <th>股票代码</th>
+            <th>股票名称</th>
+            <th>交易日期</th>
+            <th>交易类型</th>
+            <th>交易价格</th>
+            <th>当前总值</th>
+
+          </tr>
+        </thead>
+        <tbody>
+        <tr role="row" v-for="item in result">
+          <td>{{item.code}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.date}}</td>
+          <td>{{item.flag}}</td>
+          <td>{{item.price}}</td>          
+          <td>{{item.value}}</td>
+        </tr>
+      </tbody>
+      </table>
+
+    </div>
+  </div> <!--container-fluid-->
+
+
+
+</div> <!--app-->
+{% endblock %}
+
+
+{% block extendjs %} 
+<script>
+
+
+
+   var hostname = window.location.hostname
+   var host = window.location.host
+     if (hostname == "" || hostname=="127.0.0.1" || hostname=="localhost"){
+        hostname = "127.0.0.1"
+        apihost = "http://127.0.0.1:1337"
+        wshost = "ws://localhost:9088/user"
+     } else {
+        apihost = "//data.klang.org.cn"
+        wshost = "wss://klang.org.cn:8099/user"
+     }
+   
+      const VueApp = {
+        data() {
+            return {
+                online:0,
+                usercount:0,
+                work:0,
+                servers:[],
+                gn:"锂电池",
+                result:[],
+                sourcecode:"",
+                info:{code:"",name:""},
+                strategy:[{id:12,content:""}],
+                select_strategy:0,
+                url:apihost+"/api/strategies/",
+               
+            }
+        },
+    
+        created() {
+            
+        },
+
+        mounted () {
+            var that = this
+            var sid = that.strategy[that.select_strategy].id;
+            axios
+                .get(that.url+sid)
+                .then(function(response){
+                    console.log(response.data.data.attributes) 
+                    content =  response.data.data.attributes.content
+                    that.strategy[that.select_strategy].content = content
+                    content1 = "codelist = get_gn('"+that.gn+"')"  + "\n"
+                    that.sourcecode = content1 + content 
+
+                })
+        },
+        methods: {
+
+        },
+        watch:{
+          gn:function(value,old){
+            var that = this
+            console.log(value)
+            content = that.strategy[that.select_strategy].content 
+            content1 = "codelist = get_gn('"+value+"')"  + "\n"
+            that.sourcecode = content1 + content 
+          }
+        }
+      }//VueApp
+      window.vue = Vue.createApp(VueApp).mount('#app')
+
+
+      var run = document.querySelector('#run'),
+
+      connstate = document.querySelector('#flexCheckCheckedDisabled'),
+
+      websocket = new WebSocket(wshost);
+
+
+      run.onclick = function (event) {
+                if (vue.$data.servers.indexOf(0) == -1){
+                    alert("没有空闲服务器请稍等")
+                    return
+                }
+                /*
+                if (connstate.checked == false){
+                    alert("请先链接,或者刷新页面链接服务器")
+                    return 
+                }*/
+                vue.$data.result = []
+                vue.$data.work = true
+                websocket.send(JSON.stringify({type: 'U_EXE',content:vue.$data.sourcecode,stype:1,loop:true}));
+      }
+
+
+      websocket.onmessage = function (event) {
+                data = JSON.parse(event.data);
+                //connstate.checked = true 
+                console.log(data)
+                switch (data.type) {
+                    case 'U_RET':
+                       
+                        if (data.retcode=="ERROR"){
+                            alert("系统正在执行其他任务，请稍等");
+                        } 
+                        if (data.retcode=="DISPLAY"){
+                          code = vue.$data.info.code 
+                          name = vue.$data.info.name
+                          if (data.flag == "info"){
+                            vue.$data.info.name = data.name
+                            vue.$data.info.code = data.code
+                          }
+                          if (data.flag == "cost"){
+                            value = data.value.toFixed(2)
+                            vue.$data.result.push({code:code,name:name,flag:"成本",value:value})
+                          }
+                          if (data.flag == "total"){
+                            value = data.value.toFixed(2)
+                            vue.$data.result.push({code:code,name:name,flag:"总计",value:value})
+                          }
+                          if (data.flag == "buy"){
+                            value = data.value.toFixed(2)
+                            price = data.price.toFixed(2)
+                            vue.$data.result.push({code:code,name:name,flag:"买",value:value,price:price,
+                          date:data.date})
+                          }
+                          if (data.flag == "sell"){
+                            value = data.value.toFixed(2)
+                            price = data.price.toFixed(2)
+                            vue.$data.result.push({code:code,name:name,flag:"卖",value:value,price:price,
+                          date:data.date})
+                          }
+                          break;
+                        }  
+                         
+                        break;
+                    case 'U_INFO':
+                        vue.$data.usercount = data.users
+                        vue.$data.online = 1
+                        vue.$data.servers = data.servers
+                        break;
+                    case 'U_DONE':
+                        vue.$data.work = 0
+                        break;
+                    case 'display':
+                        code = data.code.replace(".","")
+                        hqltsz = data.hqltsz.toFixed(2)
+                        tdxbk = data.tdxbk
+                        tdxgn = data.tdxgn
+                        chouma = data.chouma
+
+                        if (ltszcheck.checked == true && hqltsz < 100.0){
+                            break;
+                        }
+                        if (STcheck.checked == true && data.name.includes("ST")){
+                            break;
+                        }
+
+                        value = data.value
+                        /*if (String(parseFloat(value)) != "NaN"){ //NaN 是无法直接比较的
+                            value = parseFloat(value).toFixed(2)
+                        }*/
+                        vue.$data.result.push({name:data.name,code:code,value:value,hqltsz:hqltsz,tdxbk:tdxbk,tdxgn:tdxgn,chouma:chouma})
+                        break;
+                    default:
+                        console.error(
+                            "unsupported event", data);
+                }
+            };
+      websocket.onclose = function (e) {
+                    console.log('websocket 断开: ' + e.code + ' ' + e.reason + ' ' + e.wasClean)
+                    vue.$data.online = 0
+                    vue.$data.usercount = 0
+                    flexbusy.checked  = false 
+                    connstate.checked = false
+            }
+
+        
+
+</script>
+{%endblock%}

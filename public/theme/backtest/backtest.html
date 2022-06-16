@@ -520,19 +520,20 @@
                         if (data.retcode=="DISPLAY"){
                           code = vue.$data.info.code 
                           name = vue.$data.info.name
-                          if (data.flag == "info"){
+                          if (data.flag == "info"){ //开始发送股票信息
                             vue.$data.info.name = data.name
                             vue.$data.info.code = data.code
-                            vue.$data.info.curlength += 1
+                            
                           }
-                          if (data.flag == "cost"){
+                          if (data.flag == "cost"){ //开始发送成本信息
                             value = data.value.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"成本",value:value})
                             vue.$data.info.tempcost = parseFloat(value) 
                           }
-                          if (data.flag == "total"){
+                          if (data.flag == "total"){ //完成后统计总信息
                             value = data.value.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"总计",value:value})
+                            vue.$data.info.curlength += 1
                             cost = parseFloat(vue.$data.info.cost) + vue.$data.info.tempcost
                             vue.$data.info.cost = cost.toFixed(2)
                             value = parseFloat(vue.$data.info.value) + parseFloat(value)
@@ -551,7 +552,7 @@
                             vue.$data.result.push({code:code,name:name,flag:"卖",value:value,price:price,
                           date:data.date})
                           }
-                          if(data.flag == "stocklength"){
+                          if(data.flag == "stocklength"){ //开始前发送要测试股票数
                             value = data.value
                             vue.$data.info.stocklength = value
                           }

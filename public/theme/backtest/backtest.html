@@ -342,10 +342,39 @@
     <!-- ============================================================= -->
 
     <!-- 股票测试结果开始-->
+    <div class="table-responsive" v-if="info.alert">
+      <div class="card">
+        <div class="card-body">
+         <div class="
+                      alert
+                      customize-alert
+                      alert-dismissible
+                      text-primary
+                      border border-primary
+                      fade
+                      show
+                      remove-close-icon
+                    " role="alert">
+                    <button type="button" class="btn-close" @click="alertclose" data-bs-dismiss="alert" aria-label="Close">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x fill-white text-primary feather-sm"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                    <div class="
+                        d-flex
+                        align-items-center
+                        font-weight-medium
+                        me-3 me-md-0
+                      ">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-primary feather-sm me-2 flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>
+                      找到了0个股票,请更换组继续测试。
+                    </div>
+                  </div>
+         </div>
+         </div>
+         </div>         
     <div class="table-responsive" v-if="result.length>0">
       <div class="card">
         <div class="card-body"> 
-
+        
        <div class="row mt-0">
         <div class="col border-end text-center">
           <h4 class="">需测试</h4>
@@ -359,16 +388,16 @@
           <h4 class="">成本</h4>
           <h6 class="text-muted">{{info.cost}}</h6>
         </div>
-        <div class="col   text-center">
+        <div class="col  border-end text-center">
           <h4 class="">当前价值</h4>
           <h6 class="text-muted">{{info.value}}</h6>
         </div>
 
-        <div class="col text-center">
+        <div class="col border-end text-center">
           <h4 class="">百分比</h4>
           <h6 class="text-muted">{{info.pre}}%</h6>
         </div>
-        <div class="col  border-end text-center">
+        <div class="col   text-center">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="flexdetail" checked="" v-model="detail">
           <label class="form-check-label" for="flexSwitchCheckChecked">显示详情</label>
@@ -452,7 +481,9 @@
                   value:0,
                   pre:0,
                   tempcost:0,
+                  alert:0,
                 },
+
                 detail:0,
                 strategy:[{id:12,content:""}],
                 select_strategy:0,
@@ -481,7 +512,9 @@
                 })
         },
         methods: {
-
+          alertclose:function(){
+            this.info.alert = 0
+          }
         },
         watch:{
           gn:function(value,old){
@@ -526,6 +559,7 @@
                   value:0,
                   pre:0,
                   tempcost:0,
+                  alert:0,
                 }
                 vue.$data.work = true
                 websocket.send(JSON.stringify({type: 'U_EXE',content:vue.$data.sourcecode,stype:1,loop:true}));
@@ -580,6 +614,7 @@
                           if(data.flag == "stocklength"){ //开始前发送要测试股票数
                             value = data.value
                             vue.$data.info.stocklength = value
+                            if (value==0) vue.$data.info.alert = 1
                           }
                           break;
                         }  

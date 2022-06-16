@@ -46,7 +46,7 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-body">
-        <h4 class="mt-5 mb-1">
+        <h4 class="mt-0 mb-1">
           策略组合 (当前只有一个策略)
         </h4>
         <h6 class="text-muted">
@@ -238,10 +238,7 @@
               </div>
              
             </div-->
-            <h4 class="mt-5 mb-1">个性化组</h4>
-            <h6 class="text-muted">
-             
-            </h6>
+            <h4 class="mt-0 mb-1">个性化组</h4>
             <div class="row mt-4">
               <div class="col-md-3" >
                 <input  name="group4" type="radio" id="radio_11" class="material-inputs radio-col-indigo" v-model="gn" value="光伏">
@@ -343,7 +340,38 @@
 
     <!-- 代码结束 -->
     <!-- ============================================================= -->
+
+    <!-- 股票测试结果开始-->
     <div class="table-responsive" v-if="result.length>0">
+      <div class="card">
+        <div class="card-body"> 
+
+       <div class="row mt-0">
+        <div class="col border-end text-center">
+          <h4 class="">需测试</h4>
+          <h6 class="text-muted">{{info.stocklength}}</h6>
+        </div>
+        <div class="col border-end text-center">
+          <h4 class="">已完成</h4>
+          <h6 class="text-muted">{{info.curlength}}</h6>
+        </div>
+        <div class="col border-end text-center">
+          <h4 class="">成本</h4>
+          <h6 class="text-muted">{{info.cost}}</h6>
+        </div>
+        <div class="col  border-end text-center">
+          <h4 class="">当前价值</h4>
+          <h6 class="text-muted">{{info.value}}</h6>
+        </div>
+
+        <div class="col text-center">
+          <h4 class="">百分比</h4>
+          <h6 class="text-muted">{{info.pre}}%</h6>
+        </div>
+      </div>
+
+
+
       <table class="table table-striped table-bordered display text-nowrap dataTable">
         <thead>
           <tr>
@@ -369,6 +397,9 @@
       </table>
 
     </div>
+   </div>
+  </div> <!-- 股票结果表结束-->
+
   </div> <!--container-fluid-->
 
 
@@ -403,10 +434,18 @@
                 gn:"锂电池",
                 result:[],
                 sourcecode:"",
-                info:{code:"",name:""},
+                info:{code:"",name:"",
+                  stocklength:0,
+                  curlength:0,
+                  cost:0,
+                  value:0,
+                  pre:0,
+                  tempcost:0,
+                },
                 strategy:[{id:12,content:""}],
                 select_strategy:0,
                 url:apihost+"/api/strategies/",
+
                
             }
         },
@@ -484,14 +523,21 @@
                           if (data.flag == "info"){
                             vue.$data.info.name = data.name
                             vue.$data.info.code = data.code
+                            vue.$data.info.curlength += 1
                           }
                           if (data.flag == "cost"){
                             value = data.value.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"成本",value:value})
+                            vue.$data.info.tempcost = parseFloat(value) 
                           }
                           if (data.flag == "total"){
                             value = data.value.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"总计",value:value})
+                            cost = parseFloat(vue.$data.info.cost) + vue.$data.info.tempcost
+                            vue.$data.info.cost = cost.toFixed(2)
+                            value = parseFloat(vue.$data.info.value) + parseFloat(value)
+                            vue.$data.info.value = value .toFixed(2)
+                            vue.$data.info.pre = ((value / cost ) * 100).toFixed(2)
                           }
                           if (data.flag == "buy"){
                             value = data.value.toFixed(2)
@@ -504,6 +550,10 @@
                             price = data.price.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"卖",value:value,price:price,
                           date:data.date})
+                          }
+                          if(data.flag == "stocklength"){
+                            value = data.value
+                            vue.$data.info.stocklength = value
                           }
                           break;
                         }  

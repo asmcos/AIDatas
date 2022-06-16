@@ -502,6 +502,14 @@
                     return 
                 }*/
                 vue.$data.result = []
+                vue.$data.info = {code:"",name:"",
+                  stocklength:0,
+                  curlength:0,
+                  cost:0,
+                  value:0,
+                  pre:0,
+                  tempcost:0,
+                }
                 vue.$data.work = true
                 websocket.send(JSON.stringify({type: 'U_EXE',content:vue.$data.sourcecode,stype:1,loop:true}));
       }

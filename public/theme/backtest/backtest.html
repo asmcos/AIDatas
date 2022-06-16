@@ -392,16 +392,18 @@
           </tr>
         </thead>
         <tbody>
-        <tr role="row" v-for="item in result">
-         <template v-if="item.on||detail">
+        <template v-if="detail">
+         <tr role="row" v-for="item in result">
+         
           <td >{{item.code}}</td>
           <td >{{item.name}}</td>
           <td >{{item.date}}</td>
           <td >{{item.flag}}</td>
           <td >{{item.price}}</td>          
           <td >{{item.value}}</td>
-        </template>
+        
         </tr>
+      </template>
       </tbody>
       </table>
 

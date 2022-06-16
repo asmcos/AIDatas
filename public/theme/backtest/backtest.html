@@ -359,7 +359,7 @@
           <h4 class="">成本</h4>
           <h6 class="text-muted">{{info.cost}}</h6>
         </div>
-        <div class="col  border-end text-center">
+        <div class="col   text-center">
           <h4 class="">当前价值</h4>
           <h6 class="text-muted">{{info.value}}</h6>
         </div>
@@ -368,6 +368,13 @@
           <h4 class="">百分比</h4>
           <h6 class="text-muted">{{info.pre}}%</h6>
         </div>
+        <div class="col  border-end text-center">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexdetail" checked="" v-model="detail">
+          <label class="form-check-label" for="flexSwitchCheckChecked">显示详情</label>
+        </div>
+      </div>
+
       </div>
 
 
@@ -386,12 +393,14 @@
         </thead>
         <tbody>
         <tr role="row" v-for="item in result">
-          <td>{{item.code}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.date}}</td>
-          <td>{{item.flag}}</td>
-          <td>{{item.price}}</td>          
-          <td>{{item.value}}</td>
+         <template v-if="item.on||detail">
+          <td >{{item.code}}</td>
+          <td >{{item.name}}</td>
+          <td >{{item.date}}</td>
+          <td >{{item.flag}}</td>
+          <td >{{item.price}}</td>          
+          <td >{{item.value}}</td>
+        </template>
         </tr>
       </tbody>
       </table>
@@ -442,6 +451,7 @@
                   pre:0,
                   tempcost:0,
                 },
+                detail:0,
                 strategy:[{id:12,content:""}],
                 select_strategy:0,
                 url:apihost+"/api/strategies/",
@@ -535,12 +545,12 @@
                           }
                           if (data.flag == "cost"){ //开始发送成本信息
                             value = data.value.toFixed(2)
-                            vue.$data.result.push({code:code,name:name,flag:"成本",value:value})
+                            vue.$data.result.push({code:code,name:name,flag:"成本",value:value,on:1})
                             vue.$data.info.tempcost = parseFloat(value) 
                           }
                           if (data.flag == "total"){ //完成后统计总信息
                             value = data.value.toFixed(2)
-                            vue.$data.result.push({code:code,name:name,flag:"总计",value:value})
+                            vue.$data.result.push({code:code,name:name,flag:"总计",value:value,on:1})
                             vue.$data.info.curlength += 1
                             cost = parseFloat(vue.$data.info.cost) + vue.$data.info.tempcost
                             vue.$data.info.cost = cost.toFixed(2)
@@ -552,13 +562,13 @@
                             value = data.value.toFixed(2)
                             price = data.price.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"买",value:value,price:price,
-                          date:data.date})
+                          date:data.date,on:0})
                           }
                           if (data.flag == "sell"){
                             value = data.value.toFixed(2)
                             price = data.price.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"卖",value:value,price:price,
-                          date:data.date})
+                          date:data.date,on:0})
                           }
                           if(data.flag == "stocklength"){ //开始前发送要测试股票数
                             value = data.value
@@ -576,26 +586,7 @@
                     case 'U_DONE':
                         vue.$data.work = 0
                         break;
-                    case 'display':
-                        code = data.code.replace(".","")
-                        hqltsz = data.hqltsz.toFixed(2)
-                        tdxbk = data.tdxbk
-                        tdxgn = data.tdxgn
-                        chouma = data.chouma
 
-                        if (ltszcheck.checked == true && hqltsz < 100.0){
-                            break;
-                        }
-                        if (STcheck.checked == true && data.name.includes("ST")){
-                            break;
-                        }
-
-                        value = data.value
-                        /*if (String(parseFloat(value)) != "NaN"){ //NaN 是无法直接比较的
-                            value = parseFloat(value).toFixed(2)
-                        }*/
-                        vue.$data.result.push({name:data.name,code:code,value:value,hqltsz:hqltsz,tdxbk:tdxbk,tdxgn:tdxgn,chouma:chouma})
-                        break;
                     default:
                         console.error(
                             "unsupported event", data);
@@ -605,7 +596,6 @@
                     console.log('websocket 断开: ' + e.code + ' ' + e.reason + ' ' + e.wasClean)
                     vue.$data.online = 0
                     vue.$data.usercount = 0
-                    flexbusy.checked  = false 
                     connstate.checked = false
             }
 

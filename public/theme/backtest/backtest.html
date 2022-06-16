@@ -490,18 +490,23 @@
             content = that.strategy[that.select_strategy].content 
             content1 = "codelist = get_gn('"+value+"')"  + "\n"
             that.sourcecode = content1 + content 
+          },
+          online:function(value,old){
+            if (value == 1){
+              return 
+            }
+            window.websocket = new WebSocket(wshost);
+            this.online = 1
           }
         }
       }//VueApp
       window.vue = Vue.createApp(VueApp).mount('#app')
 
 
-      var run = document.querySelector('#run'),
+      var run = document.querySelector('#run');
 
-      connstate = document.querySelector('#flexCheckCheckedDisabled'),
-
-      websocket = new WebSocket(wshost);
-
+      window.websocket = new WebSocket(wshost);
+      vue.$data.online = 1
 
       run.onclick = function (event) {
                 if (vue.$data.servers.indexOf(0) == -1){
@@ -598,8 +603,8 @@
                     console.log('websocket 断开: ' + e.code + ' ' + e.reason + ' ' + e.wasClean)
                     vue.$data.online = 0
                     vue.$data.usercount = 0
-                    connstate.checked = false
-            }
+                    
+      }
 
         
 

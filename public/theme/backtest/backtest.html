@@ -524,13 +524,7 @@
             content1 = "codelist = get_gn('"+value+"')"  + "\n"
             that.sourcecode = content1 + content 
           },
-          online:function(value,old){
-            if (value == 1){
-              return 
-            }
-            window.websocket = new WebSocket(wshost);
-            this.online = 1
-          }
+
         }
       }//VueApp
       window.vue = Vue.createApp(VueApp).mount('#app')
@@ -542,7 +536,7 @@
       vue.$data.online = 1
 
       run.onclick = function (event) {
-                if (vue.$data.online ==0){
+                if (vue.$data.online == 0){
                   window.websocket = new WebSocket(wshost);
                   vue.$data.online = 1
                 }

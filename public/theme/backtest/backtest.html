@@ -542,6 +542,10 @@
       vue.$data.online = 1
 
       run.onclick = function (event) {
+                if (vue.$data.online ==0){
+                  window.websocket = new WebSocket(wshost);
+                  vue.$data.online = 1
+                }
                 if (vue.$data.servers.indexOf(0) == -1){
                     alert("没有空闲服务器请稍等")
                     return

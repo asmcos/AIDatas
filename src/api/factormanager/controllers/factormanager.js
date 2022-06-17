@@ -231,7 +231,7 @@ module.exports = createCoreController('api::factormanager.factormanager',({ stra
               tbl.string(factorname, 255);
               tbl.string("date", 32);
               tbl.string("code", 16).notNullable();
-              tbl.unique(['date','code']); //日更表
+              tbl.unique(['code','date']); // 顺序不能反日更表
         })
       } else {
         // 增加一个字段，字段名是因子名称

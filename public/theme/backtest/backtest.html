@@ -475,7 +475,7 @@
         <template v-if="detail">
          <tr role="row" v-for="item in result">
          
-          <td ><a v-bind:href="'https://klang.org.cn/kline.html?code='+item.code" target=_blank></a>{{item.code}}</a></td>
+          <td ><a v-bind:href="'https://klang.org.cn/kline.html?code='+item.code" target=_blank>{{item.code}}</a></td>
           <td >{{item.name}}</td>
           <td >{{item.date}}</td>
           <td >{{item.flag}}</td>
@@ -594,7 +594,7 @@
 
       run.onclick = function (event) {
                 console.log(vue.$data.online,websocket.readyState)
-                
+
                 if (vue.$data.online == 0 || websocket.readyState == 3){
                   websocket = new WebSocket(wshost);
                   vue.$data.online = 1

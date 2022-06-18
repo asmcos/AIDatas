@@ -643,7 +643,7 @@
                           name = vue.$data.info.name
                           if (data.flag == "info"){ //开始发送股票信息
                             vue.$data.info.name = data.name
-                            vue.$data.info.code = data.code
+                            vue.$data.info.code = data.code.replace(',','')
                             
                           }
                           if (data.flag == "cost"){ //开始发送成本信息

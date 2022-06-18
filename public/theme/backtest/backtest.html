@@ -367,6 +367,9 @@
     <!-- 代码结束 -->
     <!-- ============================================================= -->
 
+  
+
+
     <!-- 股票测试结果开始-->
     <div class="table-responsive" v-if="info.alert">
       <div class="card">
@@ -396,46 +399,62 @@
             </div> <!--alert-->
          </div>
          </div>
-         </div>         
-    <div class="table-responsive" v-if="result.length>=0">
+         </div>     
+
+
+                
+    <div class="table-responsive" v-if="result.length>0">
       <div class="card">
         <div class="card-body"> 
         
-       <div class="row">
-            
-         <div class="col border-end text-center">
-          <h4 class="">需测试</h4>
-          <h6 class="text-muted">{{info.stocklength}}</h6>
-         </div>
-         <div class="col border-end text-center">
-          <h4 class="">已完成</h4>
-          <h6 class="text-muted">{{info.curlength}}</h6>
-         </div>
-         <div class="col border-end text-center">
-          <h4 class="">成本</h4>
-          <h6 class="text-muted">{{info.cost}}</h6>
-         </div>
-        
-
-       
-        <div class="col  border-end text-center">
-          <h4 class="">当前价值</h4>
-          <h6 class="text-muted">{{info.value}}</h6>
-        </div>
-
-        <div class="col border-end text-center">
-          <h4 class="">百分比</h4>
-          <h6 class="text-muted">{{info.pre}}%</h6>
-        </div>
-        <div class="col  text-center">
-         <div class="form-check form-switch" style="margin-left:10px;margin-top:4px;">
-          <input class="form-check-input" type="checkbox" id="flexdetail" checked="" v-model="detail">
-          <label class="form-check-label" for="flexSwitchCheckChecked">显示详情</label>
-         </div>
-        </div>
+          <div class="row">
+            <div class="col-md-6">
       
-      </div>
-
+                  <div class="row">
+                  <div class="col border-end text-center">
+                    <h4 class="">需测试</h4>
+                    <h6 class="text-muted">{{info.stocklength}}</h6>
+                   </div>
+                 
+                   <div class="col border-end text-center">
+                    <h4 class="">已完成</h4>
+                    <h6 class="text-muted">{{info.curlength}}</h6>
+                   </div>
+                     
+                   <div class="col text-center">
+                    <h4 class="">成本</h4>
+                    <h6 class="text-muted">{{info.cost}}</h6>
+                   </div>
+                  </div> 
+      
+               </div>
+      
+      
+      
+            <div class="col-md-6">
+      
+                  <div class="row">
+                  <div class="col  border-end text-center">
+                    <h4 class="">当前价值</h4>
+                    <h6 class="text-muted">{{info.value}}</h6>
+                  </div>
+                             
+                  <div class="col border-end text-center">
+                    <h4 class="">百分比</h4>
+                    <h6 class="text-muted">{{info.per}}%</h6>
+                  </div>
+          
+                  <div class="col  text-center">
+                   <div class="form-check form-switch" style="margin-left:10px;margin-top:4px;">
+                    <input class="form-check-input" type="checkbox" id="flexdetail" checked="" v-model="detail">
+                    <label class="form-check-label" for="flexSwitchCheckChecked">显示详情</label>
+                   </div>
+                  </div>
+                </div>
+      
+            </div>  
+      
+          </div><!---row--->     
 
      <div class="table-responsive">
       <table class="
@@ -510,7 +529,7 @@
                   curlength:0,
                   cost:0,
                   value:0,
-                  pre:0,
+                  per:0,
                   tempcost:0,
                   alert:0,
                 },
@@ -568,19 +587,19 @@
 
 
       var run = document.querySelector('#run');
-
-      window.websocket = new WebSocket(wshost);
+      var websocket;
+      websocket = new WebSocket(wshost);
       vue.$data.online = 1
 
       run.onclick = function (event) {
-                if (vue.$data.online == 0 || window.websocket.readyState == 3){
-                  window.websocket = new WebSocket(wshost);
+                if (vue.$data.online == 0 || websocket.readyState == 3){
+                  websocket = new WebSocket(wshost);
                   vue.$data.online = 1
-                  vue.$data.toask.content = "服务器已经掉线，正在重新连接。请稍等后再试"
+                  vue.$data.toask.content = "正在重新连接服务器。请稍等后再试"
                   vue.$data.toask.state = 1
                   return 
                 }
-                if (window.websocket.readyState == 0){
+                if (websocket.readyState == 0){
                   vue.$data.toask.content = "正在连接服务器请稍后再测试"
                   vue.$data.toask.state = 1
                   return 
@@ -590,11 +609,7 @@
                   vue.$data.toask.state = 1
                     return
                 }
-                /*
-                if (connstate.checked == false){
-                    alert("请先链接,或者刷新页面链接服务器")
-                    return 
-                }*/
+
                 vue.$data.result = []
                 vue.$data.info = {code:"",name:"",
                   stocklength:0,
@@ -641,7 +656,7 @@
                             vue.$data.info.cost = cost.toFixed(2)
                             value = parseFloat(vue.$data.info.value) + parseFloat(value)
                             vue.$data.info.value = value .toFixed(2)
-                            vue.$data.info.pre = ((value / cost ) * 100).toFixed(2)
+                            vue.$data.info.per = ((value / cost ) * 100).toFixed(2)
                           }
                           if (data.flag == "buy"){
                             value = data.value.toFixed(2)

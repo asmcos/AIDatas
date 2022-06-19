@@ -592,43 +592,7 @@
       websocket = new WebSocket(wshost);
       vue.$data.online = 1
 
-      run.onclick = function (event) {
-                console.log(vue.$data.online,websocket.readyState)
-
-                if (vue.$data.online == 0 || websocket.readyState == 3){
-                  websocket = new WebSocket(wshost);
-                  vue.$data.online = 1
-                  vue.$data.toask.content = "正在重新连接服务器。请稍等后再试"
-                  vue.$data.toask.state = 1
-                  return 
-                }
-                if (websocket.readyState == 0){
-                  vue.$data.toask.content = "正在连接服务器请稍后再测试"
-                  vue.$data.toask.state = 1
-                  return 
-                }
-                if (vue.$data.servers.indexOf(0) == -1){
-                  vue.$data.toask.content = "没有空闲服务器请稍等"
-                  vue.$data.toask.state = 1
-                    return
-                }
-
-                vue.$data.result = []
-                vue.$data.info = {code:"",name:"",
-                  stocklength:0,
-                  curlength:0,
-                  cost:0,
-                  value:0,
-                  pre:0,
-                  tempcost:0,
-                  alert:0,
-                }
-                vue.$data.work = true
-                websocket.send(JSON.stringify({type: 'U_EXE',content:vue.$data.sourcecode,stype:1,loop:true}));
-      }
-
-
-      websocket.onmessage = function (event) {
+      function  onmessage (event) {
                 data = JSON.parse(event.data);
                 //connstate.checked = true 
                 console.log(data)
@@ -696,11 +660,53 @@
                             "unsupported event", data);
                 }
             };
-      websocket.onclose = function (e) {
+      function onclose (e) {
                     console.log('websocket 断开: ' + e.code + ' ' + e.reason + ' ' + e.wasClean)
                     vue.$data.online = 0
                     vue.$data.usercount = 0
                     
+      }
+
+      websocket.onclose = onclose
+      websocket.onmessage = onmessage
+
+
+      run.onclick = function (event) {
+                console.log(vue.$data.online,websocket.readyState)
+
+                if (vue.$data.online == 0 || websocket.readyState == 3){
+                  websocket = new WebSocket(wshost);
+                  vue.$data.online = 1
+                  vue.$data.toask.content = "正在重新连接服务器。请稍等后再试"
+                  vue.$data.toask.state = 1
+                  websocket.onclose = onclose
+                  websocket.onmessage = onmessage
+                  return 
+                }
+                if (websocket.readyState == 0){
+                  vue.$data.toask.content = "正在连接服务器请稍后再测试"
+                  vue.$data.toask.state = 1
+                  return 
+                }
+                if (vue.$data.servers.indexOf(0) == -1){
+                  vue.$data.toask.content = "没有空闲服务器请稍等"
+                  vue.$data.toask.state = 1
+                    return
+                }
+
+
+                vue.$data.result = []
+                vue.$data.info = {code:"",name:"",
+                  stocklength:0,
+                  curlength:0,
+                  cost:0,
+                  value:0,
+                  pre:0,
+                  tempcost:0,
+                  alert:0,
+                }
+                vue.$data.work = true
+                websocket.send(JSON.stringify({type: 'U_EXE',content:vue.$data.sourcecode,stype:1,loop:true}));
       }
 
         

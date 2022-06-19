@@ -539,9 +539,9 @@
                   state:0,
                 },
                 detail:0,
-                strategy:[{id:12,content:""}],
+                strategy:[{title:'MACD初步策略',content:""}],
                 select_strategy:0,
-                url:apihost+"/api/strategies/",
+                url:apihost+"/api/strategies?title=",
 
                
             }
@@ -553,12 +553,12 @@
 
         mounted () {
             var that = this
-            var sid = that.strategy[that.select_strategy].id;
+            var title = that.strategy[that.select_strategy].title;
             axios
-                .get(that.url+sid)
+                .get(that.url+title)
                 .then(function(response){
-                    console.log(response.data.data.attributes) 
-                    content =  response.data.data.attributes.content
+                    console.log(response.data) 
+                    content =  response.data[0].content
                     that.strategy[that.select_strategy].content = content
                     content1 = "codelist = get_gn('"+that.gn+"')"  + "\n"
                     that.sourcecode = content1 + content 
@@ -677,7 +677,7 @@
                 if (vue.$data.online == 0 || websocket.readyState == 3){
                   websocket = new WebSocket(wshost);
                   vue.$data.online = 1
-                  vue.$data.toask.content = "正在重新连接服务器。请稍等后再试"
+                  vue.$data.toask.content = "正在重新连接服务器,约10秒后再试"
                   vue.$data.toask.state = 1
                   websocket.onclose = webonclose
                   websocket.onmessage = webonmessage

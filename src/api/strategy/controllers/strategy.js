@@ -12,17 +12,26 @@ module.exports = createCoreController('api::strategy.strategy',({ strapi }) =>  
     let req    = ctx.request
     let status = 2;
     let filter = {};
-
+    
     if (query.status){
       status = query.status;
     }
     filter = {"status":status}
 
     if (query.lang){
-      filter.lang = query.lang
+      filter={
+        lang: {
+          $contains:query.lang
+        }
+      }
+     
     }
     if (query.title){
-      filter.title = query.title
+      filter={
+          title: {
+            $contains:query.title
+          }
+        }
     }
 
     var result = await strapi.db.query('api::strategy.strategy').findMany({

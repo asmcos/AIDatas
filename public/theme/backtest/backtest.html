@@ -592,7 +592,7 @@
       websocket = new WebSocket(wshost);
       vue.$data.online = 1
 
-      function  onmessage (event) {
+      function  webonmessage (event) {
                 data = JSON.parse(event.data);
                 //connstate.checked = true 
                 console.log(data)
@@ -660,15 +660,15 @@
                             "unsupported event", data);
                 }
             };
-      function onclose (e) {
+      function webonclose (e) {
                     console.log('websocket 断开: ' + e.code + ' ' + e.reason + ' ' + e.wasClean)
                     vue.$data.online = 0
                     vue.$data.usercount = 0
                     
       }
 
-      websocket.onclose = onclose
-      websocket.onmessage = onmessage
+      websocket.onclose = webonclose
+      websocket.onmessage = webonmessage
 
 
       run.onclick = function (event) {
@@ -679,8 +679,8 @@
                   vue.$data.online = 1
                   vue.$data.toask.content = "正在重新连接服务器。请稍等后再试"
                   vue.$data.toask.state = 1
-                  websocket.onclose = onclose
-                  websocket.onmessage = onmessage
+                  websocket.onclose = webonclose
+                  websocket.onmessage = webonmessage
                   return 
                 }
                 if (websocket.readyState == 0){

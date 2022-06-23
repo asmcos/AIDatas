@@ -47,7 +47,7 @@
         <div class="card">
           <div class="card-body">
         <h4 class="mt-0 mb-1">
-          策略组合 (当前只有一个策略)
+          策略组合 (当前只有两个策略)
         </h4>
         <h6 class="text-muted">
          
@@ -58,7 +58,7 @@
                 with-gap
                 material-inputs material-inputs
                 radio-col-red
-              " checked="">
+              " checked="" v-model="select_strategy" value="0">
             <label for="radio_30">MACD金叉策略</label>
           </div>
           <div class="col-md-3">
@@ -66,8 +66,8 @@
                 with-gap
                 material-inputs material-inputs
                 radio-col-pink
-              " disabled>
-            <label for="radio_31">涨三回调</label>
+              "  v-model="select_strategy" value="1">
+            <label for="radio_31">倍量柱买入法</label>
           </div>
           <div class="col-md-3">
             <input name="group5" type="radio" id="radio_32" class="
@@ -541,7 +541,7 @@
                   state:0,
                 },
                 detail:0,
-                strategy:[{title:'MACD初步策略',content:""}],
+                strategy:[{title:'MACD初步策略',content:""},{title:"倍量柱买入法",content:''}],
                 select_strategy:0,
                 url:apihost+"/api/strategies?title=",
 
@@ -553,8 +553,9 @@
             
         },
 
-        mounted () {
+        async mounted () {
             var that = this
+            var i ;
             var title = that.strategy[that.select_strategy].title;
             axios
                 .get(that.url+title)
@@ -564,8 +565,16 @@
                     that.strategy[that.select_strategy].content = content
                     content1 = "codelist = get_gn('"+that.gn+"')"  + "\n"
                     that.sourcecode = content1 + content 
-
                 })
+            for (i = 0 ;i<that.strategy.length;i++){
+              
+              await axios
+                .get(that.url+that.strategy[i].title)
+                .then(function(response){
+                  that.strategy[i].content = response.data[0].content
+                })
+            }
+          
         },
         methods: {
           alertclose:function(){
@@ -573,17 +582,28 @@
           },
           toaskclose:function(){
             this.toask.state = 0
-          }
-        },
-        watch:{
-          gn:function(value,old){
-            var that = this
+          },
+          gntosource:function(value){
             
             if  (value=="自选组"){
               content1 = "codelist=['sh.601012','sh.601669']\n"
             } else {
               content1 = "codelist = get_gn('"+value+"')"  + "\n"
             }
+            return content1
+          }
+        },
+        watch:{
+          gn:function(value,old){
+            var that = this
+            
+            content1 = that.gntosource(value)
+            content = that.strategy[that.select_strategy].content 
+            that.sourcecode = content1 + content 
+          },
+          select_strategy:function(value,old){
+            var that = this
+            content1= that.gntosource(that.gn)
             content = that.strategy[that.select_strategy].content 
             that.sourcecode = content1 + content 
           },

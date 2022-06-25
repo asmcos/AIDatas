@@ -405,7 +405,7 @@
 
 
                 
-    <div class="table-responsive" v-if="result.length>0">
+    <div class="table-responsive" v-if="pages.page.length>0">
       <div class="card">
         <div class="card-body"> 
         
@@ -449,8 +449,8 @@
                   <div class="col  text-center">
                     <h4 class="">显示详情</h4>
                    <div class="form-check form-switch" style="justify-content:center;align-items: center;display: flex;">
-                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    <input class="form-check-input" type="checkbox" id="flexdetail" checked="" v-model="detail">
+                    <label class="form-check-label" for="flexdetail"></label>
+                    <input class="form-check-input" type="checkbox" id="flexdetail" v-model="detail" checked>
                    </div>
                   </div>
                 </div>
@@ -460,6 +460,7 @@
           </div><!---row--->     
 
      <div class="table-responsive">
+      <template v-if="detail">
       <table class="
       table customize-table mb-0 v-middle text-nowrap">
         <thead>
@@ -474,8 +475,8 @@
           </tr>
         </thead>
         <tbody>
-        <template v-if="detail">
-         <tr role="row" v-for="item in result">
+       
+         <tr role="row" v-for="item in pages.page">
          
           <td ><a v-bind:href="'https://klang.org.cn/kline.html?code='+item.code" target=_blank>{{item.code}}</a></td>
           <td >{{item.name}}</td>
@@ -485,9 +486,32 @@
           <td >{{item.value}}</td>
         
         </tr>
-      </template>
+     
       </tbody>
       </table>
+      <nav aria-label="Page navigation example" style="margin: 5px;">
+        <ul class="pagination">
+          <li class="page-item" >
+            <a class="page-link link"  @click="pageprev" aria-label="Previous">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-left feather-sm"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+              </span>
+            </a>
+          </li>
+          <li class="page-item" v-for="item in pages.pagenums">
+            <a class="page-link link" @click="pageup(item)">{{item}}</a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link link" aria-label="Next" @click="pagenext()">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-right feather-sm"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      </template>
       </div><!--table div -->
     </div>
    </div>
@@ -505,6 +529,16 @@
 <script>
 
 
+ function range(start,end){
+  var arr = [];
+  if (start < 0) start = 0
+  if (end <= 0) end = 1
+
+  for(var i = start;i < end;i++){
+    arr.push(i);
+  }
+  return arr;
+ }
 
    var hostname = window.location.hostname
    var host = window.location.host
@@ -516,7 +550,7 @@
         apihost = "//data.klang.org.cn"
         wshost = "wss://klang.org.cn:8099/user"
      }
-   
+     
       const VueApp = {
         data() {
             return {
@@ -526,6 +560,12 @@
                 servers:[],
                 gn:"锂电池",
                 result:[],
+                pages:{
+                  page:[],
+                  curnum:0,
+                  pagesize:20,
+                  pagenums:[],
+                },
                 sourcecode:"",
                 info:{code:"",name:"",
                   stocklength:0,
@@ -540,7 +580,7 @@
                   content:"",
                   state:0,
                 },
-                detail:0,
+                detail:true,
                 strategy:[{title:'MACD初步策略',content:""},{title:"倍量柱买入法",content:''}],
                 select_strategy:0,
                 url:apihost+"/api/strategies?title=",
@@ -591,6 +631,43 @@
               content1 = "codelist = get_gn('"+value+"')"  + "\n"
             }
             return content1
+          },
+          pageup:function(index){
+            this.pages.curnum = index
+            p = this.pages 
+            start = (index-1)*p.pagesize
+            end = index*p.pagesize
+            if (start < 0) start = 0
+            if (end > this.result.length) end = this.result.length 
+            
+            this.pages.page = this.result.slice(start,end)
+                        
+          },
+          pagenext:function(){
+            p = this.pages
+            console.log(p.pagenums)
+            if (this.pages.pagenums[4] < this.result.length / p.pagesize){
+              this.pages.curnum += 1
+              this.pageup(this.pages.curnum)
+              var nums=[]
+              this.pages.pagenums.map(function(index){
+                nums.push(index+1)
+              })              
+              this.pages.pagenums = nums
+              
+            }
+          },
+          pageprev:function(){
+            p = this.pages
+            if (this.pages.pagenums[4] > 5 ){
+              this.pages.curnum -= 1
+              var nums=[]
+              this.pages.pagenums.map(function(index){
+                nums.push(index-1)
+              })              
+              this.pages.pagenums = nums
+              this.pageup(this.pages.curnum)
+            }
           }
         },
         watch:{
@@ -607,6 +684,17 @@
             content = that.strategy[that.select_strategy].content 
             that.sourcecode = content1 + content 
           },
+          'result.length':{
+            handler(newValue,oldValue){
+              var p = this.pages
+              l = newValue
+              this.pages.page = this.result.slice(l-p.pagesize,l)
+              p.curnum = parseInt((l/p.pagesize)) +1 
+              this.pages.pagenums = range(p.curnum-5,p.curnum)
+              
+            }
+            
+          }
 
         }
       }//VueApp
@@ -638,12 +726,12 @@
                           }
                           if (data.flag == "cost"){ //开始发送成本信息
                             value = data.value.toFixed(2)
-                            vue.$data.result.push({code:code,name:name,flag:"成本",value:value,on:1})
+                            vue.$data.result.push({code:code,name:name,flag:"成本",value:value,date:"",price:""})
                             vue.$data.info.tempcost = parseFloat(value) 
                           }
                           if (data.flag == "total"){ //完成后统计总信息
                             value = data.value.toFixed(2)
-                            vue.$data.result.push({code:code,name:name,flag:"总计",value:value,on:1})
+                            vue.$data.result.push({code:code,name:name,flag:"总计",value:value,date:"",price:""})
                             vue.$data.info.curlength += 1
                             cost = parseFloat(vue.$data.info.cost) + vue.$data.info.tempcost
                             vue.$data.info.cost = cost.toFixed(2)
@@ -655,13 +743,13 @@
                             value = data.value.toFixed(2)
                             price = data.price.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"买",value:value,price:price,
-                          date:data.date,on:0})
+                          date:data.date,})
                           }
                           if (data.flag == "sell"){
                             value = data.value.toFixed(2)
                             price = data.price.toFixed(2)
                             vue.$data.result.push({code:code,name:name,flag:"卖",value:value,price:price,
-                          date:data.date,on:0})
+                          date:data.date})
                           }
                           if(data.flag == "stocklength"){ //开始前发送要测试股票数
                             value = data.value

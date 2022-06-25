@@ -689,8 +689,13 @@
               var p = this.pages
               l = newValue
               this.pages.page = this.result.slice(l-p.pagesize,l)
-              p.curnum = parseInt((l/p.pagesize)) +1 
-              this.pages.pagenums = range(p.curnum-5,p.curnum)
+              if (l % p.pagesize == 0){
+                p.curnum = parseInt((l/p.pagesize))
+              } else {
+                p.curnum = parseInt((l/p.pagesize)) +1
+              }
+               
+              this.pages.pagenums = range(p.curnum-4,p.curnum+1)
               
             }
             

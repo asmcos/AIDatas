@@ -27,6 +27,8 @@ async function unique(table,cols){
 async function execCMD() {
 
   await unique('dayks',['code','date'])
+  await unique('months',['code','date'])
+  await unique('weeks',['code','date'])
   await unique('eventlogs',['tablename','date'])
   await unique('stocklists',['code','date'])
 

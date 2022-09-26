@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "weeks",
+  "info": {
+    "singularName": "week",
+    "pluralName": "weeks",
+    "displayName": "Week"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string",
+      "index": true
+    },
+    "date": {
+      "type": "string",
+      "index": true
+    },
+    "open": {
+      "type": "float"
+    },
+    "close": {
+      "type": "float"
+    },
+    "high": {
+      "type": "float"
+    },
+    "volume": {
+      "type": "float"
+    },
+    "low": {
+      "type": "float"
+    },
+    "turn": {
+      "type": "float"
+    },
+    "amount": {
+      "type": "float"
+    }
+
+  }
+}

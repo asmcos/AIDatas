@@ -31,6 +31,7 @@ async function execCMD() {
   await unique('weeks',['code','date'])
   await unique('eventlogs',['tablename','date'])
   await unique('stocklists',['code','date'])
+  await unique('factorb1',['code','date'])
 
  
   process.exit();

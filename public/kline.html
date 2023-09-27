@@ -1112,27 +1112,10 @@
   		{ title: 'close', value: '{close}' },
   		{ title: 'high', value: '{high}' },
 		{ title: 'low',  value: '{low}' },
-		    { title: 'change', value: '{change}' }
-		    /*
-			value:{ 
-        		text:
-          			'{change}',
-        		color:
-          		function (data) {
-            		const change = data.change
-            		if (change < 0) {
-              			return '#2DC08E'
-	        	} else if (change > 0) {
-              			return '#F92855'
-            		} else {
-              			return '#888888'
-            		}
-          		}
-      
-		    }
-		}*/
+		{ title: 'change', value: '{change}' }
 	    ]
           },
+
           bar: {
            downColor: '#26A69A',
            upColor: '#EF5350',
@@ -1141,7 +1124,14 @@
            upBorderColor: '#EF5350',
            downWickColor: '#26A69A',
            upWickColor: '#EF5350'                   
-          }
+          },
+          priceMark: {
+     		 last: {
+           downColor: '#26A69A',
+           upColor: '#EF5350',
+        	noChangeColor: '#0000FF'
+      	}
+    	}
          },
 
       })
